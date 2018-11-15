@@ -12,13 +12,11 @@ package flowershopsystem;
 public class Product {
     String name;
     int amt;
-    String Category;
     float price;
 
-    public Product(String name, int amt, String Category, float price) {
+    public Product(String name, int amt,float price) {
         this.name = name;
         this.amt = amt;
-        this.Category = Category;
         this.price = price;
     }
 
@@ -30,9 +28,6 @@ public class Product {
         return amt;
     }
 
-    public String getCategory() {
-        return Category;
-    }
 
     public float getPrice() {
         return price;
@@ -46,9 +41,6 @@ public class Product {
         this.amt = amt;
     }
 
-    public void setCategory(String Category) {
-        this.Category = Category;
-    }
 
     public void setPrice(float price) {
         this.price = price;
@@ -56,7 +48,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "name=" + name + ", amt=" + amt + ", Category=" + Category + ", price=" + price + '}';
+        return "Product{" + "name=" + name + ", amt=" + amt + ", price=" + price + '}';
     }
     
     
