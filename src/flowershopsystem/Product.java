@@ -13,6 +13,7 @@ public class Product {
     String name;
     int amt;
     float price;
+    int id;
 
     public Product(String name, int amt,float price) {
         this.name = name;
