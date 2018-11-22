@@ -35,6 +35,7 @@ public class EditCustomer extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Edit Customer Information");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

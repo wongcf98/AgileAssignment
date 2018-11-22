@@ -71,6 +71,7 @@ public class ViewCustomer extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Customer Details");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
