@@ -5,6 +5,7 @@
  */
 package flowershopsystem;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -12,24 +13,25 @@ import java.util.Date;
  * @author LIANG
  */
 public class OrderDetails {
-    String pickupdate;
+    Date pickupdate;
     String time;
     String address;
     String payment;
+ 
     
-    public OrderDetails(String pickupdate, String time, String address, String payment){
+    public OrderDetails(Date pickupdate, String time, String address, String payment){
     this.pickupdate = pickupdate;
     this.time = time;
     this.address = address;
     this.payment = payment;
-          
+       
     }
 
-    public String getPickupdate() {
+    public Date getPickupdate() {
         return pickupdate;
     }
 
-    public void setPickupdate(String pickupdate) {
+    public void setPickupdate(Date pickupdate) {
         this.pickupdate = pickupdate;
     }
 
@@ -59,8 +61,10 @@ public class OrderDetails {
 
     @Override
     public String toString() {
-        return "OrderDetails{" + "pickupdate=" + pickupdate + ", time=" + time + ", address=" + address + ", payment=" + payment + '}';
+        return "OrderDetails{" + "pickupdate=" + pickupdate + ", time=" + time + ", address=" + address + ", payment=" + payment  + '}';
     }
+
+    
     
 
 }
