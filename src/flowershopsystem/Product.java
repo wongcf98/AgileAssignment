@@ -29,7 +29,6 @@ public class Product {
         return amt;
     }
 
-
     public float getPrice() {
         return price;
     }
