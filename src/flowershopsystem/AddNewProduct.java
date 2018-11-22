@@ -8,6 +8,8 @@ package flowershopsystem;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,10 +21,17 @@ public class AddNewProduct extends javax.swing.JFrame {
      * Creates new form MainMenu
      */
     final String add = "<<Create new Category>>";
+    DefaultTableModel dm;
+
+    public AddNewProduct(DefaultTableModel dm) {
+        initComponents();
+        this.dm = dm;
+        System.out.println(dm.toString());
+        System.out.println(this.dm.toString());
+    }
 
     public AddNewProduct() {
         initComponents();
-
     }
 
     /**
@@ -41,11 +50,11 @@ public class AddNewProduct extends javax.swing.JFrame {
         jtfProdPrice = new javax.swing.JTextField();
         jtfAmt = new javax.swing.JTextField();
         jtfProdName = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jcbCat = new javax.swing.JComboBox<>();
+        jcbCat = new javax.swing.JComboBox<String>();
 
         jLabel2.setText("jLabel2");
 
@@ -77,23 +86,23 @@ public class AddNewProduct extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(51, 255, 51));
-        jButton1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jButton1.setText("Add");
-        jButton1.setPreferredSize(new java.awt.Dimension(200, 0));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setBackground(new java.awt.Color(51, 255, 51));
+        btnAdd.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        btnAdd.setText("Add");
+        btnAdd.setPreferredSize(new java.awt.Dimension(200, 0));
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 51, 51));
-        jButton2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jButton2.setText("Reset");
-        jButton2.setPreferredSize(new java.awt.Dimension(200, 0));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnReset.setBackground(new java.awt.Color(255, 51, 51));
+        btnReset.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        btnReset.setText("Reset");
+        btnReset.setPreferredSize(new java.awt.Dimension(200, 0));
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnResetActionPerformed(evt);
             }
         });
 
@@ -104,7 +113,12 @@ public class AddNewProduct extends javax.swing.JFrame {
         jLabel3.setText("Category");
 
         jcbCat.setFont(jtfProdPrice.getFont());
-        jcbCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Flower", "Hand Bouquete", "Rose Bouquete", "Table Flowers", "Floral Arrangement", " " }));
+        jcbCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Flower", "Hand Bouquete", "Rose Bouquete", "Table Flowers", "Floral Arrangement", " " }));
+        jcbCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbCatActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,9 +128,9 @@ public class AddNewProduct extends javax.swing.JFrame {
                 .addContainerGap(58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(69, 69, 69)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -132,7 +146,7 @@ public class AddNewProduct extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jtfProdPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jtfAmt)
-                            .addComponent(jcbCat, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jcbCat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(71, 71, 71))
         );
         layout.setVerticalGroup(
@@ -157,8 +171,8 @@ public class AddNewProduct extends javax.swing.JFrame {
                     .addComponent(jcbCat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15))
         );
 
@@ -173,27 +187,41 @@ public class AddNewProduct extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfProdNameActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
         jtfAmt.setText(null);
         jtfProdName.setText(null);
         jtfProdPrice.setText(null);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnResetActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        saveIntoArray();
+        String[] rowData = {jtfProdName.getText(), jtfAmt.getText(), jtfProdPrice.getText()};
+        
+        try {
+            dm.addRow(rowData);
+        }catch(Exception ex){
+            System.out.println("DataModel not found");
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
 
+    private void jcbCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbCatActionPerformed
+
+    private void saveIntoArray() {
         try {
             String n = jtfProdName.getText();
             int amt = Integer.parseInt(jtfAmt.getText());
             float price = Float.parseFloat(jtfProdPrice.getText());
             Product p = new Product(n, amt, price);
-            if (CatalogMenu.prod.add(p)) {
-                JOptionPane.showMessageDialog(this, "Product added!");
+            if (CatalogMenu.prodList.add(p)) {
+                JOptionPane.showMessageDialog(this, "Product added");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
-        } 
-    }//GEN-LAST:event_jButton1ActionPerformed
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -264,8 +292,8 @@ public class AddNewProduct extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
