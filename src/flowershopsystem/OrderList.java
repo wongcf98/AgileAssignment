@@ -7,12 +7,14 @@ package flowershopsystem;
 
 import java.awt.Component;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -28,35 +30,54 @@ public class OrderList extends javax.swing.JFrame {
     public OrderList() {
         initComponents();
         addRowtoTable();
+        configurejTable();
     }
 
     Date date = new Date();
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     String today = dateFormat.format(date);
-
+    DecimalFormat df = new DecimalFormat("#.##");
+    Boolean check = true;
     @Override
     public Component add(Component cmpnt) {
         return super.add(cmpnt); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void addRowtoTable() {
-        //testing
+        jLabel10.setText("");
+        jLabel11.setText("");
+        jLabel12.setText("");
+        jLabel13.setText("");
+        jLabel14.setText("");
+        jLabel15.setText("");  
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        Object data[] = new Object[5];
-        lblTodayDate.setText(today);
+        Object data[] = new Object[7];
+        lblTodayDate1.setText(today);
 
         for (int i = 0; i < OrderManagementMenu.orders.size(); i++) {
             if (OrderManagementMenu.orders.get(i).getDate().equals(today)) {
+
                 data[0] = OrderManagementMenu.orders.get(i).id;
-                data[1] = OrderManagementMenu.orders.get(i).getTotal();
-                data[2] = OrderManagementMenu.orders.get(i).est_time;
-                data[3] = "Flower";
-                data[4] = OrderManagementMenu.orders.get(i).collect_time;
+                data[1] = OrderManagementMenu.orders.get(i).product.name;
+                data[2] = OrderManagementMenu.orders.get(i).product.amt;
+                data[3] = OrderManagementMenu.orders.get(i).product.price;
+                data[4] = df.format(OrderManagementMenu.orders.get(i).getTotal());
+                data[5] = OrderManagementMenu.orders.get(i).est_time;
+                data[6] = OrderManagementMenu.orders.get(i).collect_time;
 
                 model.addRow(data);
             }
         }
+    }
+
+    private void configurejTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        for(int i = 0 ; i < model.getRowCount();i++){
+            
+        }
+        
     }
 
     /**
@@ -70,9 +91,23 @@ public class OrderList extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        lblTodayDate = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        lblTodayDate1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -81,7 +116,7 @@ public class OrderList extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Order ID", "Price", "Est_Time", "Arv_Time"
+                "Order ID", "Product", "Amount", "Price", "Total Price", "Est_Time", "Arv_Time"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -91,11 +126,6 @@ public class OrderList extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Date");
-
-        lblTodayDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         btnSubmit.setText("Submit");
         btnSubmit.setEnabled(false);
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -104,6 +134,43 @@ public class OrderList extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Date");
+
+        lblTodayDate1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel3.setText("Order ID");
+
+        jLabel4.setText("Product");
+
+        jLabel5.setText("Amount");
+
+        jLabel6.setText("Price");
+
+        jLabel7.setText("Total Price");
+
+        jLabel8.setText("Est_Time");
+
+        jLabel9.setText("Arv_Time");
+
+        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField7ActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("jLabel10");
+
+        jLabel11.setText("jLabel11");
+
+        jLabel12.setText("jLabel12");
+
+        jLabel13.setText("jLabel13");
+
+        jLabel14.setText("jLabel14");
+
+        jLabel15.setText("jLabel15");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,51 +178,176 @@ public class OrderList extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTodayDate, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnSubmit)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel10))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel11))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel12))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel15))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel13))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel14)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTodayDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField7)))
+                        .addGap(74, 74, 74)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addComponent(btnSubmit)
-                .addContainerGap(201, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                    .addComponent(lblTodayDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSubmit)
-                .addGap(17, 17, 17))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblTodayDate1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel10))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel11))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel12))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel13))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel14))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel15))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addComponent(btnSubmit))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
+
+        jLabel10.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        TableModel model = jTable1.getModel();
-        int index = jTable1.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Object data[] = new Object[7];
+        String arv_time = jTextField7.getText();
+        int id = Integer.parseInt(jLabel10.getText());
+        
+        
+        for(int j=0;j<arv_time.length();j++)
+        {
+            if(Character.isDigit(arv_time.charAt(j)) && check==true)
+            {
+                for(int i=0;i<OrderManagementMenu.orders.size();i++)
+                {
+                    if(id==OrderManagementMenu.orders.get(i).id)
+                    {
+                        order o = OrderManagementMenu.orders.get(i);
+                        o.setCollect_time(arv_time);
+                        OrderManagementMenu.orders.set(i, o);
+                        data[6] = OrderManagementMenu.orders.get(i).collect_time;
+                    }
+                }
+                model.setRowCount(0);
+                for (int i = 0; i < OrderManagementMenu.orders.size(); i++) 
+                {
+                    if (OrderManagementMenu.orders.get(i).getDate().equals(today)) 
+                    {
 
-        String name = (String) model.getValueAt(index, 0);
-        String amt = (String) model.getValueAt(index, 1);
-        String price = (String) model.getValueAt(index, 2);
-        String date = (String) model.getValueAt(index, 3);
-        String time = (String) model.getValueAt(index, 4);
+                        data[0] = OrderManagementMenu.orders.get(i).id;
+                        data[1] = OrderManagementMenu.orders.get(i).product.name;
+                        data[2] = OrderManagementMenu.orders.get(i).product.amt;
+                        data[3] = OrderManagementMenu.orders.get(i).product.price;
+                        data[4] = df.format(OrderManagementMenu.orders.get(i).getTotal());
+                        data[5] = OrderManagementMenu.orders.get(i).est_time;
+                        data[6] = OrderManagementMenu.orders.get(i).collect_time;
 
-        OrderManagementMenu.orders.indexOf(evt);
+                        model.addRow(data);
+                    }
+                }
+                    model.fireTableDataChanged();
+            }
+            else 
+            {
+                check = false;
+                jTextField7.setText("");
+            }
+        }
+        if(check==false)
+        {
+            JOptionPane.showMessageDialog(null, "Please enter a valid time.");
+            check=true;
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         btnSubmit.setEnabled(true);
+        TableModel model = jTable1.getModel();
+  //      DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+        int row = jTable1.getSelectedRow();
+        
+        String id = String.valueOf(model.getValueAt(row, 0));
+        String name = String.valueOf(model.getValueAt(row, 1));
+        String amount = String.valueOf(model.getValueAt(row, 2));
+        String price = String.valueOf(model.getValueAt(row, 3));
+        String total = String.valueOf(model.getValueAt(row, 4));
+        String est_time = String.valueOf(model.getValueAt(row, 5));
+        
+        jLabel10.setText(id);
+        jLabel11.setText(name);
+        jLabel12.setText(amount);
+        jLabel13.setText(price);
+        jLabel14.setText(total);
+        jLabel15.setText(est_time);        
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,9 +418,24 @@ public class OrderList extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lblTodayDate;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JLabel lblTodayDate1;
     // End of variables declaration//GEN-END:variables
+
 }
