@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class OrderManagementMenu extends javax.swing.JFrame {
     
     public static ArrayList<order> orders = new ArrayList<order>();
+    public static ArrayList<Product> products = new ArrayList<Product>();
     /**
      * Creates new form OrderManagementMenu
      */
@@ -128,23 +129,12 @@ public class OrderManagementMenu extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void loadData() {
-        Product[]  p1 = new Product[4];
-        p1[0].name = "asdf";
-        p1[0].amt=21;
-        p1[0].price=(float) 12.5;
-        p1[1].name = "asdf";
-        p1[1].amt=21;
-        p1[1].price=(float) 12.5;
-        p1[2].name = "asdf";
-        p1[2].amt=21;
-        p1[2].price=(float) 12.5;
-        p1[3].name = "asdf";
-        p1[3].amt=21;
-        p1[3].price=(float) 12.5;
+        products.add(new Product("pro1",3, (float) 2.30));
+        products.add(new Product("pro2",6, (float) 4.76));
+        products.add(new Product("pro3",9, (float) 7.90));
         
-        
-        OrderManagementMenu.orders.add(new order(1,p1,"22/11/2018","1400",""));
-        OrderManagementMenu.orders.add(new order(2,p1,"23/11/2018","1400",""));
-        OrderManagementMenu.orders.add(new order(3,p1,"24/11/2018","1400",""));
+        OrderManagementMenu.orders.add(new order(1, products.get(0),"29/11/2018","1400",""));
+        OrderManagementMenu.orders.add(new order(2, products.get(1),"29/11/2018","1400",""));
+        OrderManagementMenu.orders.add(new order(3, products.get(2),"30/11/2018","1400",""));
     }
 }
