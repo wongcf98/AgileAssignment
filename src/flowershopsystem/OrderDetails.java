@@ -6,6 +6,7 @@
 package flowershopsystem;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -13,58 +14,44 @@ import java.util.Date;
  * @author LIANG
  */
 public class OrderDetails {
-    Date pickupdate;
-    String time;
-    String address;
-    String payment;
- 
-    
-    public OrderDetails(Date pickupdate, String time, String address, String payment){
-    this.pickupdate = pickupdate;
-    this.time = time;
-    this.address = address;
-    this.payment = payment;
-       
-    }
 
-    public Date getPickupdate() {
-        return pickupdate;
-    }
+    int orderid;
+    Customer cust;
+    Calendar orderDate;
+    ProductOrder id;
 
-    public void setPickupdate(Date pickupdate) {
-        this.pickupdate = pickupdate;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPayment() {
-        return payment;
-    }
-
-    public void setPayment(String payment) {
-        this.payment = payment;
+    public OrderDetails(Customer cust, Calendar orderDate, ProductOrder id) {
+        this.cust = cust;
+        this.orderDate = orderDate;
+        this.id = id;
     }
 
     @Override
     public String toString() {
-        return "OrderDetails{" + "pickupdate=" + pickupdate + ", time=" + time + ", address=" + address + ", payment=" + payment  + '}';
+        return "OrderDetails{" + "cust=" + cust + ", orderDate=" + orderDate + '}';
     }
 
-    
-    
+    public int getOrderid() {
+        return orderid;
+    }
 
+    public void setOrderid(int orderid) {
+        this.orderid = orderid;
+    }
+
+    public Customer getCust() {
+        return cust;
+    }
+
+    public void setCust(Customer cust) {
+        this.cust = cust;
+    }
+
+    public Calendar getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Calendar orderDate) {
+        this.orderDate = orderDate;
+    }
 }
