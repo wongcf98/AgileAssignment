@@ -21,7 +21,8 @@ public class CatalogMenu extends javax.swing.JFrame {
      * Creates new form MainMenu
      */
     public static ArrayList<Product> prodList = new ArrayList<>();
-    public static ArrayList<String> Category = new ArrayList<>();
+    public static ArrayList<Promotion> promotionList = new ArrayList<>();
+    
     public DefaultTableModel dm;
 
     public CatalogMenu() {
@@ -80,6 +81,7 @@ public class CatalogMenu extends javax.swing.JFrame {
         jtfProdName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Catalog Menu");
@@ -179,6 +181,13 @@ public class CatalogMenu extends javax.swing.JFrame {
         jLabel3.setFont(lblProdName.getFont());
         jLabel3.setText("Category");
 
+        jButton1.setText("Promotion");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,6 +220,10 @@ public class CatalogMenu extends javax.swing.JFrame {
                         .addGap(101, 101, 101)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(48, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(373, 373, 373)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +255,9 @@ public class CatalogMenu extends javax.swing.JFrame {
                         .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(39, 39, 39))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -355,6 +370,11 @@ public class CatalogMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfProdNameActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new PromotionMenu().setNimbus();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -398,6 +418,7 @@ public class CatalogMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
