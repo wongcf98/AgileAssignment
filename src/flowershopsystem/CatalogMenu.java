@@ -22,7 +22,6 @@ public class CatalogMenu extends javax.swing.JFrame {
      */
     public static ArrayList<Product> prodList = new ArrayList<>();
     public static ArrayList<String> Category = new ArrayList<>();
-    private EditProduct eProd = new EditProduct();
     public DefaultTableModel dm;
 
     public CatalogMenu() {
