@@ -66,6 +66,8 @@ public class PromotionMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Promotion Menu");
 
+        jButton1.setBackground(new java.awt.Color(51, 153, 0));
+        jButton1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jButton1.setText("Add");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,10 +139,6 @@ public class PromotionMenu extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(33, 33, 33)
@@ -167,7 +165,11 @@ public class PromotionMenu extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                                     .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap(28, Short.MAX_VALUE))))))
+                                .addContainerGap(28, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,9 +202,9 @@ public class PromotionMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(78, 78, 78))
+                .addGap(35, 35, 35)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         lblProd.getAccessibleContext().setAccessibleName("Product");
@@ -270,11 +272,14 @@ public class PromotionMenu extends javax.swing.JFrame {
 
     private void txtDiscountRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiscountRateActionPerformed
         // TODO add your handling code here:
-        float price = Float.parseFloat(txtPrice.getText());
-        int rate = Integer.parseInt(txtDiscountRate.getText());
-        float discountPrice = price - (price * rate / 100);
-        txtDiscountPrice.setText(String.valueOf(discountPrice));
-
+        try {
+            float price = Float.parseFloat(txtPrice.getText());
+            int rate = Integer.parseInt(txtDiscountRate.getText());
+            float discountPrice = price - (price * rate / 100);
+            txtDiscountPrice.setText(String.valueOf(discountPrice));
+        }catch (Exception ex){
+            JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_txtDiscountRateActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -290,7 +295,7 @@ public class PromotionMenu extends javax.swing.JFrame {
         System.out.println(start_date);
         int sYear = Integer.parseInt(start_date.substring(0, 4));
         System.out.println(sYear);
-        int sMonth = Integer.parseInt(start_date.substring(5, 7))-1;
+        int sMonth = Integer.parseInt(start_date.substring(5, 7)) - 1;
         System.out.println(sMonth);
         int sDay = Integer.parseInt(start_date.substring(8, 10));
         System.out.println(sDay);
@@ -299,7 +304,7 @@ public class PromotionMenu extends javax.swing.JFrame {
         String end_Date = model.getValueAt(index, 6).toString();
         System.out.println(end_Date);
         int eYear = Integer.parseInt(end_Date.substring(0, 3));
-        int eMonth = Integer.parseInt(end_Date.substring(5, 7))-1;
+        int eMonth = Integer.parseInt(end_Date.substring(5, 7)) - 1;
         int eDay = Integer.parseInt(end_Date.substring(8, 10));
         Calendar eDate = Calendar.getInstance();
         eDate.set(eYear, eMonth, eDay);
