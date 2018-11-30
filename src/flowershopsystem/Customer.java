@@ -10,16 +10,50 @@ package flowershopsystem;
  * @author Acer
  */
 public class Customer {
+   String id;
    String name;
    String email;
    String contact;
    String custType;
+   int currentLimit;
+   int monthlyLimit;
 
-    public Customer(String name, String email,String contact,String custType) {
+    public Customer(String id, String name, String contact,String email,String custType,int currentLimit,int monthlyLimit) {
+        this.id= id;
         this.name = name;
         this.custType=custType;
         this.contact= contact;
         this.email=email;
+        this.currentLimit=currentLimit;
+        this.monthlyLimit=monthlyLimit;
+    }
+
+    public String getId()  {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setCurrentLimit(int currentLimit) {
+        this.currentLimit = currentLimit;
+    }
+
+    public void setMonthlyLimit(int monthlyLimit) {
+        this.monthlyLimit = monthlyLimit;
+    }
+
+    public void setCustType(String custType) {
+        this.custType = custType;
+    }
+
+    public double getCurrentLimit() {
+        return currentLimit;
+    }
+
+    public double getMonthlyLimit() {
+        return monthlyLimit;
     }
 
     public String getName() {
@@ -43,11 +77,6 @@ public class Customer {
         this.name = name;
     }
 
-    public void setAmt(String custType) {
-        this.custType = custType;
-    }
-
-
     public void setEmail(String email) {
         this.email=email;
     }
@@ -58,7 +87,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" + "name=" + name + ", email=" + email + ", contact=" + contact+ ", custType="+custType+'}';
+        return "Customer{" +"id="+id+ "name=" + name + ", email=" + email + ", contact=" + contact+ ", custType="+custType+"Current Limit="+currentLimit+"Monthly Limit:"+monthlyLimit+'}';
     }
     
     
