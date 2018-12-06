@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -28,7 +29,7 @@ public class PromotionMenu extends javax.swing.JFrame {
      */
     ArrayList<Product> prodList = CatalogMenu.prodList;
     ArrayList<Promotion> promotionList = CatalogMenu.promotionList;
-
+    Promotion tempPromo;
     private Product p;
 
     public PromotionMenu() {
@@ -292,23 +293,22 @@ public class PromotionMenu extends javax.swing.JFrame {
         String rate = model.getValueAt(index, 3).toString();
         String discountedPrice = model.getValueAt(index, 4).toString();
         String start_date = model.getValueAt(index, 5).toString();
-        System.out.println(start_date);
         int sYear = Integer.parseInt(start_date.substring(0, 4));
-        System.out.println(sYear);
         int sMonth = Integer.parseInt(start_date.substring(5, 7)) - 1;
-        System.out.println(sMonth);
         int sDay = Integer.parseInt(start_date.substring(8, 10));
-        System.out.println(sDay);
         Calendar sDate = Calendar.getInstance();
         sDate.set(sYear, sMonth, sDay);
         String end_Date = model.getValueAt(index, 6).toString();
-        System.out.println(end_Date);
         int eYear = Integer.parseInt(end_Date.substring(0, 3));
         int eMonth = Integer.parseInt(end_Date.substring(5, 7)) - 1;
         int eDay = Integer.parseInt(end_Date.substring(8, 10));
         Calendar eDate = Calendar.getInstance();
         eDate.set(eYear, eMonth, eDay);
-
+        
+        Product p = new Product(product,Integer.parseInt(amt),Float.parseFloat(price));
+        tempPromo = new Promotion(p, Integer.parseInt(rate), Float.parseFloat(discountedPrice), 
+                sDate, eDate);
+        
         jComboBox1.addItem(product);
         jComboBox1.setSelectedItem(product);
         txtPrice.setText(price);
@@ -316,7 +316,7 @@ public class PromotionMenu extends javax.swing.JFrame {
         txtDiscountRate.setText(rate);
         jDateChooser1.setCalendar(sDate);
         jDateChooser2.setCalendar(eDate);
-
+        
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
