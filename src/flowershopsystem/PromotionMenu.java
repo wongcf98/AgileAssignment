@@ -27,13 +27,15 @@ public class PromotionMenu extends javax.swing.JFrame {
     /**
      * Creates new form PromotionMenu
      */
-    ArrayList<Product> prodList = CatalogMenu.prodList;
-    ArrayList<Promotion> promotionList = CatalogMenu.promotionList;
+    ArrayList<Product> prodList;
+    ArrayList<Promotion> promotionList;
     Promotion tempPromo;
     private Product p;
 
     public PromotionMenu() {
         initComponents();
+        prodList = CatalogMenu.prodList;
+        promotionList = CatalogMenu.promotionList;
         populateTable();
         jDateChooser1.setDate(new Date());
         loadProductIntoDDL();
@@ -278,7 +280,7 @@ public class PromotionMenu extends javax.swing.JFrame {
             int rate = Integer.parseInt(txtDiscountRate.getText());
             float discountPrice = price - (price * rate / 100);
             txtDiscountPrice.setText(String.valueOf(discountPrice));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_txtDiscountRateActionPerformed
@@ -304,11 +306,11 @@ public class PromotionMenu extends javax.swing.JFrame {
         int eDay = Integer.parseInt(end_Date.substring(8, 10));
         Calendar eDate = Calendar.getInstance();
         eDate.set(eYear, eMonth, eDay);
-        
-        Product p = new Product(product,Integer.parseInt(amt),Float.parseFloat(price));
-        tempPromo = new Promotion(p, Integer.parseInt(rate), Float.parseFloat(discountedPrice), 
+
+        Product p = new Product(product, Integer.parseInt(amt), Float.parseFloat(price));
+        tempPromo = new Promotion(p, Integer.parseInt(rate), Float.parseFloat(discountedPrice),
                 sDate, eDate);
-        
+
         jComboBox1.addItem(product);
         jComboBox1.setSelectedItem(product);
         txtPrice.setText(price);
@@ -316,7 +318,7 @@ public class PromotionMenu extends javax.swing.JFrame {
         txtDiscountRate.setText(rate);
         jDateChooser1.setCalendar(sDate);
         jDateChooser2.setCalendar(eDate);
-        
+
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
