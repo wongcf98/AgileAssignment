@@ -5,6 +5,8 @@
  */
 package flowershopsystem;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author scollex
@@ -14,8 +16,14 @@ public class MainMenu extends javax.swing.JFrame {
     /**
      * Creates new form MainMenu
      */
+    //Create a public array for the program
+    public static ArrayList<Product> prodList = new ArrayList<>();
+    public static ArrayList<Promotion> promotionList = new ArrayList<>();
+
     public MainMenu() {
         initComponents();
+        //Load sample data into the array Alr+ENter to see more
+        initializeDate();
     }
 
     /**
@@ -105,12 +113,12 @@ public class MainMenu extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 279, Short.MAX_VALUE)
         );
 
         pack();
@@ -186,4 +194,9 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
+
+    private void initializeDate() {
+        Product p = new Product("Rose", 20, (float) 20.5);
+        prodList.add(p);
+    }
 }

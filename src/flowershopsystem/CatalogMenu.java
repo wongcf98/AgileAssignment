@@ -20,14 +20,11 @@ public class CatalogMenu extends javax.swing.JFrame {
     /**
      * Creates new form MainMenu
      */
-    public static ArrayList<Product> prodList = new ArrayList<>();
-    public static ArrayList<Promotion> promotionList = new ArrayList<>();
     
     public DefaultTableModel dm;
 
     public CatalogMenu() {
         initComponents();
-
         customizeColumSize();
         loadDataIntoTable();
 
@@ -35,11 +32,9 @@ public class CatalogMenu extends javax.swing.JFrame {
 
     private void loadDataIntoTable() {
         dm = (DefaultTableModel) jTable1.getModel();
-        Product p = new Product("Rose", 20, (float) 20.5);
-        prodList.add(p);
-
-        for (int i = 0; i < prodList.size(); i++) {
-            Object[] data = {prodList.get(i).name, prodList.get(i).amt, prodList.get(i).price};
+        for (int i = 0; i < MainMenu.prodList.size(); i++) {
+            Object[] data = {MainMenu.prodList.get(i).name, MainMenu.prodList.get(i).amt, 
+                MainMenu.prodList.get(i).price};
             dm.addRow(data);
         }
 
@@ -278,9 +273,9 @@ public class CatalogMenu extends javax.swing.JFrame {
             model.setValueAt(price, index, 2);
 
             Product p = new Product(n, amt, price);
-            prodList.get(index).name = n;
-            prodList.get(index).amt = amt;
-            prodList.get(index).price = price;
+            MainMenu.prodList.get(index).name = n;
+            MainMenu.prodList.get(index).amt = amt;
+            MainMenu.prodList.get(index).price = price;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
         }
@@ -298,7 +293,7 @@ public class CatalogMenu extends javax.swing.JFrame {
 
             dm.removeRow(index);
 
-            prodList.remove(index);
+            MainMenu.prodList.remove(index);
 
             jtfAmt.setText(null);
             jtfProdName.setText(null);
@@ -334,7 +329,7 @@ public class CatalogMenu extends javax.swing.JFrame {
             int amt = Integer.parseInt(jtfAmt.getText());
             float price = Float.parseFloat(jtfProdPrice.getText());
             Product p = new Product(n, amt, price);
-            if (CatalogMenu.prodList.add(p)) {
+            if (MainMenu.prodList.add(p)) {
                 JOptionPane.showMessageDialog(this, "Product added");
             }
         } catch (Exception ex) {
