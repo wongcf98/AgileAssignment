@@ -27,15 +27,11 @@ public class PromotionMenu extends javax.swing.JFrame {
     /**
      * Creates new form PromotionMenu
      */
-    ArrayList<Product> prodList;
-    ArrayList<Promotion> promotionList;
     Promotion tempPromo;
     private Product p;
 
     public PromotionMenu() {
         initComponents();
-        prodList = CatalogMenu.prodList;
-        promotionList = CatalogMenu.promotionList;
         populateTable();
         jDateChooser1.setDate(new Date());
         loadProductIntoDDL();
@@ -245,9 +241,9 @@ public class PromotionMenu extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Date invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             } else {
                 promo = new Promotion(p, Integer.parseInt(txtDiscountRate.getText()), Float.parseFloat(txtDiscountPrice.getText()), start_cal, end_cal);
-                promotionList.add(promo);
+                MainMenu.promotionList.add(promo);
                 populateTable();
-                prodList.remove(p);
+                MainMenu.prodList.remove(p);
                 loadProductIntoDDL();
                 txtDiscountPrice.setText(null);
                 txtDiscountRate.setText(null);
@@ -264,9 +260,9 @@ public class PromotionMenu extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
         String prod = (String.valueOf(jComboBox1.getSelectedItem()));
-        for (int i = 0; i < prodList.size(); i++) {
-            if (prod.equalsIgnoreCase(prodList.get(i).getName())) {
-                p = prodList.get(i);
+        for (int i = 0; i < MainMenu.prodList.size(); i++) {
+            if (prod.equalsIgnoreCase(MainMenu.prodList.get(i).getName())) {
+                p = MainMenu.prodList.get(i);
                 txtPrice.setText(String.valueOf(p.getPrice()));
             }
             System.out.println(prod);
@@ -410,8 +406,8 @@ public class PromotionMenu extends javax.swing.JFrame {
     private void loadProductIntoDDL() {
         jComboBox1.removeAllItems();
         jComboBox1.addItem(" ");
-        for (int i = 0; i < prodList.size(); i++) {
-            jComboBox1.addItem(new ComboItem(prodList.get(i).name, prodList.get(i).name));
+        for (int i = 0; i < MainMenu.prodList.size(); i++) {
+            jComboBox1.addItem(new ComboItem(MainMenu.prodList.get(i).name, MainMenu.prodList.get(i).name));
             System.out.println("Add");
         }
 
@@ -422,11 +418,12 @@ public class PromotionMenu extends javax.swing.JFrame {
             "Discounted Price", "Start Time", "End Time"};
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        for (int i = 0; i < promotionList.size(); i++) {
-            format.format(promotionList.get(i).startDate.getTime());
-            p = promotionList.get(i).prod;
-            Object[] data = {p.name, p.price, p.amt, promotionList.get(i).discount, promotionList.get(i).discountedPrice,
-                format.format(promotionList.get(i).startDate.getTime()), format.format(promotionList.get(i).endDate.getTime())};
+        for (int i = 0; i < MainMenu.promotionList.size(); i++) {
+            format.format(MainMenu.promotionList.get(i).startDate.getTime());
+            p = MainMenu.promotionList.get(i).prod;
+            Object[] data = {p.name, p.price, p.amt, MainMenu.promotionList.get(i).discount, 
+                MainMenu.promotionList.get(i).discountedPrice,
+                format.format(MainMenu.promotionList.get(i).startDate.getTime()), format.format(MainMenu.promotionList.get(i).endDate.getTime())};
             dm.insertRow(i, data);
         }
         jTable1.setModel(dm);
