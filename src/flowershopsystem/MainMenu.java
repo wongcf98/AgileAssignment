@@ -45,6 +45,7 @@ public class MainMenu extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,8 +75,11 @@ public class MainMenu extends javax.swing.JFrame {
 
         jMenu4.setText("Delivery");
 
-        jMenuItem5.setText("jMenuItem5");
+        jMenuItem5.setText("Pickup");
         jMenu4.add(jMenuItem5);
+
+        jMenuItem6.setText("Delivery");
+        jMenu4.add(jMenuItem6);
 
         jMenuBar1.add(jMenu4);
 
@@ -140,6 +144,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 
     private void initializeDate() {
