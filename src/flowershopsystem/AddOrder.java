@@ -17,9 +17,6 @@ import javax.swing.table.TableModel;
  */
 public class AddOrder extends javax.swing.JFrame {
 
-    ArrayList<Product> prodList = OrderMenu.prodList;
-    ArrayList<OrderDetails> orderList = OrderMenu.orderList;
-    public ArrayList<ProductOrder> prodOrderList;
     static int orderid = 1000;
     public DefaultTableModel dm;
 
@@ -28,7 +25,7 @@ public class AddOrder extends javax.swing.JFrame {
      */
     public AddOrder() {
         initComponents();
-       
+
         loadDataIntoTable();
     }
 
@@ -63,6 +60,7 @@ public class AddOrder extends javax.swing.JFrame {
             }
         });
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -298,11 +296,11 @@ public class AddOrder extends javax.swing.JFrame {
 
     private void jProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProductActionPerformed
         String product = (String) jProduct.getSelectedItem();
-        
-        for(int i = 0; i <prodList.size() ; i++){
-            if(prodList.get(i).name.equalsIgnoreCase(product)){
-                jStock.setText(String.valueOf(prodList.get(i).amt));
-                jPrice.setText(String.valueOf(prodList.get(i).price));
+
+        for (int i = 0; i < MainMenu.prodList.size(); i++) {
+            if (MainMenu.prodList.get(i).name.equalsIgnoreCase(product)) {
+                jStock.setText(String.valueOf(MainMenu.prodList.get(i).amt));
+                jPrice.setText(String.valueOf(MainMenu.prodList.get(i).price));
             }
         }
     }//GEN-LAST:event_jProductActionPerformed
@@ -315,26 +313,22 @@ public class AddOrder extends javax.swing.JFrame {
         try {
             Object[] data = {jProduct.getSelectedItem(), jAmount.getText(), jTotal.getText(), orderid};
             dm.addRow(data);
-        
-            currentAmount= currentAmount - pQuantity;
+
+            currentAmount = currentAmount - pQuantity;
             jStock.setText(String.valueOf(currentAmount));
-        }
-         
-        catch(Exception ex){
-            
+        } catch (Exception ex) {
+
         }
         jProduct.setSelectedIndex(0);
         jStock.setText(null);
         jAmount.setText(null);
         jPrice.setText(null);
         jTotal.setText(null);
-        
+
     }//GEN-LAST:event_jAddActionPerformed
 
     private void jUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUpdateActionPerformed
-        jUpdate.setEnabled(false);
-            
-         try {
+        try {
             TableModel model = jTable1.getModel();
             int index = jTable1.getSelectedRow();
 
@@ -342,45 +336,47 @@ public class AddOrder extends javax.swing.JFrame {
             String pTotal = jTotal.getText();
             int pQuantity = Integer.parseInt(jAmount.getText());
             int newQuantity = pQuantity;
-            int currentAmount = Integer.parseInt(jStock.getText()); 
-            newQuantity= pQuantity+newQuantity;
+            int currentAmount = Integer.parseInt(jStock.getText());
             jStock.setText(String.valueOf(currentAmount));
-            
+
             model.setValueAt(pName, index, 0);
             model.setValueAt(newQuantity, index, 1);
             model.setValueAt(pTotal, index, 2);
 
-            ProductOrder orders = new ProductOrder(pName, newQuantity, pTotal,orderid);
-            
-           if(pName.equals("")){
-            prodOrderList.get(index).pName = pName;
-            prodOrderList.get(index).pQuantity = newQuantity;
-            prodOrderList.get(index).pTotal = pTotal;
-           }
-           JOptionPane.showMessageDialog(this,"Update Successful");
+            ProductOrder orders = new ProductOrder(pName, newQuantity, pTotal, orderid);
+
+            if (pName.equals("")) {
+                MainMenu.prodOrderList.get(index).pName = pName;
+                MainMenu.prodOrderList.get(index).pQuantity = newQuantity;
+                MainMenu.prodOrderList.get(index).pTotal = pTotal;
+            }
+            JOptionPane.showMessageDialog(this, "Update Successful");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
         }
-    
+        jUpdate.setEnabled(false);
+
+
     }//GEN-LAST:event_jUpdateActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-    jAdd.setEnabled(false);
-    jUpdate.setEnabled(true);
-    jDelete.setEnabled(true);
-    
-    int index =jTable1.getSelectedRow();
-    TableModel model = jTable1.getModel();
-   
-    String pQuantity = model.getValueAt(index, 1).toString();
-    String pTotal = model.getValueAt(index, 2).toString();
-    String orderid = model.getValueAt(index, 3).toString();
-    
-    if(pQuantity.equals(""))  
-    jProduct.setSelectedIndex(0);
-      jAmount.setText(pQuantity);
-      jTotal.setText(pTotal);
-    
+        jAdd.setEnabled(false);
+        jUpdate.setEnabled(true);
+        jDelete.setEnabled(true);
+
+        int index = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
+
+        String pQuantity = model.getValueAt(index, 1).toString();
+        String pTotal = model.getValueAt(index, 2).toString();
+        String orderid = model.getValueAt(index, 3).toString();
+
+        if (pQuantity.equals("")) {
+            jProduct.setSelectedIndex(0);
+        }
+        jAmount.setText(pQuantity);
+        jTotal.setText(pTotal);
+
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeleteActionPerformed
@@ -391,17 +387,17 @@ public class AddOrder extends javax.swing.JFrame {
             String pName = jProduct.getSelectedItem().toString();
             int pQuantity = Integer.parseInt(jAmount.getText());
             String pTotal = jTotal.getText();
-           ProductOrder orders = new ProductOrder(pName, pQuantity, pTotal,orderid);
+            ProductOrder orders = new ProductOrder(pName, pQuantity, pTotal, orderid);
 
             dm.removeRow(index);
 
-            prodList.remove(index);
+            MainMenu.prodList.remove(index);
 
             jProduct.setSelectedItem(null);
             jAmount.setText(null);
             jTotal.setText(null);
-            JOptionPane.showMessageDialog(this,"Deleted Success");   
-         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Deleted Success");
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Delete Uncessful", "Delete Unsuccesfull", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jDeleteActionPerformed
@@ -409,12 +405,12 @@ public class AddOrder extends javax.swing.JFrame {
     private void jAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAmountActionPerformed
         int amount = Integer.parseInt(jAmount.getText());
         float price = Float.parseFloat(jPrice.getText());
-        String total = String.valueOf(amount * price)  ;
+        String total = String.valueOf(amount * price);
         jTotal.setText(total);
     }//GEN-LAST:event_jAmountActionPerformed
 
     private void jStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStockActionPerformed
-      
+
     }//GEN-LAST:event_jStockActionPerformed
 
     private void jPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPriceActionPerformed
@@ -422,7 +418,7 @@ public class AddOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_jPriceActionPerformed
 
     private void jTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTotalActionPerformed
-       
+
     }//GEN-LAST:event_jTotalActionPerformed
 
     /**
@@ -490,26 +486,23 @@ public class AddOrder extends javax.swing.JFrame {
         //obtain product name from array
         jProduct.removeAllItems();
         jProduct.addItem(" ");
-        for (int i = 0; i < prodList.size(); i++) {
-            jProduct.addItem(prodList.get(i).getName());
+        for (int i = 0; i < MainMenu.prodList.size(); i++) {
+            jProduct.addItem(MainMenu.prodList.get(i).getName());
         }
     }
-  
-    
-    private void saveintoProdOrderList(){
+
+    private void saveintoProdOrderList() {
         try {
             String pName = jProduct.getSelectedItem().toString();
             int pQuantity = Integer.parseInt(jAmount.getText());
             String pTotal = jTotal.getText();
-           
-            
+
             ProductOrder orders = new ProductOrder(pName, pQuantity, pTotal, orderid);
             //System.out.print(orders.toString());
-           
-          
-           if(pName.equals("")){
-             prodOrderList.add(orders);
-           }
+
+            if (pName.equals("")) {
+                MainMenu.prodOrderList.add(orders);
+            }
             JOptionPane.showMessageDialog(this, "Order Confirmed!", "Input Successful", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error Order Details", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
@@ -540,4 +533,3 @@ class ComboItem {
         return value;
     }
 }
-

@@ -56,7 +56,7 @@ public class OrderList extends javax.swing.JFrame {
         lblTodayDate1.setText(today);
 
         for (int i = 0; i < OrderManagementMenu.orders.size(); i++) {
-            if (OrderManagementMenu.orders.get(i).getDate().equals(today)) {
+            if (MainMenu..get(i).getDate().equals(today)) {
 
                 data[0] = OrderManagementMenu.orders.get(i).id;
                 data[1] = OrderManagementMenu.orders.get(i).product.name;

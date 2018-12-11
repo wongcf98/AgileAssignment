@@ -17,27 +17,25 @@ import javax.swing.table.TableModel;
  */
 public class CustomerMenu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CustomerMenu
-     */
-    
-    public static ArrayList<Customer> custList = new ArrayList<>();
     public DefaultTableModel dm;
-    
+
     public CustomerMenu() {
         initComponents();
         loadDataIntoTable();
     }
-    
-     private void loadDataIntoTable() {
-        dm = (DefaultTableModel) jTable1.getModel();
-        Customer cust = new Customer("C001","WONG HAO CHUNG","010-2052345","wong@gmail.com","Consumer",0,0);
-        custList.add(cust);
 
-        for (int i = 0; i < custList.size(); i++) {
-            Object[] data = {custList.get(i).id,custList.get(i).name,custList.get(i).contact,custList.get(i).email,custList.get(i).custType,custList.get(i).currentLimit,custList.get(i).monthlyLimit};
+    private void loadDataIntoTable() {
+        dm = (DefaultTableModel) jTable1.getModel();
+        Customer cust = new Customer("C001", "WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
+        MainMenu.custList.add(cust);
+
+        for (int i = 0; i < MainMenu.custList.size(); i++) {
+            Object[] data = {MainMenu.custList.get(i).id, MainMenu.custList.get(i).name,
+                MainMenu.custList.get(i).contact, MainMenu.custList.get(i).email,
+                MainMenu.custList.get(i).custType, MainMenu.custList.get(i).currentLimit,
+                MainMenu.custList.get(i).monthlyLimit};
             dm.addRow(data);
-         
+
         }
 
     }
@@ -275,9 +273,7 @@ public class CustomerMenu extends javax.swing.JFrame {
 
     private void jcbCustTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCustTypeActionPerformed
 
-        
-        if(jcbCustType.getSelectedIndex() == 1)
-        {
+        if (jcbCustType.getSelectedIndex() == 1) {
             String zero = "0";
             jtfCCL.setVisible(false);
             jtfMCL.setVisible(false);
@@ -285,25 +281,25 @@ public class CustomerMenu extends javax.swing.JFrame {
             jLabel7.setVisible(false);
             jLabel8.setVisible(false);
             jLabel9.setVisible(false);
-           jtfCCL.setText(zero);
+            jtfCCL.setText(zero);
             jtfMCL.setText(zero);
         }
-        if(jcbCustType.getSelectedIndex() == 2){
-             jtfCCL.setVisible(true);
+        if (jcbCustType.getSelectedIndex() == 2) {
+            jtfCCL.setVisible(true);
             jtfMCL.setVisible(true);
             jLabel6.setVisible(true);
             jLabel7.setVisible(true);
             jLabel8.setVisible(true);
             jLabel9.setVisible(true);
         }
-            
+
     }//GEN-LAST:event_jcbCustTypeActionPerformed
 
     private void btnAddCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustActionPerformed
-         saveArray();
-         dm = (DefaultTableModel) jTable1.getModel();
+        saveArray();
+        dm = (DefaultTableModel) jTable1.getModel();
         try {
-            Object[] data = {jtfID.getText(), jtfCustName.getText(), jtfContact.getText(),jtfEmail.getText(),jcbCustType.getSelectedItem().toString(),jtfMCL.getText(),jtfMCL.getText()};
+            Object[] data = {jtfID.getText(), jtfCustName.getText(), jtfContact.getText(), jtfEmail.getText(), jcbCustType.getSelectedItem().toString(), jtfMCL.getText(), jtfMCL.getText()};
             dm.addRow(data);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
@@ -319,7 +315,7 @@ public class CustomerMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddCustActionPerformed
 
     private void btnEditCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCustActionPerformed
-         btnEditCust.setEnabled(false);
+        btnEditCust.setEnabled(false);
         try {
             TableModel model = jTable1.getModel();
             int index = jTable1.getSelectedRow();
@@ -331,24 +327,24 @@ public class CustomerMenu extends javax.swing.JFrame {
             String type = jcbCustType.getSelectedItem().toString();
             int ccl = Integer.parseInt(jtfCCL.getText());
             int mcl = Integer.parseInt(jtfMCL.getText());
-            
+
             model.setValueAt(id, index, 0);
             model.setValueAt(name, index, 1);
             model.setValueAt(contact, index, 2);
             model.setValueAt(email, index, 3);
-            model.setValueAt(type,index, 4);
+            model.setValueAt(type, index, 4);
             model.setValueAt(mcl, index, 5);
             model.setValueAt(mcl, index, 6);
 
-             Customer c = new Customer(id,name,contact,email,type,mcl,mcl);
-             custList.get(index).id = id;
-            custList.get(index).name = name;
-            custList.get(index).contact = contact;
-            custList.get(index).email = email;
-            custList.get(index).custType = type;
-            custList.get(index).currentLimit = mcl;
-            custList.get(index).monthlyLimit = mcl;
-            
+            Customer c = new Customer(id, name, contact, email, type, mcl, mcl);
+            MainMenu.custList.get(index).id = id;
+            MainMenu.custList.get(index).name = name;
+            MainMenu.custList.get(index).contact = contact;
+            MainMenu.custList.get(index).email = email;
+            MainMenu.custList.get(index).custType = type;
+            MainMenu.custList.get(index).currentLimit = mcl;
+            MainMenu.custList.get(index).monthlyLimit = mcl;
+
             JOptionPane.showMessageDialog(this, "Customer Details have been updated successfully.");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccesful", JOptionPane.ERROR_MESSAGE);
@@ -356,7 +352,7 @@ public class CustomerMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditCustActionPerformed
 
     private void btnDeleteCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustActionPerformed
-           try {
+        try {
             dm = (DefaultTableModel) jTable1.getModel();
             int index = jTable1.getSelectedRow();
 
@@ -367,20 +363,20 @@ public class CustomerMenu extends javax.swing.JFrame {
             String type = jcbCustType.getSelectedItem().toString();
             int ccl = Integer.parseInt(jtfCCL.getText());
             int mcl = Integer.parseInt(jtfMCL.getText());
-          Customer c = new Customer(id,name,contact,email,type,ccl,mcl);
+            Customer c = new Customer(id, name, contact, email, type, ccl, mcl);
 
             dm.removeRow(index);
 
-            custList.remove(index);
+            MainMenu.custList.remove(index);
 
-           jtfID.setText(null);
-        jtfCustName.setText(null);
-        jtfContact.setText(null);
-        jtfEmail.setText(null);
-        jtfCCL.setText(null);
-        jtfMCL.setText(null);
-         JOptionPane.showMessageDialog(this, "Customer Details have been deleted successfully.");
-            
+            jtfID.setText(null);
+            jtfCustName.setText(null);
+            jtfContact.setText(null);
+            jtfEmail.setText(null);
+            jtfCCL.setText(null);
+            jtfMCL.setText(null);
+            JOptionPane.showMessageDialog(this, "Customer Details have been deleted successfully.");
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Delete Unsucessful", "Delete Unsuccessful", JOptionPane.ERROR_MESSAGE);
         }
@@ -389,7 +385,7 @@ public class CustomerMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteCustActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-      btnEditCust.setEnabled(true);
+        btnEditCust.setEnabled(true);
         btnDeleteCust.setEnabled(true);
         int index = jTable1.getSelectedRow();
         TableModel model = jTable1.getModel();
@@ -399,17 +395,18 @@ public class CustomerMenu extends javax.swing.JFrame {
         String email = model.getValueAt(index, 3).toString();
         String type = model.getValueAt(index, 4).toString();
         String ccl = model.getValueAt(index, 5).toString();
-        String mcl= model.getValueAt(index, 6).toString();
+        String mcl = model.getValueAt(index, 6).toString();
 
         jtfID.setText(id);
         jtfCustName.setText(name);
         jtfContact.setText(contact);
         jtfEmail.setText(email);
         jtfCCL.setText(ccl);
-        if(type == "Consumer")
+        if (type == "Consumer") {
             jcbCustType.setSelectedIndex(1);
-        else
+        } else {
             jcbCustType.setSelectedIndex(2);
+        }
         jtfMCL.setText(mcl);
         btnAddCust.setEnabled(false);
     }//GEN-LAST:event_jTable1MouseClicked
@@ -418,24 +415,24 @@ public class CustomerMenu extends javax.swing.JFrame {
         btnAddCust.setEnabled(true);
     }//GEN-LAST:event_formMouseClicked
 
-     private void saveArray() {
+    private void saveArray() {
         try {
             String id = jtfID.getText();
             String name = jtfCustName.getText();
             String contact = jtfContact.getText();
             String email = jtfEmail.getText();
             String type = jcbCustType.getSelectedItem().toString();
-            
+
             int mcl = Integer.parseInt(jtfMCL.getText());
-           Customer c = new Customer(id,name,contact,email,type,mcl,mcl);
-            if (CustomerMenu.custList.add(c)) {
+            Customer c = new Customer(id, name, contact, email, type, mcl, mcl);
+            if (MainMenu.custList.add(c)) {
                 JOptionPane.showMessageDialog(this, "Customer added");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
         }
-    }              
-     
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -478,7 +475,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         });
     }
 
-    public void setNimbus(){
+    public void setNimbus() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
