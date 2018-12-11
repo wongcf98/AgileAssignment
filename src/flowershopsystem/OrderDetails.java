@@ -14,16 +14,16 @@ import java.util.Date;
  * @author LIANG
  */
 public class OrderDetails {
-
     int orderid;
+    static int count = 1000;
     Customer cust;
     Calendar orderDate;
-    ProductOrder id;
 
-    public OrderDetails(Customer cust, Calendar orderDate, ProductOrder id) {
+    public OrderDetails(Customer cust, Calendar orderDate) {
         this.cust = cust;
         this.orderDate = orderDate;
-        this.id = id;
+        this.orderid = count;
+        count++;
     }
 
     @Override
