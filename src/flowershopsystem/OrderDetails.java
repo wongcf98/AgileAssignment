@@ -19,18 +19,34 @@ public class OrderDetails {
     Customer cust;
     Calendar orderDate;
     ProductOrder id;
+    String address;
+    float balance;
 
-    public OrderDetails(Customer cust, Calendar orderDate, ProductOrder id) {
+    public OrderDetails(Customer cust, Calendar orderDate, ProductOrder id, String address) //consumer
+    {
         this.cust = cust;
         this.orderDate = orderDate;
         this.id = id;
+        this.address = address;
+    }  
+        public OrderDetails( Calendar orderDate,  String address) //consumer
+    {
+        this.orderDate = orderDate;
+        this.address = address;
+    }  
+    
+    public OrderDetails(Customer cust, Calendar orderDate, ProductOrder id, String address, float balance) //coorperate
+    {   this.cust = cust;
+        this.orderDate = orderDate;
+        this.id = id;
+        this.address = address;
     }
 
-    @Override
+      @Override
     public String toString() {
-        return "OrderDetails{" + "cust=" + cust + ", orderDate=" + orderDate + '}';
+        return "OrderDetails{" + "orderid=" + orderid + ", cust=" + cust + ", orderDate=" + orderDate + ", id=" + id + ", address=" + address + ", balance=" + balance + '}';
     }
-
+    
     public int getOrderid() {
         return orderid;
     }
@@ -54,4 +70,29 @@ public class OrderDetails {
     public void setOrderDate(Calendar orderDate) {
         this.orderDate = orderDate;
     }
+
+    public ProductOrder getId() {
+        return id;
+    }
+
+    public void setId(ProductOrder id) {
+        this.id = id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public float getBalance() {
+        return balance;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
+
 }

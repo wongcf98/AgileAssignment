@@ -23,10 +23,15 @@ public class OrderMenu extends javax.swing.JFrame {
 
     public OrderMenu() {
         initComponents();
-        Product p = new Product("Rose", 12, (float) 20.5);
-        Product p2 = new Product("AAAA", 1, (float) 10);
+        
+        Product p = new Product("Rose", 40, (float) 20.5);
+        Product p2 = new Product("Sunflower", 10, (float) 10);
+        Product p3 = new Product("Tulip", 16, (float) 8);
+        Product p4 = new Product("Jasmine", 14, (float) 12.50);
         prodList.add(p);
         prodList.add(p2);
+        prodList.add(p3);
+        prodList.add(p4);
     }
 
     /**
@@ -72,7 +77,6 @@ public class OrderMenu extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         AddOrder order = new AddOrder();
         order.setNimbus();
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

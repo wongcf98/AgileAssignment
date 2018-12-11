@@ -25,6 +25,12 @@ public class ProductOrder extends AddOrder {
         this.orderid = orderid;
         
     }
+       public ProductOrder(String pName, int pQuantity, int orderid) {
+        this.pName = pName;
+        this.pQuantity = pQuantity;
+        this.orderid = orderid;
+        
+    }
     
     public String getpName() {
         return pName;
