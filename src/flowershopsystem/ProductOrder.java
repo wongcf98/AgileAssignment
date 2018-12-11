@@ -15,15 +15,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ProductOrder extends AddOrder {
     String pName;
     int pQuantity;
-    String pTotal;
-    int orderid = 1000; 
+    double pTotal;
+    int orderid; 
            
-    public ProductOrder(String pName, int pQuantity, String pTotal, int orderid) {
+    public ProductOrder(String pName, int pQuantity, double pTotal, int orderid) {
         this.pName = pName;
         this.pQuantity = pQuantity;
         this.pTotal = pTotal;
         this.orderid = orderid;
-        
     }
     
     public String getpName() {
@@ -42,11 +41,11 @@ public class ProductOrder extends AddOrder {
         this.pQuantity = pQuantity;
     }
 
-    public String getpTotal() {
+    public double getpTotal() {
         return pTotal;
     }
 
-    public void setpTotal(String pTotal) {
+    public void setpTotal(double pTotal) {
         this.pTotal = pTotal;
     }
 

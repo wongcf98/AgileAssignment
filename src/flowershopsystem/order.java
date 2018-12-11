@@ -8,19 +8,19 @@ package flowershopsystem;
 import java.util.*;
 
 public class order {
-
     Product product;
-    String date;
+    String collect_date;
     String est_time;
     String collect_time;
     int id;
-
-    public order(int id, Product product, String date, String time, String collect_time) {
-        this.id = id;
-        this.product = product;
-        this.date = date;
+    static int count = 1000;
+    
+    public order(Product product, String date, String time, String collect_time) {
+        this.id = count;
+        this.collect_date = date;
         this.est_time = time;
         this.collect_time = collect_time;
+        
     }
 
     order() {
@@ -56,11 +56,11 @@ public class order {
     }
 
     public String getDate() {
-        return date;
+        return collect_date;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.collect_date = date;
     }
     
     public void setTime(String time) {

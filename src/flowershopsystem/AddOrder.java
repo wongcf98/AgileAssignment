@@ -313,9 +313,9 @@ public class AddOrder extends javax.swing.JFrame {
         try {
             Object[] data = {jProduct.getSelectedItem(), jAmount.getText(), jTotal.getText(), orderid};
             dm.addRow(data);
-
             currentAmount = currentAmount - pQuantity;
-            jStock.setText(String.valueOf(currentAmount));
+            //jStock.setText(String.valueOf(currentAmount));
+            updateProductList(currentAmount);
         } catch (Exception ex) {
 
         }
@@ -333,7 +333,7 @@ public class AddOrder extends javax.swing.JFrame {
             int index = jTable1.getSelectedRow();
 
             String pName = jProduct.getSelectedItem().toString();
-            String pTotal = jTotal.getText();
+            double pTotal = Double.parseDouble(jTotal.getText());
             int pQuantity = Integer.parseInt(jAmount.getText());
             int newQuantity = pQuantity;
             int currentAmount = Integer.parseInt(jStock.getText());
@@ -343,7 +343,7 @@ public class AddOrder extends javax.swing.JFrame {
             model.setValueAt(newQuantity, index, 1);
             model.setValueAt(pTotal, index, 2);
 
-            ProductOrder orders = new ProductOrder(pName, newQuantity, pTotal, orderid);
+            ProductOrder orders = new ProductOrder(pName, newQuantity, pTotal,orderid);
 
             if (pName.equals("")) {
                 MainMenu.prodOrderList.get(index).pName = pName;
@@ -386,8 +386,8 @@ public class AddOrder extends javax.swing.JFrame {
 
             String pName = jProduct.getSelectedItem().toString();
             int pQuantity = Integer.parseInt(jAmount.getText());
-            String pTotal = jTotal.getText();
-            ProductOrder orders = new ProductOrder(pName, pQuantity, pTotal, orderid);
+            double pTotal = Double.parseDouble(jTotal.getText());
+            ProductOrder orders = new ProductOrder(pName, pQuantity, pTotal,orderid);
 
             dm.removeRow(index);
 
@@ -495,9 +495,9 @@ public class AddOrder extends javax.swing.JFrame {
         try {
             String pName = jProduct.getSelectedItem().toString();
             int pQuantity = Integer.parseInt(jAmount.getText());
-            String pTotal = jTotal.getText();
+            double pTotal = Double.parseDouble(jTotal.getText());
 
-            ProductOrder orders = new ProductOrder(pName, pQuantity, pTotal, orderid);
+            ProductOrder orders = new ProductOrder(pName, pQuantity, pTotal,orderid);
             //System.out.print(orders.toString());
 
             if (pName.equals("")) {
