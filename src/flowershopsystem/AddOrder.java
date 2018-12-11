@@ -315,7 +315,7 @@ public class AddOrder extends javax.swing.JFrame {
             dm.addRow(data);
             currentAmount = currentAmount - pQuantity;
             //jStock.setText(String.valueOf(currentAmount));
-            updateProductList(currentAmount);
+            //updateProductList(currentAmount);
         } catch (Exception ex) {
 
         }
