@@ -17,7 +17,7 @@ public class Customer {
    String custType;
    int currentLimit;
    int monthlyLimit;
-
+   
     public Customer(String id, String name, String contact,String email,String custType,int currentLimit,int monthlyLimit) {
         this.id= id;
         this.name = name;
@@ -89,9 +89,7 @@ public class Customer {
     public String toString() {
         return "Customer{" +"id="+id+ "name=" + name + ", email=" + email + ", contact=" + contact+ ", custType="+custType+"Current Limit="+currentLimit+"Monthly Limit:"+monthlyLimit+'}';
     }
-    
-    
-    
 }
+
  
 
