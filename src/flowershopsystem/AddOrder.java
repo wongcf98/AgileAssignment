@@ -315,9 +315,6 @@ public class AddOrder extends javax.swing.JFrame {
             Object[] data = {jProduct.getSelectedItem(), jAmount.getText(), jTotal.getText(), orderid};
             dm.addRow(data);
             currentAmount = currentAmount - pQuantity;
-            updateProductList(currentAmount);
-            jStock.setText(String.valueOf(currentAmount));
-            
         } catch (Exception ex) {
 
         }
