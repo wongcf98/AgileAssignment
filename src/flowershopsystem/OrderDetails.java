@@ -18,6 +18,7 @@ public class OrderDetails {
     static int count = 1000;
     Customer cust;
     Calendar orderDate;
+    
 
     public OrderDetails(Customer cust, Calendar orderDate) {
         this.cust = cust;
