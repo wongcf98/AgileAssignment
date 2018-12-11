@@ -455,7 +455,8 @@ public class PromotionMenu extends javax.swing.JFrame {
         jComboBox1.removeAllItems();
         jComboBox1.addItem(" ");
         for (int i = 0; i < MainMenu.prodList.size(); i++) {
-            jComboBox1.addItem(new ComboItem(MainMenu.prodList.get(i).name, MainMenu.prodList.get(i).name));
+            jComboBox1.addItem(new ComboItem(MainMenu.prodList.get(i).name, 
+                    MainMenu.prodList.get(i).name));
             System.out.println("Add");
         }
 
