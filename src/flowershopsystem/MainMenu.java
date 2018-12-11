@@ -76,6 +76,11 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu4.setText("Delivery");
 
         jMenuItem5.setText("Pickup");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem5);
 
         jMenuItem6.setText("Delivery");
@@ -98,6 +103,11 @@ public class MainMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        PickupMenu.main(null);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
     /**
      * @param args the command line arguments
      */

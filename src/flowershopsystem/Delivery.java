@@ -17,12 +17,15 @@ public class Delivery {
     private OrderDetails order;
     private Customer cust;
     private Calendar date_of_deliver;
+    private Calendar date_of_collect;
+    String status;
     
     public Delivery(Address add, OrderDetails order, Customer cust, Calendar DoD) {
         this.add = add;
         this.order = order;
         this.cust = cust;
         this.date_of_deliver = DoD;
+        this.status = "pending";
     }
 
     public Address getAdd() {
