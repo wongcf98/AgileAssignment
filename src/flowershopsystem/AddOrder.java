@@ -532,7 +532,7 @@ public class AddOrder extends javax.swing.JFrame {
         {
             if(MainMenu.prodList.get(i).name.equalsIgnoreCase(product))
             {
-                MainMenu.prodList.get(i).amt-=currentAmount; //update the in stock in array
+                MainMenu.prodList.get(i).amt-=currentAmount; //
             }
            
         }
