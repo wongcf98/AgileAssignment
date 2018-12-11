@@ -12,14 +12,13 @@ import java.util.ArrayList;
  * @author scollex
  */
 public class MainMenu extends javax.swing.JFrame {
-
-    /**
-     * Creates new form MainMenu
-     */
     //Create a public array for the program
     public static ArrayList<Product> prodList = new ArrayList<>();
     public static ArrayList<Promotion> promotionList = new ArrayList<>();
-
+    public static ArrayList<OrderDetails> orderList = new ArrayList<OrderDetails>();
+    public static ArrayList<ProductOrder> prodOrderList = new ArrayList<>();
+    public static ArrayList<Customer> custList = new ArrayList<>();
+    
     public MainMenu() {
         initComponents();
         //Load sample data into the array Alr+ENter to see more

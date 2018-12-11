@@ -17,16 +17,14 @@ public class OrderMenu extends javax.swing.JFrame {
     /**
      * Creates new form OrderMenu
      */
-    public static ArrayList<OrderDetails> orderList = new ArrayList<OrderDetails>();
-    public static ArrayList<Product> prodList = new ArrayList<Product>();
-    public ArrayList<ProductOrder> prodOrderList;
+    
 
     public OrderMenu() {
         initComponents();
         Product p = new Product("Rose", 12, (float) 20.5);
         Product p2 = new Product("AAAA", 1, (float) 10);
-        prodList.add(p);
-        prodList.add(p2);
+        MainMenu.prodList.add(p);
+        MainMenu.prodList.add(p2);
     }
 
     /**

@@ -12,15 +12,12 @@ import java.util.ArrayList;
  * @author User
  */
 public class OrderManagementMenu extends javax.swing.JFrame {
-    
-    public static ArrayList<order> orders = new ArrayList<order>();
-    public static ArrayList<Product> products = new ArrayList<Product>();
     /**
      * Creates new form OrderManagementMenu
      */
     public OrderManagementMenu() {
         initComponents();
-        loadData();
+        //loadData();
     }
 
     /**
@@ -165,13 +162,13 @@ public class OrderManagementMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     // End of variables declaration//GEN-END:variables
 
-    private void loadData() {
-        products.add(new Product("pro1",3, (float) 2.30));
-        products.add(new Product("pro2",6, (float) 4.76));
-        products.add(new Product("pro3",9, (float) 7.90));
-        
-        OrderManagementMenu.orders.add(new order(1, products.get(0),"29/11/2018","1400",""));
-        OrderManagementMenu.orders.add(new order(2, products.get(1),"29/11/2018","1400",""));
-        OrderManagementMenu.orders.add(new order(3, products.get(2),"30/11/2018","1400",""));
-    }
+//    private void loadData() {
+//        MainMenu.prodList.add(new Product("pro1",3, (float) 2.30));
+//        MainMenu.prodList.add(new Product("pro2",6, (float) 4.76));
+//        MainMenu.prodList.add(new Product("pro3",9, (float) 7.90));
+//        
+//        MainMenu.prodOrderList.add(new ProductOrder(1, MainMenuproducts.get(0),"29/11/2018","1400",""));
+//        OrderManagementMenu.orders.add(new order(2, products.get(1),"29/11/2018","1400",""));
+//        OrderManagementMenu.orders.add(new order(3, products.get(2),"30/11/2018","1400",""));
+//    }
 }
