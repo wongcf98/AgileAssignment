@@ -93,7 +93,7 @@ public class MainMenu extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:ini
     /**
      * @param args the command line arguments
      */
@@ -143,7 +143,13 @@ public class MainMenu extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initializeDate() {
-        Product p = new Product("Rose", 20, (float) 20.5);
+        Product p = new Product("Rose", 40, (float) 20.5);
+        Product p2 = new Product("Sunflower", 10, (float) 10);
+        Product p3 = new Product("Tulip", 16, (float) 8);
+        Product p4 = new Product("Jasmine", 14, (float) 12.50);
         prodList.add(p);
+        prodList.add(p2);
+        prodList.add(p3);
+        prodList.add(p4);
     }
 }
