@@ -142,7 +142,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        new OrderManagementMenu().setNimbus();
+        //new OrderManagementMenu().setNimbus();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
@@ -195,7 +195,13 @@ public class MainMenu extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initializeDate() {
-        Product p = new Product("Rose", 20, (float) 20.5);
+        Product p = new Product("Rose", 40, (float) 20.5);
+        Product p2 = new Product("Sunflower", 10, (float) 10);
+        Product p3 = new Product("Tulip", 16, (float) 8);
+        Product p4 = new Product("Jasmine", 14, (float) 12.50);
         prodList.add(p);
+        prodList.add(p2);
+        prodList.add(p3);
+        prodList.add(p4);
     }
 }

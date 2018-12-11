@@ -5,6 +5,7 @@
  */
 package flowershopsystem;
 
+import static flowershopsystem.MainMenu.prodOrderList;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -314,42 +315,60 @@ public class AddOrder extends javax.swing.JFrame {
             Object[] data = {jProduct.getSelectedItem(), jAmount.getText(), jTotal.getText(), orderid};
             dm.addRow(data);
             currentAmount = currentAmount - pQuantity;
-            //jStock.setText(String.valueOf(currentAmount));
             updateProductList(currentAmount);
+            jStock.setText(String.valueOf(currentAmount));
+            
         } catch (Exception ex) {
 
         }
-        jProduct.setSelectedIndex(0);
+        /*jProduct.setSelectedIndex(0);
         jStock.setText(null);
         jAmount.setText(null);
         jPrice.setText(null);
-        jTotal.setText(null);
-
+        jTotal.setText(null); */
     }//GEN-LAST:event_jAddActionPerformed
 
     private void jUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUpdateActionPerformed
         try {
             TableModel model = jTable1.getModel();
             int index = jTable1.getSelectedRow();
-
+            
             String pName = jProduct.getSelectedItem().toString();
             double pTotal = Double.parseDouble(jTotal.getText());
             int pQuantity = Integer.parseInt(jAmount.getText());
-            int newQuantity = pQuantity;
-            int currentAmount = Integer.parseInt(jStock.getText());
-            jStock.setText(String.valueOf(currentAmount));
-
+            int currentQ = (Integer) model.getValueAt(index, 1);
+            int currentP = (Integer) model.getValueAt(index, 2);
+            
+            //update Amount
+            int pAmount = pQuantity;
+            int currentQuantity = currentQ;
+            int newQuantity = pAmount;
+             newQuantity = newQuantity + currentQuantity;
+            
+            //Update Stock left
+            int stockAvailable = Integer.parseInt(jStock.getText());
+            int amountType = Integer.parseInt(jAmount.getText());
+            String stockleft = String.valueOf(stockAvailable - amountType);
+            jStock.setText(stockleft);
+            
+            //Updaete Total Price
+            //int Total = Integer.parseInt(pTotal);
+           // int currentTotal = Integer.parseInt(currentP);
+           // String newTotal = String.valueOf(Total + currentTotal);
+            
+            
             model.setValueAt(pName, index, 0);
             model.setValueAt(newQuantity, index, 1);
-            model.setValueAt(pTotal, index, 2);
+           // model.setValueAt(newTotal, index, 2);
 
-            ProductOrder orders = new ProductOrder(pName, newQuantity, pTotal,orderid);
+            ProductOrder orders = new ProductOrder(pName, newQuantity,orderid);
+            
+           
+            prodOrderList.get(index).pName = pName;
+            prodOrderList.get(index).pQuantity = newQuantity;
+            //prodOrderList.get(index).pTotal = newTotal;
 
-            if (pName.equals("")) {
-                MainMenu.prodOrderList.get(index).pName = pName;
-                MainMenu.prodOrderList.get(index).pQuantity = newQuantity;
-                MainMenu.prodOrderList.get(index).pTotal = pTotal;
-            }
+            
             JOptionPane.showMessageDialog(this, "Update Successful");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
@@ -360,22 +379,19 @@ public class AddOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_jUpdateActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        jAdd.setEnabled(false);
-        jUpdate.setEnabled(true);
-        jDelete.setEnabled(true);
-
-        int index = jTable1.getSelectedRow();
-        TableModel model = jTable1.getModel();
-
-        String pQuantity = model.getValueAt(index, 1).toString();
-        String pTotal = model.getValueAt(index, 2).toString();
-        String orderid = model.getValueAt(index, 3).toString();
-
-        if (pQuantity.equals("")) {
-            jProduct.setSelectedIndex(0);
-        }
-        jAmount.setText(pQuantity);
-        jTotal.setText(pTotal);
+    jAdd.setEnabled(false);
+    jUpdate.setEnabled(true);
+    jDelete.setEnabled(true);
+ 
+    int index =jTable1.getSelectedRow();
+    TableModel model = jTable1.getModel();
+   
+    
+    //jStock.setText(stockleft);
+    
+    String jProduct = model.getValueAt(index, 0).toString();
+    String pQuantity = model.getValueAt(index, 1).toString();
+    String pTotal = model.getValueAt(index, 2).toString();
 
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -508,6 +524,20 @@ public class AddOrder extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error Order Details", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    private void updateProductList(int currentAmount) {
+    
+        String product = (String) jProduct.getSelectedItem();
+        for(int i= 0; i<MainMenu.prodList.size();i++)
+        {
+            if(MainMenu.prodList.get(i).name.equalsIgnoreCase(product))
+            {
+                MainMenu.prodList.get(i).amt-=currentAmount; //update the in stock in array
+            }
+           
+        }
+        
+   
 }
 
 class ComboItem {
@@ -532,4 +562,5 @@ class ComboItem {
     public String getValue() {
         return value;
     }
+}
 }
