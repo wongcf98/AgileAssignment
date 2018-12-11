@@ -61,6 +61,11 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu2.setText("Order");
 
         jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -93,7 +98,12 @@ public class MainMenu extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:ini
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        new AddOrder().setNimbus();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -143,13 +153,9 @@ public class MainMenu extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initializeDate() {
-        Product p = new Product("Rose", 40, (float) 20.5);
-        Product p2 = new Product("Sunflower", 10, (float) 10);
-        Product p3 = new Product("Tulip", 16, (float) 8);
-        Product p4 = new Product("Jasmine", 14, (float) 12.50);
+        Product p = new Product("Rose", 20, (float) 20.5);
+        Product p2 = new Product("Rose", 10, (float) 11);
         prodList.add(p);
         prodList.add(p2);
-        prodList.add(p3);
-        prodList.add(p4);
     }
 }
