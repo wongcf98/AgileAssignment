@@ -305,8 +305,13 @@ public class CatalogMenu extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Delete Uncessful", "Delete Unsuccesfull", JOptionPane.ERROR_MESSAGE);
         }
-
+        JOptionPane.showMessageDialog(this, "Record deleted", "Delete sucessful", JOptionPane.INFORMATION_MESSAGE);
+        jtfProdName.setText(null);
+        jtfAmt.setText(null);
+        jtfProdPrice.setText(null);
+        btnEdit.setEnabled(false);
         btnDel.setEnabled(false);
+        btnAdd.setEnabled(true);
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
