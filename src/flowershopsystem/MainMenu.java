@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class MainMenu extends javax.swing.JFrame {
 //Create a public array for the program
 
+    public static ArrayList<Delivery> deliveryList = new ArrayList<>();
     public static ArrayList<Product> prodList = new ArrayList<>();
     public static ArrayList<Promotion> promotionList = new ArrayList<>();
     public static ArrayList<OrderDetails> orderList = new ArrayList<OrderDetails>();

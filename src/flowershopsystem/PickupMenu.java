@@ -5,6 +5,9 @@
  */
 package flowershopsystem;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author scollex
@@ -16,6 +19,7 @@ public class PickupMenu extends javax.swing.JFrame {
      */
     public PickupMenu() {
         initComponents();
+        loadDataIntoTable();
     }
 
     /**
@@ -27,10 +31,14 @@ public class PickupMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblDate = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        lblDate.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblDate.setText("Product pick up list");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -54,17 +62,21 @@ public class PickupMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDate)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(lblDate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -108,5 +120,23 @@ public class PickupMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblDate;
     // End of variables declaration//GEN-END:variables
+
+    private void loadDataIntoTable() {
+        DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        for (int i = 0; i < MainMenu.deliveryList.size(); i++) {
+            if (MainMenu.deliveryList.get(i).method.equalsIgnoreCase("Pick Up")) {
+                Object[] data = {MainMenu.deliveryList.get(i).getOrder().orderid,
+                    MainMenu.deliveryList.get(i).getCust().name,
+                    MainMenu.deliveryList.get(i).getOrder().getOrderid(),
+                    MainMenu.deliveryList.get(i).status,
+                    MainMenu.deliveryList.get(i).getDate_of_collect().getTime()};
+                dm.addRow(data);
+            }
+        }
+        if(dm.getRowCount() == 0){
+            JOptionPane.showMessageDialog(this, "No pick up record");
+        }
+    }
 }

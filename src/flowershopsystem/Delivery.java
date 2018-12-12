@@ -19,13 +19,39 @@ public class Delivery {
     private Calendar date_of_deliver;
     private Calendar date_of_collect;
     String status;
+    String method;
     
-    public Delivery(Address add, OrderDetails order, Customer cust, Calendar DoD) {
+    public Delivery(OrderDetails order, Address add, Customer cust, Calendar DoD) {
         this.add = add;
         this.order = order;
         this.cust = cust;
         this.date_of_deliver = DoD;
-        this.status = "pending";
+        this.status = "Pending";
+        this.method = "Delivery";
+    }
+
+    public Delivery(OrderDetails order, Customer cust, Calendar date_of_deliver) {
+        this.order = order;
+        this.cust = cust;
+        this.date_of_deliver = date_of_deliver;
+        this.status = "Pending";
+        this.method = "Pick Up";
+    }
+
+    public Calendar getDate_of_deliver() {
+        return date_of_deliver;
+    }
+
+    public void setDate_of_deliver(Calendar date_of_deliver) {
+        this.date_of_deliver = date_of_deliver;
+    }
+
+    public Calendar getDate_of_collect() {
+        return date_of_collect;
+    }
+
+    public void setDate_of_collect(Calendar date_of_collect) {
+        this.date_of_collect = date_of_collect;
     }
 
     public Address getAdd() {
