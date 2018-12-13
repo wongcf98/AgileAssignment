@@ -245,6 +245,7 @@ public class PromotionMenu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -263,14 +264,6 @@ public class PromotionMenu extends javax.swing.JFrame {
             int end_month = jDateChooser2.getCalendar().get(Calendar.MONTH) + 1;
             System.out.println(jDateChooser2.getCalendar().get(Calendar.DAY_OF_MONTH));
             int end_day = jDateChooser2.getCalendar().get(Calendar.DAY_OF_MONTH);
-
-//            How to set Calendar time:
-//            Calendar calendar = Calendar.getInstance();
-//            calendar.setTime(date);
-//            calendar.set(Calendar.MILLISECOND, 0);
-//            calendar.set(Calendar.SECOND, 0);
-//            calendar.set(Calendar.MINUTE, 0);
-//            calendar.set(Calendar.HOUR, 0);
 
             Calendar start_cal = Calendar.getInstance();
             start_cal.set(Calendar.YEAR, start_year);
@@ -365,7 +358,69 @@ public class PromotionMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable1MouseClicked
 
-   
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        try {
+            dm = (DefaultTableModel) jTable1.getModel();
+            int index = jTable1.getSelectedRow();
+
+            String product = jComboBox1.getSelectedItem().toString();
+            float price = Float.parseFloat(txtPrice.getText());
+
+            MainMenu.prodList.add(MainMenu.promotionList.get(index).prod);
+            dm.removeRow(index);
+            MainMenu.promotionList.remove(index);
+
+            populateTable();
+
+            JOptionPane.showMessageDialog(this, "Data delete succesfull", "Delete Succesfull", JOptionPane.INFORMATION_MESSAGE);
+
+            txtDiscountRate.setText(null);
+            jDateChooser1.setCalendar(null);
+            jDateChooser2.setCalendar(null);
+            txtPrice.setText(null);
+            txtDiscountPrice.setText(null);
+
+            btnEdit.setEnabled(false);
+            btnDel.setEnabled(false);
+            btnAdd.setEnabled(true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Delete Unsuccessful", "Delete Unsuccessful", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDelActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        try {
+            int index = jTable1.getSelectedRow();
+
+            int discount = Integer.parseInt(txtDiscountRate.getText());
+            float discountprice = Float.parseFloat(txtDiscountPrice.getText());
+            Calendar sDate = jDateChooser1.getCalendar();
+            Calendar eDate = jDateChooser2.getCalendar();
+            if (eDate.before(sDate)) {
+                JOptionPane.showMessageDialog(this, "Date invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            } else {
+                MainMenu.promotionList.get(index).discount = discount;
+                MainMenu.promotionList.get(index).discountedPrice = discountprice;
+                MainMenu.promotionList.get(index).startDate = sDate;
+                MainMenu.promotionList.get(index).endDate = eDate;
+
+                populateTable();
+
+                JOptionPane.showMessageDialog(this, "Data update succesfull", "Update Succesfull", JOptionPane.INFORMATION_MESSAGE);
+                txtDiscountRate.setText(null);
+                jDateChooser1.setCalendar(null);
+                jDateChooser2.setCalendar(null);
+                txtPrice.setText(null);
+                txtDiscountPrice.setText(null);
+
+                btnEdit.setEnabled(false);
+                btnDel.setEnabled(false);
+                btnAdd.setEnabled(true);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     /**

@@ -66,7 +66,7 @@ public class CatalogMenu extends javax.swing.JFrame {
         btnEdit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jcbCat = new javax.swing.JComboBox<String>();
+        jcbCat = new javax.swing.JComboBox<>();
         lblProdName = new javax.swing.JLabel();
         lblAmt = new javax.swing.JLabel();
         lblPrice = new javax.swing.JLabel();
@@ -141,7 +141,7 @@ public class CatalogMenu extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jcbCat.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jcbCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Flower", "Hand Bouquete", "Rose Bouquete", "Table Flowers", "Floral Arrangement", " " }));
+        jcbCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Flower", "Hand Bouquete", "Rose Bouquete", "Table Flowers", "Floral Arrangement", " " }));
         jcbCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbCatActionPerformed(evt);
@@ -253,6 +253,7 @@ public class CatalogMenu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
