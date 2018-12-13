@@ -17,10 +17,12 @@ import static org.junit.Assert.*;
  */
 public class CustomerTest {
     
-    private Customer c1,c2;
+    private Customer c1;
     
     public CustomerTest() {
     }
+    
+    double delta = 0.01;
     
     @BeforeClass
     public static void setUpClass() {
@@ -32,20 +34,18 @@ public class CustomerTest {
     
     @Before
     public void setUp() {
-        c1 = new Customer("Wong Hao Chung","0123456789","wongHC-wa16@email.com","consumer",20000,20000);
-        c2 = new Customer("Wong Hao Choong","0123456789","wongHC-wa16@email.com","consumer",20000,20000);
+        c1 = new Customer("Wong Hao Chung","0123456789","wong@email.com","consumer",20000,20000);
     }
     @Test
-    public void testGetId() {
-        System.out.println("getId");
+    public void testGetName() {
+        System.out.println("getName");
         assertEquals("Wong Hao Chung", c1.getName());
-        assertEquals("Wong Hao Choong", c2.getName());
     }
     @Test
-    public void testSetId() {
-        System.out.println("setId");
-        c1.setName("Wong HC");
-        assertEquals("Wong HC", c1.getName());
+    public void testSetName() {
+        System.out.println("setName");
+        c1.setName("Wong Hao Chung");
+        assertEquals("Wong Hao Chung", c1.getName());
     }
 
     /**
@@ -54,11 +54,8 @@ public class CustomerTest {
     @Test
     public void testSetCurrentLimit() {
         System.out.println("setCurrentLimit");
-        int currentLimit = 0;
-        Customer instance = null;
-        instance.setCurrentLimit(currentLimit);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        c1.setCurrentLimit(20000);
+       assertEquals(20000,c1.getCurrentLimit(),delta);
     }
 
     /**
@@ -67,11 +64,8 @@ public class CustomerTest {
     @Test
     public void testSetMonthlyLimit() {
         System.out.println("setMonthlyLimit");
-        int monthlyLimit = 0;
-        Customer instance = null;
-        instance.setMonthlyLimit(monthlyLimit);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        c1.setMonthlyLimit(20000);
+        assertEquals(20000,c1.getMonthlyLimit(),delta);
     }
 
     /**
@@ -80,11 +74,8 @@ public class CustomerTest {
     @Test
     public void testSetCustType() {
         System.out.println("setCustType");
-        String custType = "";
-        Customer instance = null;
-        instance.setCustType(custType);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        c1.setCustType("consumer");
+        assertEquals("consumer", c1.getCustType());
     }
 
     /**
@@ -93,12 +84,7 @@ public class CustomerTest {
     @Test
     public void testGetCurrentLimit() {
         System.out.println("getCurrentLimit");
-        Customer instance = null;
-        double expResult = 0.0;
-        double result = instance.getCurrentLimit();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(20000,c1.getCurrentLimit(),delta);
     }
 
     /**
@@ -107,40 +93,20 @@ public class CustomerTest {
     @Test
     public void testGetMonthlyLimit() {
         System.out.println("getMonthlyLimit");
-        Customer instance = null;
-        double expResult = 0.0;
-        double result = instance.getMonthlyLimit();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(20000,c1.getMonthlyLimit(),delta);
     }
 
     /**
      * Test of getName method, of class Customer.
      */
-    @Test
-    public void testGetName() {
-        System.out.println("getName");
-        Customer instance = null;
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+   
     /**
      * Test of getCustType method, of class Customer.
      */
     @Test
     public void testGetCustType() {
         System.out.println("getCustType");
-        Customer instance = null;
-        String expResult = "";
-        String result = instance.getCustType();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("consumer", c1.getCustType());
     }
 
     /**
@@ -149,12 +115,7 @@ public class CustomerTest {
     @Test
     public void testGetEmail() {
         System.out.println("getEmail");
-        Customer instance = null;
-        String expResult = "";
-        String result = instance.getEmail();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("wong@email.com", c1.getEmail());
     }
 
     /**
@@ -163,38 +124,22 @@ public class CustomerTest {
     @Test
     public void testGetContact() {
         System.out.println("getContact");
-        Customer instance = null;
-        String expResult = "";
-        String result = instance.getContact();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("0123456789", c1.getContact());
     }
 
     /**
      * Test of setName method, of class Customer.
      */
-    @Test
-    public void testSetName() {
-        System.out.println("setName");
-        String name = "";
-        Customer instance = null;
-        instance.setName(name);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+   
     /**
      * Test of setEmail method, of class Customer.
      */
     @Test
     public void testSetEmail() {
         System.out.println("setEmail");
-        String email = "";
-        Customer instance = null;
-        instance.setEmail(email);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       c1.setEmail("wong@email.com");
+       assertEquals("wong@email.com", c1.getEmail());
+   
     }
 
     /**
@@ -203,25 +148,13 @@ public class CustomerTest {
     @Test
     public void testSetContact() {
         System.out.println("setContact");
-        String contact = "";
-        Customer instance = null;
-        instance.setContact(contact);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        c1.setContact("0123456789");
+        assertEquals("0123456789", c1.getContact());
     }
 
     /**
      * Test of toString method, of class Customer.
      */
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        Customer instance = null;
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+
     
 }
