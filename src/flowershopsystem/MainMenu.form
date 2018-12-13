@@ -160,9 +160,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="pickupListValueChanged"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -190,9 +187,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="deliverylistValueChanged"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
