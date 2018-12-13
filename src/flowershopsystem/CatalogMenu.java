@@ -268,7 +268,6 @@ public class CatalogMenu extends javax.swing.JFrame {
             model.setValueAt(amt, index, 1);
             model.setValueAt(price, index, 2);
 
-            Product p = new Product(n, amt, price);
             MainMenu.prodList.get(index).name = n;
             MainMenu.prodList.get(index).amt = amt;
             MainMenu.prodList.get(index).price = price;
@@ -303,7 +302,7 @@ public class CatalogMenu extends javax.swing.JFrame {
             jtfProdPrice.setText(null);
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Delete Uncessful", "Delete Unsuccesfull", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Delete Unccessful", "Delete Unsuccessful", JOptionPane.ERROR_MESSAGE);
         }
         JOptionPane.showMessageDialog(this, "Record deleted", "Delete sucessful", JOptionPane.INFORMATION_MESSAGE);
         jtfProdName.setText(null);
