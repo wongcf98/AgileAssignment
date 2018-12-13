@@ -26,8 +26,8 @@ public class CustomerMenu extends javax.swing.JFrame {
 
     private void loadDataIntoTable() {
         dm = (DefaultTableModel) jTable1.getModel();
-        Customer cust = new Customer("C001", "WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
-        MainMenu.custList.add(cust);
+       
+     
 
         for (int i = 0; i < MainMenu.custList.size(); i++) {
             Object[] data = {MainMenu.custList.get(i).id, MainMenu.custList.get(i).name,
@@ -51,8 +51,6 @@ public class CustomerMenu extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jtfID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jtfCustName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -70,6 +68,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         btnAddCust = new javax.swing.JButton();
         btnEditCust = new javax.swing.JButton();
         btnDeleteCust = new javax.swing.JButton();
+        btnInvoice = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Customer Menu");
@@ -94,22 +93,25 @@ public class CustomerMenu extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Customer ID");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Customer Name");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jtfCustName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Contact No.");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jtfContact.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("E-mail");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jtfEmail.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Customer Type");
 
-        jcbCustType.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jcbCustType.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jcbCustType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Customer Type", "Consumer", "Corporate Customer" }));
         jcbCustType.setToolTipText("");
         jcbCustType.addActionListener(new java.awt.event.ActionListener() {
@@ -118,24 +120,26 @@ public class CustomerMenu extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Current Credit Limit");
 
+        jtfCCL.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jtfCCL.setEnabled(false);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("RM");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("Monthly Credit Limit");
 
+        jtfMCL.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jtfMCL.setText("0");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("RM");
 
         btnAddCust.setBackground(new java.awt.Color(204, 255, 204));
-        btnAddCust.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
+        btnAddCust.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnAddCust.setText(" Add Customer ");
         btnAddCust.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 102), 3));
         btnAddCust.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +149,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         });
 
         btnEditCust.setBackground(new java.awt.Color(204, 255, 255));
-        btnEditCust.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
+        btnEditCust.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnEditCust.setText("Edit Customer");
         btnEditCust.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
         btnEditCust.addActionListener(new java.awt.event.ActionListener() {
@@ -155,7 +159,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         });
 
         btnDeleteCust.setBackground(new java.awt.Color(255, 204, 204));
-        btnDeleteCust.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
+        btnDeleteCust.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDeleteCust.setText("Delete Customer");
         btnDeleteCust.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
         btnDeleteCust.addActionListener(new java.awt.event.ActionListener() {
@@ -164,64 +168,79 @@ public class CustomerMenu extends javax.swing.JFrame {
             }
         });
 
+        btnInvoice.setBackground(new java.awt.Color(255, 255, 204));
+        btnInvoice.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnInvoice.setText("View Invoice");
+        btnInvoice.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0), 3));
+        btnInvoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInvoiceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
-                .addGap(45, 45, 45)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8)
-                            .addComponent(btnAddCust, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(11, 11, 11)
-                        .addComponent(btnEditCust, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnInvoice, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAddCust, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEditCust, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(btnDeleteCust, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnDeleteCust, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(63, 63, 63)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel8))
+                                .addGap(36, 36, 36))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfContact, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfID, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbCustType, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtfCCL, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jcbCustType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(84, 84, 84))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtfMCL, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfContact, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfCustName, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jtfCCL, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jtfMCL, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(45, 45, 45))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(36, 36, 36)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addGap(40, 40, 40))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(108, 108, 108)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jcbCustType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jcbCustType))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jtfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtfCustName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -238,18 +257,33 @@ public class CustomerMenu extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jtfCCL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jtfMCL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGap(38, 38, 38)
+                    .addComponent(jLabel9)
+                    .addComponent(jtfMCL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddCust, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditCust, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDeleteCust, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(77, 77, 77))
+                    .addComponent(btnAddCust, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditCust, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteCust, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnInvoice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
+
+        jLabel2.setVisible(false);
+        jtfCustName.setVisible(false);
+        jLabel3.setVisible(false);
+        jtfContact.setVisible(false);
+        jLabel4.setVisible(false);
+        jtfEmail.setVisible(false);
+        jLabel6.setVisible(false);
+        jtfCCL.setVisible(false);
+        jLabel7.setVisible(false);
+        jLabel8.setVisible(false);
+        jtfMCL.setVisible(false);
+        jLabel9.setVisible(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -258,12 +292,19 @@ public class CustomerMenu extends javax.swing.JFrame {
 
         if (jcbCustType.getSelectedIndex() == 1) {
             String zero = "0";
+            
             jtfCCL.setVisible(false);
             jtfMCL.setVisible(false);
             jLabel6.setVisible(false);
             jLabel7.setVisible(false);
             jLabel8.setVisible(false);
             jLabel9.setVisible(false);
+            jLabel2.setVisible(true);
+           jLabel3.setVisible(true);
+           jLabel4.setVisible(true);
+           jtfCustName.setVisible(true);
+           jtfEmail.setVisible(true);
+           jtfContact.setVisible(true);
             jtfCCL.setText(zero);
             jtfMCL.setText(zero);
         }
@@ -274,27 +315,44 @@ public class CustomerMenu extends javax.swing.JFrame {
             jLabel7.setVisible(true);
             jLabel8.setVisible(true);
             jLabel9.setVisible(true);
+              jLabel2.setVisible(true);
+           jLabel3.setVisible(true);
+           jLabel4.setVisible(true);
+           jtfCustName.setVisible(true);
+           jtfEmail.setVisible(true);
+           jtfContact.setVisible(true);
         }
 
     }//GEN-LAST:event_jcbCustTypeActionPerformed
 
     private void btnAddCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustActionPerformed
-        saveArray();
+        String id = saveArray();
         dm = (DefaultTableModel) jTable1.getModel();
         try {
-            Object[] data = {jtfID.getText(), jtfCustName.getText(), jtfContact.getText(), jtfEmail.getText(), jcbCustType.getSelectedItem().toString(), jtfMCL.getText(), jtfMCL.getText()};
+            Object[] data = {id, jtfCustName.getText(), jtfContact.getText(), jtfEmail.getText(), jcbCustType.getSelectedItem().toString(), jtfMCL.getText(), jtfMCL.getText()};
             dm.addRow(data);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
         }
 
-        jtfID.setText(null);
         jtfCustName.setText(null);
         jtfContact.setText(null);
         jtfEmail.setText(null);
         jtfCCL.setText(null);
         jtfMCL.setText(null);
         jcbCustType.setSelectedIndex(0);
+          jtfCCL.setVisible(false);
+            jtfMCL.setVisible(false);
+            jLabel6.setVisible(false);
+            jLabel7.setVisible(false);
+            jLabel8.setVisible(false);
+            jLabel9.setVisible(false);
+              jLabel2.setVisible(false);
+           jLabel3.setVisible(false);
+           jLabel4.setVisible(false);
+           jtfCustName.setVisible(false);
+           jtfEmail.setVisible(false);
+           jtfContact.setVisible(false);
     }//GEN-LAST:event_btnAddCustActionPerformed
 
     private void btnEditCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCustActionPerformed
@@ -303,7 +361,7 @@ public class CustomerMenu extends javax.swing.JFrame {
             TableModel model = jTable1.getModel();
             int index = jTable1.getSelectedRow();
 
-            String id = jtfID.getText();
+            
             String name = jtfCustName.getText();
             String contact = jtfContact.getText();
             String email = jtfEmail.getText();
@@ -311,7 +369,7 @@ public class CustomerMenu extends javax.swing.JFrame {
             int ccl = Integer.parseInt(jtfCCL.getText());
             int mcl = Integer.parseInt(jtfMCL.getText());
 
-            model.setValueAt(id, index, 0);
+            
             model.setValueAt(name, index, 1);
             model.setValueAt(contact, index, 2);
             model.setValueAt(email, index, 3);
@@ -319,14 +377,29 @@ public class CustomerMenu extends javax.swing.JFrame {
             model.setValueAt(mcl, index, 5);
             model.setValueAt(mcl, index, 6);
 
-            Customer c = new Customer(id, name, contact, email, type, mcl, mcl);
-            MainMenu.custList.get(index).id = id;
+            
             MainMenu.custList.get(index).name = name;
             MainMenu.custList.get(index).contact = contact;
             MainMenu.custList.get(index).email = email;
             MainMenu.custList.get(index).custType = type;
             MainMenu.custList.get(index).currentLimit = mcl;
             MainMenu.custList.get(index).monthlyLimit = mcl;
+            
+             jtfCCL.setVisible(false);
+            jtfMCL.setVisible(false);
+            jLabel6.setVisible(false);
+            jLabel7.setVisible(false);
+            jLabel8.setVisible(false);
+            jLabel9.setVisible(false);
+              jLabel2.setVisible(false);
+           jLabel3.setVisible(false);
+           jLabel4.setVisible(false);
+           jtfCustName.setVisible(false);
+           jtfEmail.setVisible(false);
+           jtfContact.setVisible(false);
+           jcbCustType.setEnabled(true);
+           jcbCustType.setSelectedIndex(0);
+           btnAddCust.setEnabled(true);
 
             JOptionPane.showMessageDialog(this, "Customer Details have been updated successfully.");
         } catch (Exception ex) {
@@ -339,25 +412,40 @@ public class CustomerMenu extends javax.swing.JFrame {
             dm = (DefaultTableModel) jTable1.getModel();
             int index = jTable1.getSelectedRow();
 
-            String id = jtfID.getText();
+            
             String name = jtfCustName.getText();
             String contact = jtfContact.getText();
             String email = jtfEmail.getText();
             String type = jcbCustType.getSelectedItem().toString();
             int ccl = Integer.parseInt(jtfCCL.getText());
             int mcl = Integer.parseInt(jtfMCL.getText());
-            Customer c = new Customer(id, name, contact, email, type, ccl, mcl);
+            
 
             dm.removeRow(index);
 
             MainMenu.custList.remove(index);
 
-            jtfID.setText(null);
+            
             jtfCustName.setText(null);
             jtfContact.setText(null);
             jtfEmail.setText(null);
             jtfCCL.setText(null);
             jtfMCL.setText(null);
+            jtfCCL.setVisible(false);
+            jtfMCL.setVisible(false);
+            jLabel6.setVisible(false);
+            jLabel7.setVisible(false);
+            jLabel8.setVisible(false);
+            jLabel9.setVisible(false);
+              jLabel2.setVisible(false);
+           jLabel3.setVisible(false);
+           jLabel4.setVisible(false);
+           jtfCustName.setVisible(false);
+           jtfEmail.setVisible(false);
+           jtfContact.setVisible(false);
+           jcbCustType.setEnabled(true);
+           jcbCustType.setSelectedIndex(0);
+           btnAddCust.setEnabled(true);
             JOptionPane.showMessageDialog(this, "Customer Details have been deleted successfully.");
 
         } catch (Exception ex) {
@@ -372,7 +460,6 @@ public class CustomerMenu extends javax.swing.JFrame {
         btnDeleteCust.setEnabled(true);
         int index = jTable1.getSelectedRow();
         TableModel model = jTable1.getModel();
-        String id = model.getValueAt(index, 0).toString();
         String name = model.getValueAt(index, 1).toString();
         String contact = model.getValueAt(index, 2).toString();
         String email = model.getValueAt(index, 3).toString();
@@ -380,40 +467,76 @@ public class CustomerMenu extends javax.swing.JFrame {
         String ccl = model.getValueAt(index, 5).toString();
         String mcl = model.getValueAt(index, 6).toString();
 
-        jtfID.setText(id);
+        
         jtfCustName.setText(name);
         jtfContact.setText(contact);
         jtfEmail.setText(email);
         jtfCCL.setText(ccl);
-        if (type == "Consumer") {
-            jcbCustType.setSelectedIndex(1);
-        } else {
-            jcbCustType.setSelectedIndex(2);
-        }
         jtfMCL.setText(mcl);
         btnAddCust.setEnabled(false);
+        if(type == "Consumer")
+        {
+             jtfCCL.setVisible(false);
+            jtfMCL.setVisible(false);
+            jLabel6.setVisible(false);
+            jLabel7.setVisible(false);
+            jLabel8.setVisible(false);
+            jLabel9.setVisible(false);
+            jLabel2.setVisible(true);
+           jLabel3.setVisible(true);
+           jLabel4.setVisible(true);
+           jcbCustType.setEnabled(false);
+           jcbCustType.setSelectedIndex(1);
+           jtfCustName.setVisible(true);
+           jtfEmail.setVisible(true);
+           jtfContact.setVisible(true);
+           btnInvoice.setEnabled(false);
+        }
+        else
+        {
+             jtfCCL.setVisible(true);
+            jtfMCL.setVisible(true);
+            jLabel6.setVisible(true);
+            jLabel7.setVisible(true);
+            jLabel8.setVisible(true);
+            jLabel9.setVisible(true);
+             jLabel2.setVisible(true);
+           jLabel3.setVisible(true);
+           jLabel4.setVisible(true);
+           jtfCustName.setVisible(true);
+           jcbCustType.setEnabled(false);
+           jcbCustType.setSelectedIndex(2);
+           jtfEmail.setVisible(true);
+           jtfContact.setVisible(true);
+           btnInvoice.setEnabled(true);
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         btnAddCust.setEnabled(true);
     }//GEN-LAST:event_formMouseClicked
 
-    private void saveArray() {
+    private void btnInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvoiceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInvoiceActionPerformed
+
+    private String saveArray() {
+        Customer c =null;
         try {
-            String id = jtfID.getText();
             String name = jtfCustName.getText();
             String contact = jtfContact.getText();
             String email = jtfEmail.getText();
             String type = jcbCustType.getSelectedItem().toString();
 
             int mcl = Integer.parseInt(jtfMCL.getText());
-            Customer c = new Customer(id, name, contact, email, type, mcl, mcl);
+          c = new Customer( name, contact, email, type, mcl, mcl);
+            
             if (MainMenu.custList.add(c)) {
                 JOptionPane.showMessageDialog(this, "Customer added");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccessful", JOptionPane.ERROR_MESSAGE);
-        }
+        }return c.id;
     }
 
     /**
@@ -500,7 +623,7 @@ public class CustomerMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnAddCust;
     private javax.swing.JButton btnDeleteCust;
     private javax.swing.JButton btnEditCust;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnInvoice;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -516,7 +639,6 @@ public class CustomerMenu extends javax.swing.JFrame {
     private javax.swing.JTextField jtfContact;
     private javax.swing.JTextField jtfCustName;
     private javax.swing.JTextField jtfEmail;
-    private javax.swing.JTextField jtfID;
     private javax.swing.JTextField jtfMCL;
     // End of variables declaration//GEN-END:variables
 }

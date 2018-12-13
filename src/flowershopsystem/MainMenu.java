@@ -67,7 +67,12 @@ public class MainMenu extends javax.swing.JFrame {
 
         jMenu3.setText("Customers");
 
-        jMenuItem4.setText("jMenuItem4");
+        jMenuItem4.setText("Customer Registration");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem4);
 
         jMenuBar1.add(jMenu3);
@@ -94,6 +99,11 @@ public class MainMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here
+        CustomerMenu.main(null);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -145,5 +155,9 @@ public class MainMenu extends javax.swing.JFrame {
     private void initializeDate() {
         Product p = new Product("Rose", 20, (float) 20.5);
         prodList.add(p);
+         Customer cust1 = new Customer("WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
+         Customer cust2 = new Customer( "YAP SHAO LIANG", "010-2384016", "yap@gmail.com", "Corporate Customer", 2000, 2000);
+         custList.add(cust1);
+         custList.add(cust2);
     }
 }
