@@ -54,9 +54,16 @@ public class PickupMenu extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -65,6 +72,18 @@ public class PickupMenu extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(70);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(90);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(90);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,8 +93,8 @@ public class PickupMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDate)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,20 +112,21 @@ public class PickupMenu extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int index = jTable1.getSelectedRow();
-        SimpleDateFormat
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         PickupConfirm frame = new PickupConfirm();
-        frame.lblOrderID.setText((String) jTable1.getValueAt(index, 1));
-        frame.lblCustomer.setText((String) jTable1.getValueAt(index, 2));
+        frame.lblOrderID.setText((String) jTable1.getValueAt(index, 0).toString());
+        frame.lblCustomer.setText((String) jTable1.getValueAt(index, 1).toString());
         for (OrderDetails order : MainMenu.orderList) {
-            if(order.orderid == (int)jTable1.getValueAt(index, 1)){
-                frame.lblDateTime.setText("Order at: " + order.orderDate.getTime());
+            if (order.orderid == (int) jTable1.getValueAt(index, 0)) {
+                frame.lblDateTime.setText("Order at: " + format.format(order.orderDate.getTime()));
             }
         }
-        if (((String) jTable1.getValueAt(index, 3)).equalsIgnoreCase("pending")) {
-            frame.lblCollectedTime.setText("Collecting at: " + (String) jTable1.getValueAt(index, 4));
+        if (((String) jTable1.getValueAt(index, 2)).equalsIgnoreCase("pending")) {
+            frame.lblCollectedTime.setText("Collecting at: " + (String) jTable1.getValueAt(index, 3));
         } else {
-            frame.lblCollectedTime.setText("Collected at: " + (String) jTable1.getValueAt(index, 5));
+            frame.lblCollectedTime.setText("Collected at: " + (String) jTable1.getValueAt(index, 4));
         }
+        frame.setVisible(true);
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -153,18 +173,24 @@ public class PickupMenu extends javax.swing.JFrame {
     private void loadDataIntoTable() {
         //TODO
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        jTable1.getColumnModel().getColumn(0).setWidth(40);
+        jTable1.getColumnModel().getColumn(1).setWidth(150);
+        jTable1.getColumnModel().getColumn(2).setWidth(70);
+        jTable1.getColumnModel().getColumn(3).setWidth(80);
+        jTable1.getColumnModel().getColumn(4).setWidth(80);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         for (OrderDetails order : MainMenu.orderList) {
             if (order.delivery.status.equalsIgnoreCase("pending")
                     && order.deliveryMethod.equalsIgnoreCase("Pick Up")) {
                 if (order.delivery.getDate_of_collect() == null) {
                     Object[] data = {order.orderid, order.cust.name, "Pending",
-                        order.delivery.getDate_of_deliver(),
+                        format.format(order.delivery.getDate_of_deliver().getTime()),
                         " -- "};
                     dm.addRow(data);
                 } else {
                     Object[] data = {order.orderid, order.cust.name, "Pending",
-                        order.delivery.getDate_of_deliver(),
-                        order.delivery.getDate_of_collect()};
+                        format.format(order.delivery.getDate_of_deliver().getTime()),
+                        format.format(order.delivery.getDate_of_collect().getTime())};
                     dm.addRow(data);
                 }
             }
@@ -173,18 +199,19 @@ public class PickupMenu extends javax.swing.JFrame {
             if (order.delivery.status.equalsIgnoreCase("done")
                     && order.deliveryMethod.equalsIgnoreCase("Pick Up")) {
                 if (order.delivery.getDate_of_collect() == null) {
-                    Object[] data = {order.orderid, order.cust.name, "Pending",
-                        order.delivery.getDate_of_deliver(),
+                    Object[] data = {order.orderid, order.cust.name, "Done",
+                        format.format(order.delivery.getDate_of_deliver().getTime()),
                         " -- "};
                     dm.addRow(data);
                 } else {
-                    Object[] data = {order.orderid, order.cust.name, "Pending",
-                        order.delivery.getDate_of_deliver(),
-                        order.delivery.getDate_of_collect()};
+                    Object[] data = {order.orderid, order.cust.name, "Done",
+                        format.format(order.delivery.getDate_of_deliver().getTime()),
+                        format.format(order.delivery.getDate_of_collect().getTime())};
                     dm.addRow(data);
                 }
             }
         }
         jTable1.setModel(dm);
     }
+
 }

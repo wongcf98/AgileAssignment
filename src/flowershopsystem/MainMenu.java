@@ -6,6 +6,7 @@
 package flowershopsystem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -280,9 +281,16 @@ public class MainMenu extends javax.swing.JFrame {
     private void initializeDate() {
         Product p = new Product("Rose", 20, (float) 20.5);
         prodList.add(p);
-         Customer cust1 = new Customer("WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
-         Customer cust2 = new Customer( "YAP SHAO LIANG", "010-2384016", "yap@gmail.com", "Corporate Customer", 2000, 2000);
-         custList.add(cust1);
-         custList.add(cust2);
+        Customer cust1 = new Customer("WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
+        Customer cust2 = new Customer("YAP SHAO LIANG", "010-2384016", "yap@gmail.com", "Corporate Customer", 2000, 2000);
+        custList.add(cust1);
+        custList.add(cust2);
+        Delivery.Address add = new Delivery.Address("10", "jalan 14/60", "Petaling Jata", "Selangar", "Malaysia", 46300);
+        Delivery deli = new Delivery(add,Calendar.getInstance());
+        deliveryList.add(deli);
+        OrderDetails order = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli);
+        OrderDetails order1 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Delivery", deli);
+        orderList.add(order);
+        orderList.add(order1);
     }
 }

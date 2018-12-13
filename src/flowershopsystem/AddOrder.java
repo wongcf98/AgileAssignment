@@ -101,7 +101,7 @@ public class AddOrder extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jDate = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
-        jPickUpTime = new javax.swing.JComboBox<String>();
+        jPickUpHour = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jDelivery = new javax.swing.JComboBox<String>();
@@ -121,6 +121,8 @@ public class AddOrder extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jPickUpMinute = new javax.swing.JComboBox<String>();
 
         jButton1.setText("jButton1");
 
@@ -254,10 +256,10 @@ public class AddOrder extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel10.setText("Time : ");
 
-        jPickUpTime.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "11am", "11.30am", "12pm", "12.30pm", "1.30pm", "2pm", "2.30pm", "3pm" }));
-        jPickUpTime.addActionListener(new java.awt.event.ActionListener() {
+        jPickUpHour.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+        jPickUpHour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPickUpTimeActionPerformed(evt);
+                jPickUpHourActionPerformed(evt);
             }
         });
 
@@ -371,6 +373,15 @@ public class AddOrder extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel20.setText(":");
+
+        jPickUpMinute.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60" }));
+        jPickUpMinute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPickUpMinuteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -449,7 +460,11 @@ public class AddOrder extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPickUpTime, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jPickUpHour, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPickUpMinute, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jAddPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -521,10 +536,12 @@ public class AddOrder extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jPickUpTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPickUpHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20)
+                            .addComponent(jPickUpMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jAddPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(63, Short.MAX_VALUE))))
+                        .addGap(19, 63, Short.MAX_VALUE))))
         );
 
         pack();
@@ -717,7 +734,7 @@ public class AddOrder extends javax.swing.JFrame {
             jLabel8.setVisible(false);
             jAddPanel.setVisible(false);
             jLabel10.setVisible(true);
-            jPickUpTime.setVisible(true);
+            jPickUpHour.setVisible(true);
         }
         if (jDelivery.getSelectedIndex() == 2) {
             jLabel8.setVisible(true);
@@ -726,9 +743,9 @@ public class AddOrder extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jDeliveryActionPerformed
 
-    private void jPickUpTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPickUpTimeActionPerformed
+    private void jPickUpHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPickUpHourActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPickUpTimeActionPerformed
+    }//GEN-LAST:event_jPickUpHourActionPerformed
 
     private void jCopNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCopNameActionPerformed
         String usercurrentLimit = (String) jCopName.getSelectedItem();
@@ -748,6 +765,10 @@ public class AddOrder extends javax.swing.JFrame {
         // TODO add your handling code here:
         saveintoOrderList();
     }//GEN-LAST:event_jMakeOrderActionPerformed
+
+    private void jPickUpMinuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPickUpMinuteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPickUpMinuteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -815,6 +836,7 @@ public class AddOrder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -823,7 +845,8 @@ public class AddOrder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JButton jMakeOrder;
-    private javax.swing.JComboBox<String> jPickUpTime;
+    private javax.swing.JComboBox<String> jPickUpHour;
+    private javax.swing.JComboBox<String> jPickUpMinute;
     private javax.swing.JTextField jPrice;
     private javax.swing.JComboBox<String> jProduct;
     private javax.swing.JScrollPane jScrollPane1;
@@ -878,7 +901,8 @@ public class AddOrder extends javax.swing.JFrame {
             int delivery_year = jDate.getCalendar().get(Calendar.YEAR);
             int delivery_month = jDate.getCalendar().get(Calendar.MONTH);
             int delivery_day = jDate.getCalendar().get(Calendar.DAY_OF_MONTH);
-            String pickTime = jPickUpTime.getSelectedItem().toString();
+            int pickHour = (int) jPickUpHour.getSelectedItem();
+            int pickMinute = (int) jPickUpMinute.getSelectedItem();
             String unit = jAddUnit.getText();
             String street = jAddStreet.getText();
             String city = jAddCity.getText();
@@ -891,6 +915,8 @@ public class AddOrder extends javax.swing.JFrame {
             deliDate.set(Calendar.YEAR, delivery_year);
             deliDate.set(Calendar.MONTH, delivery_month);
             deliDate.set(Calendar.DAY_OF_MONTH, delivery_day);
+            deliDate.set(Calendar.HOUR_OF_DAY, pickHour);
+            deliDate.set(Calendar.MINUTE, pickMinute);
 
             OrderDetails order = null;
             if (orderDate.before(Calendar.getInstance())) {
@@ -901,7 +927,7 @@ public class AddOrder extends javax.swing.JFrame {
                         //Address add = new Address(unit, street, city, state, country, postcode);
                         order = new OrderDetails(MainMenu.custList.get(i), orderDate,
                                 Float.parseFloat(jSubTotal.getText()),
-                                (String) jDelivery.getSelectedItem(),
+                                DMethod,
                                 new Delivery(new Delivery.Address(unit, street, city, state, country,
                                                 postcode), deliDate));
                         break;

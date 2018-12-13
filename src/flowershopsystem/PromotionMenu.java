@@ -287,7 +287,6 @@ public class PromotionMenu extends javax.swing.JFrame {
                 txtDiscountRate.setText(null);
                 txtPrice.setText(null);
                 jDateChooser2.setDate(null);
-
             }
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(this, "Please fill in all the field", "Input Incomplete", JOptionPane.ERROR_MESSAGE);
@@ -536,5 +535,28 @@ public class PromotionMenu extends javax.swing.JFrame {
             dm.insertRow(i, data);
         }
         jTable1.setModel(dm);
+    }
+    class ComboItem {
+
+        private String key;
+        private String value;
+
+        public ComboItem(String key, String value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return key;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }
