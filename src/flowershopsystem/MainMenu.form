@@ -77,6 +77,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deliveryMenuActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="deliveryMenu.setVisible(false);"/>
+              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
