@@ -6,6 +6,7 @@
 package flowershopsystem;
 
 import java.text.SimpleDateFormat;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -92,30 +93,20 @@ public class PickupMenu extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int index = jTable1.getSelectedRow();
-        String ordid = (String) jTable1.getModel().getValueAt(index, 1);
-        String custName = (String) jTable1.getModel().getValueAt(index, 2);
-        String status = (String) jTable1.getModel().getValueAt(index, 3);
-        String comingTime = (String) jTable1.getModel().getValueAt(index, 4);
-        String collectedTime = (String) jTable1.getModel().getValueAt(index, 5);
-        PickupConfirm confirm = new PickupConfirm(Integer.parseInt(ordid));
-        try {
-            confirm.main(null);
-            confirm.lblOrderID.setText(ordid);
-            confirm.lblCustomer.setText(custName);
-            if (status.equalsIgnoreCase("Collected")) {
-                confirm.btnCollect.setVisible(false);
-                confirm.btnCancel.setVisible(true);
-                confirm.lblCollectedTime.setText("Collected at: "+ comingTime);
-            } else {
-                confirm.btnCollect.setVisible(true);
-                confirm.btnCancel.setVisible(false);
-                confirm.lblCollectedTime.setText("Collecting at: " + collectedTime);
+        SimpleDateFormat
+        PickupConfirm frame = new PickupConfirm();
+        frame.lblOrderID.setText((String) jTable1.getValueAt(index, 1));
+        frame.lblCustomer.setText((String) jTable1.getValueAt(index, 2));
+        for (OrderDetails order : MainMenu.orderList) {
+            if(order.orderid == (int)jTable1.getValueAt(index, 1)){
+                frame.lblDateTime.setText("Order at: " + order.orderDate.getTime());
             }
-        } catch (Exception ex) {
-
         }
-
-
+        if (((String) jTable1.getValueAt(index, 3)).equalsIgnoreCase("pending")) {
+            frame.lblCollectedTime.setText("Collecting at: " + (String) jTable1.getValueAt(index, 4));
+        } else {
+            frame.lblCollectedTime.setText("Collected at: " + (String) jTable1.getValueAt(index, 5));
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -160,39 +151,40 @@ public class PickupMenu extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void loadDataIntoTable() {
+        //TODO
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
-        //clear all record in table
-        dm.setRowCount(0);
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        //load data into table from list
-        for (int i = 0; i < MainMenu.deliveryList.size(); i++) {
-            if (MainMenu.deliveryList.get(i).method.equalsIgnoreCase("Pick Up")
-                    && MainMenu.deliveryList.get(i).status.equalsIgnoreCase("pending")) {
-                Object[] data = new Object[5];
-                data[0] = MainMenu.deliveryList.get(i).getOrder().orderid;
-                data[1] = MainMenu.deliveryList.get(i).getCust().name;
-                data[2] = MainMenu.deliveryList.get(i).status;
-                data[3] = format.format(MainMenu.deliveryList.get(i).getDate_of_deliver().getTime());
-                if (MainMenu.deliveryList.get(i).getDate_of_collect() != null) {
-                    data[4] = format.format(MainMenu.deliveryList.get(i).getDate_of_collect().getTime());
+        for (OrderDetails order : MainMenu.orderList) {
+            if (order.delivery.status.equalsIgnoreCase("pending")
+                    && order.deliveryMethod.equalsIgnoreCase("Pick Up")) {
+                if (order.delivery.getDate_of_collect() == null) {
+                    Object[] data = {order.orderid, order.cust.name, "Pending",
+                        order.delivery.getDate_of_deliver(),
+                        " -- "};
+                    dm.addRow(data);
                 } else {
-                    data[4] = " - ";
+                    Object[] data = {order.orderid, order.cust.name, "Pending",
+                        order.delivery.getDate_of_deliver(),
+                        order.delivery.getDate_of_collect()};
+                    dm.addRow(data);
                 }
-                dm.addRow(data);
             }
         }
-        if (dm.getRowCount()
-                == 0) {
-            JOptionPane.showMessageDialog(this, "No pick up record");
+        for (OrderDetails order : MainMenu.orderList) {
+            if (order.delivery.status.equalsIgnoreCase("done")
+                    && order.deliveryMethod.equalsIgnoreCase("Pick Up")) {
+                if (order.delivery.getDate_of_collect() == null) {
+                    Object[] data = {order.orderid, order.cust.name, "Pending",
+                        order.delivery.getDate_of_deliver(),
+                        " -- "};
+                    dm.addRow(data);
+                } else {
+                    Object[] data = {order.orderid, order.cust.name, "Pending",
+                        order.delivery.getDate_of_deliver(),
+                        order.delivery.getDate_of_collect()};
+                    dm.addRow(data);
+                }
+            }
         }
-        //Set the width for each column
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(50);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(90);
-        jTable1.getColumnModel().getColumn(4).setPreferredWidth(90);
-        
         jTable1.setModel(dm);
     }
 }

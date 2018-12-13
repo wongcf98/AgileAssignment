@@ -22,16 +22,9 @@ public class PickupConfirm extends javax.swing.JFrame {
      */
     public int id;
 
-    public PickupConfirm(int orderid) {
+    public PickupConfirm() {
         initComponents();
         loadOrderIntoTable();
-        id = orderid;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        for (OrderDetails OD : MainMenu.orderList) {
-            if (OD.orderid == id) {
-                lblDateTime.setText("Order at: " + format.format(OD.orderDate));
-            }
-        }
     }
 
     /**
@@ -201,30 +194,10 @@ public class PickupConfirm extends javax.swing.JFrame {
 
     private void btnCollectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollectActionPerformed
         // TODO add your handling code here:
-        Calendar collectedDate = Calendar.getInstance();
-        String id = lblOrderID.getText();
-        for (Delivery deliList : MainMenu.deliveryList) {
-            if (deliList.getOrder().getOrderid() == Integer.parseInt(id)) {
-                deliList.setDate_of_collect(collectedDate);
-                deliList.status = "Done";
-                JOptionPane.showMessageDialog(this, "Order Pickup status changed to done", "Status updated", JOptionPane.INFORMATION_MESSAGE);
-                
-                break;
-            }
-        }
     }//GEN-LAST:event_btnCollectActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
-        String id = lblOrderID.getText();
-        for (Delivery deliList : MainMenu.deliveryList) {
-            if (deliList.getOrder().getOrderid() == Integer.parseInt(id)) {
-                deliList.setDate_of_collect(null);
-                deliList.status = "Pending";
-                JOptionPane.showMessageDialog(this, "Order Pickup status changed to pending", "Status updated", JOptionPane.INFORMATION_MESSAGE);
-                break;
-            }
-        }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnCancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancel1ActionPerformed
@@ -261,7 +234,7 @@ public class PickupConfirm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PickupConfirm(1001).setVisible(true);
+                new PickupConfirm().setVisible(true);
             }
         });
     }

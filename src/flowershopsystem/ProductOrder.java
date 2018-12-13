@@ -16,15 +16,15 @@ public class ProductOrder extends AddOrder {
     String pName;
     int pQuantity;
     double pTotal;
-    int orderid; 
+    int orderid =OrderDetails.count; 
            
     public ProductOrder(String pName, int pQuantity, double pTotal, int orderid) {
         this.pName = pName;
         this.pQuantity = pQuantity;
         this.pTotal = pTotal;
-        this.orderid = orderid;
+        this.orderid =orderid;
     }
-    
+
     public String getpName() {
         return pName;
     }

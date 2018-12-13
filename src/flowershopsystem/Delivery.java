@@ -14,28 +14,15 @@ import java.util.Calendar;
 public class Delivery {
 
     private Address add;
-    private OrderDetails order;
-    private Customer cust;
     private Calendar date_of_deliver;
     private Calendar date_of_collect;
     String status;
-    String method;
     
-    public Delivery(OrderDetails order, Address add, Customer cust, Calendar DoD) {
+    public Delivery(Address add, Calendar DoD) {
         this.add = add;
-        this.order = order;
-        this.cust = cust;
         this.date_of_deliver = DoD;
         this.status = "Pending";
-        this.method = "Delivery";
-    }
-
-    public Delivery(OrderDetails order, Customer cust, Calendar date_of_deliver) {
-        this.order = order;
-        this.cust = cust;
-        this.date_of_deliver = date_of_deliver;
-        this.status = "Pending";
-        this.method = "Pick Up";
+        this.date_of_collect = null;
     }
 
     public Calendar getDate_of_deliver() {
@@ -61,29 +48,8 @@ public class Delivery {
     public void setAdd(Address add) {
         this.add = add;
     }
-
-    public OrderDetails getOrder() {
-        return order;
-    }
-
-    public void setOrder(OrderDetails order) {
-        this.order = order;
-    }
-
-    public Customer getCust() {
-        return cust;
-    }
-
-    public void setCust(Customer cust) {
-        this.cust = cust;
-    }
-
-    @Override
-    public String toString() {
-        return "Delivery{" + "add=" + add + ", order=" + order + ", cust=" + cust + '}';
-    }
     
-    private static class Address {
+    public static class Address {
 
         String unit, street, city, state, country;
         int postcode;

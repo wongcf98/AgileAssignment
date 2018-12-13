@@ -18,15 +18,49 @@ public class OrderDetails {
     static int count = 1000;
     Customer cust;
     Calendar orderDate;
-    
+    float total;
+    String deliveryMethod = null;
+    Delivery delivery = null; 
 
-    public OrderDetails(Customer cust, Calendar orderDate) {
+    public OrderDetails(Customer cust, Calendar orderDate, float total, 
+            String deliveryMethod, 
+            Delivery delivery) {
         this.cust = cust;
         this.orderDate = orderDate;
         this.orderid = count;
+        this.total = total;
+        this.deliveryMethod = deliveryMethod;
+        this.delivery = delivery;
         count++;
     }
 
+    public String getDeliveryMethod() {
+        return deliveryMethod;
+    }
+
+    public void setDeliveryMethod(String deliveryMethod) {
+        this.deliveryMethod = deliveryMethod;
+    }
+
+    public Delivery getAddress() {
+        return delivery;
+    }
+
+    public void setAddress(Delivery address) {
+        this.delivery = address;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+   public OrderDetails( ){
+    this.orderid = count;
+    }
+    
     @Override
     public String toString() {
         return "OrderDetails{" + "cust=" + cust + ", orderDate=" + orderDate + '}';
