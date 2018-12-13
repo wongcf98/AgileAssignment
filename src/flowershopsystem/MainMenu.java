@@ -53,8 +53,8 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        pickupMenu = new javax.swing.JMenuItem();
+        deliveryMenu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,16 +112,21 @@ public class MainMenu extends javax.swing.JFrame {
 
         jMenu4.setText("Delivery");
 
-        jMenuItem5.setText("Pickup");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        pickupMenu.setText("Pickup");
+        pickupMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                pickupMenuActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem5);
+        jMenu4.add(pickupMenu);
 
-        jMenuItem6.setText("Delivery");
-        jMenu4.add(jMenuItem6);
+        deliveryMenu.setText("Delivery");
+        deliveryMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deliveryMenuActionPerformed(evt);
+            }
+        });
+        jMenu4.add(deliveryMenu);
 
         jMenuBar1.add(jMenu4);
 
@@ -161,10 +166,10 @@ public class MainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void pickupMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickupMenuActionPerformed
         // TODO add your handling code here:
         PickupMenu.main(null);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_pickupMenuActionPerformed
 
     private void pickupListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pickupListValueChanged
         // TODO add your handling code here:
@@ -176,6 +181,11 @@ public class MainMenu extends javax.swing.JFrame {
     private void deliverylistValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_deliverylistValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_deliverylistValueChanged
+
+    private void deliveryMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryMenuActionPerformed
+        // TODO add your handling code here:
+        DeliveryMenu.main(null);
+    }//GEN-LAST:event_deliveryMenuActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -212,6 +222,7 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem deliveryMenu;
     private javax.swing.JList deliverylist;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -224,11 +235,10 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList pickupList;
+    private javax.swing.JMenuItem pickupMenu;
     // End of variables declaration//GEN-END:variables
 
     private void initializeDate() {

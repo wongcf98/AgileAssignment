@@ -262,6 +262,14 @@ public class PromotionMenu extends javax.swing.JFrame {
             System.out.println(jDateChooser2.getCalendar().get(Calendar.DAY_OF_MONTH));
             int end_day = jDateChooser2.getCalendar().get(Calendar.DAY_OF_MONTH);
 
+//            How to set Calendar time:
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTime(date);
+//            calendar.set(Calendar.MILLISECOND, 0);
+//            calendar.set(Calendar.SECOND, 0);
+//            calendar.set(Calendar.MINUTE, 0);
+//            calendar.set(Calendar.HOUR, 0);
+
             Calendar start_cal = Calendar.getInstance();
             start_cal.set(Calendar.YEAR, start_year);
             start_cal.set(Calendar.MONTH, start_month);
@@ -352,15 +360,15 @@ public class PromotionMenu extends javax.swing.JFrame {
         btnDel.setEnabled(true);
         btnEdit.setEnabled(true);
         btnAdd.setEnabled(false);
-        
+
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-        
+
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        
+
     }//GEN-LAST:event_btnEditActionPerformed
 
     /**
@@ -469,7 +477,7 @@ public class PromotionMenu extends javax.swing.JFrame {
         for (int i = 0; i < MainMenu.promotionList.size(); i++) {
             format.format(MainMenu.promotionList.get(i).startDate.getTime());
             p = MainMenu.promotionList.get(i).prod;
-            Object[] data = {p.name, p.price, p.amt, MainMenu.promotionList.get(i).discount, 
+            Object[] data = {p.name, p.price, p.amt, MainMenu.promotionList.get(i).discount,
                 MainMenu.promotionList.get(i).discountedPrice,
                 format.format(MainMenu.promotionList.get(i).startDate.getTime()), format.format(MainMenu.promotionList.get(i).endDate.getTime())};
             dm.insertRow(i, data);

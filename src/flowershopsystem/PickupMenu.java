@@ -95,7 +95,8 @@ public class PickupMenu extends javax.swing.JFrame {
         String ordid = (String) jTable1.getModel().getValueAt(index, 1);
         String custName = (String) jTable1.getModel().getValueAt(index, 2);
         String status = (String) jTable1.getModel().getValueAt(index, 3);
-        String collectTime = (String) jTable1.getModel().getValueAt(index, 4);
+        String comingTime = (String) jTable1.getModel().getValueAt(index, 4);
+        String collectedTime = (String) jTable1.getModel().getValueAt(index, 5);
         PickupConfirm confirm = new PickupConfirm(Integer.parseInt(ordid));
         try {
             confirm.main(null);
@@ -104,11 +105,11 @@ public class PickupMenu extends javax.swing.JFrame {
             if (status.equalsIgnoreCase("Collected")) {
                 confirm.btnCollect.setVisible(false);
                 confirm.btnCancel.setVisible(true);
-                confirm.lblCollectedTime.setText(collectTime);
+                confirm.lblCollectedTime.setText("Collected at: "+ comingTime);
             } else {
                 confirm.btnCollect.setVisible(true);
                 confirm.btnCancel.setVisible(false);
-                confirm.lblCollectedTime.setText("Not collected yet");
+                confirm.lblCollectedTime.setText("Collecting at: " + collectedTime);
             }
         } catch (Exception ex) {
 
