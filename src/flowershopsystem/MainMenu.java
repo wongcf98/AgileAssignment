@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class MainMenu extends javax.swing.JFrame {
 //Create a public array for the program
 
+    public static ArrayList<Delivery> deliveryList = new ArrayList<>();
     public static ArrayList<Product> prodList = new ArrayList<>();
     public static ArrayList<Promotion> promotionList = new ArrayList<>();
     public static ArrayList<OrderDetails> orderList = new ArrayList<OrderDetails>();
@@ -35,6 +36,12 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        pickupList = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        deliverylist = new javax.swing.JList();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -44,23 +51,67 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        pickupMenu = new javax.swing.JMenuItem();
+        deliveryMenu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        pickupList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        pickupList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                pickupListValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(pickupList);
+
+        jLabel1.setText("Today pickup order List:");
+
+        deliverylist.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        deliverylist.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                deliverylistValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(deliverylist);
+
+        jLabel2.setText("Today delivery order List:");
+
         jMenu1.setText("Catalog");
 
-        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.setText("Catalog Menu");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.setText("Promotion Menu");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Order");
 
-        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.setText("Add new order");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -79,8 +130,21 @@ public class MainMenu extends javax.swing.JFrame {
 
         jMenu4.setText("Delivery");
 
-        jMenuItem5.setText("jMenuItem5");
-        jMenu4.add(jMenuItem5);
+        pickupMenu.setText("Pickup");
+        pickupMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pickupMenuActionPerformed(evt);
+            }
+        });
+        jMenu4.add(pickupMenu);
+
+        deliveryMenu.setText("Delivery");
+        deliveryMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deliveryMenuActionPerformed(evt);
+            }
+        });
+        jMenu4.add(deliveryMenu);
 
         jMenuBar1.add(jMenu4);
 
@@ -90,20 +154,74 @@ public class MainMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(51, 51, 51))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here
         CustomerMenu.main(null);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void pickupListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pickupListValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pickupListValueChanged
+
+    private void deliverylistValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_deliverylistValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deliverylistValueChanged
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        CatalogMenu.main(null);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        PromotionMenu.main(null);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        AddOrder.main(null);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void pickupMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickupMenuActionPerformed
+        // TODO add your handling code here:
+        PickupMenu.main(null);
+    }//GEN-LAST:event_pickupMenuActionPerformed
+
+    private void deliveryMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryMenuActionPerformed
+        // TODO add your handling code here:
+        DeliveryMenu.main(null);
+    }//GEN-LAST:event_deliveryMenuActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -140,6 +258,10 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem deliveryMenu;
+    private javax.swing.JList deliverylist;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -149,7 +271,10 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList pickupList;
+    private javax.swing.JMenuItem pickupMenu;
     // End of variables declaration//GEN-END:variables
 
     private void initializeDate() {
