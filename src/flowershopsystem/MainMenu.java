@@ -88,10 +88,25 @@ public class MainMenu extends javax.swing.JFrame {
 
         jMenu1.setText("Catalog");
 
-        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.setText("Catalog Menu");
+        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem1MouseClicked(evt);
+            }
+        });
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.setText("Promotion Menu");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -105,7 +120,12 @@ public class MainMenu extends javax.swing.JFrame {
 
         jMenu3.setText("Customers");
 
-        jMenuItem4.setText("jMenuItem4");
+        jMenuItem4.setText("Customer Registration");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem4);
 
         jMenuBar1.add(jMenu3);
@@ -166,26 +186,6 @@ public class MainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pickupMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickupMenuActionPerformed
-        // TODO add your handling code here:
-        PickupMenu.main(null);
-    }//GEN-LAST:event_pickupMenuActionPerformed
-
-    private void pickupListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pickupListValueChanged
-        // TODO add your handling code here:
-        if (!evt.getValueIsAdjusting()) {
-            System.out.println(pickupList.getSelectedValue());
-        }
-    }//GEN-LAST:event_pickupListValueChanged
-
-    private void deliverylistValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_deliverylistValueChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deliverylistValueChanged
-
-    private void deliveryMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliveryMenuActionPerformed
-        // TODO add your handling code here:
-        DeliveryMenu.main(null);
-    }//GEN-LAST:event_deliveryMenuActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -244,6 +244,10 @@ public class MainMenu extends javax.swing.JFrame {
     private void initializeDate() {
         Product p = new Product("Rose", 20, (float) 20.5);
         prodList.add(p);
+         Customer cust1 = new Customer("WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
+         Customer cust2 = new Customer( "YAP SHAO LIANG", "010-2384016", "yap@gmail.com", "Corporate Customer", 2000, 2000);
+         custList.add(cust1);
+         custList.add(cust2);
     }
 
     private void initializeList() {

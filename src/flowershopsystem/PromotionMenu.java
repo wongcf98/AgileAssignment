@@ -29,6 +29,7 @@ public class PromotionMenu extends javax.swing.JFrame {
      */
     Promotion tempPromo;
     private Product p;
+    public DefaultTableModel dm;
 
     public PromotionMenu() {
         initComponents();
@@ -179,7 +180,7 @@ public class PromotionMenu extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGap(23, 23, 23))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblProd3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(lblProd3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -190,15 +191,15 @@ public class PromotionMenu extends javax.swing.JFrame {
                                     .addComponent(txtDiscountPrice))
                                 .addGap(53, 53, 53))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(104, 104, 104))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                             .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
                         .addContainerGap(34, Short.MAX_VALUE))))
         );
@@ -255,6 +256,7 @@ public class PromotionMenu extends javax.swing.JFrame {
             int start_month = jDateChooser1.getCalendar().get(Calendar.MONTH) + 1;
             System.out.println(jDateChooser1.getCalendar().get(Calendar.DAY_OF_MONTH));
             int start_day = jDateChooser1.getCalendar().get(Calendar.DAY_OF_MONTH);
+            
             System.out.println(jDateChooser1.getCalendar().get(Calendar.YEAR));
             int end_year = jDateChooser2.getCalendar().get(Calendar.YEAR);
             System.out.println(jDateChooser2.getCalendar().get(Calendar.MONTH) + 1);
@@ -325,7 +327,7 @@ public class PromotionMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDiscountRateActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         int index = jTable1.getSelectedRow();
         TableModel model = jTable1.getModel();
         String product = model.getValueAt(index, 0).toString();
@@ -340,7 +342,7 @@ public class PromotionMenu extends javax.swing.JFrame {
         Calendar sDate = Calendar.getInstance();
         sDate.set(sYear, sMonth, sDay);
         String end_Date = model.getValueAt(index, 6).toString();
-        int eYear = Integer.parseInt(end_Date.substring(0, 3));
+        int eYear = Integer.parseInt(end_Date.substring(0, 4));
         int eMonth = Integer.parseInt(end_Date.substring(5, 7)) - 1;
         int eDay = Integer.parseInt(end_Date.substring(8, 10));
         Calendar eDate = Calendar.getInstance();
@@ -363,12 +365,7 @@ public class PromotionMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable1MouseClicked
 
-    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-
-    }//GEN-LAST:event_btnDelActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-
+   
     }//GEN-LAST:event_btnEditActionPerformed
 
     /**
@@ -473,6 +470,7 @@ public class PromotionMenu extends javax.swing.JFrame {
         String[] columnNames = new String[]{"Product", "Initial Price", "Amount", "Discount %",
             "Discounted Price", "Start Time", "End Time"};
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        dm.setRowCount(0);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         for (int i = 0; i < MainMenu.promotionList.size(); i++) {
             format.format(MainMenu.promotionList.get(i).startDate.getTime());
