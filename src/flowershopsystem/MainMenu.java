@@ -140,6 +140,7 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu4.add(pickupMenu);
 
         deliveryMenu.setText("Delivery");
+        deliveryMenu.setVisible(false);
         deliveryMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deliveryMenuActionPerformed(evt);
