@@ -11,6 +11,7 @@ package flowershopsystem;
  */
 public class Customer {
    String id;
+   static int count=1000;
    String name;
    String email;
    String contact;
@@ -18,14 +19,15 @@ public class Customer {
    int currentLimit;
    int monthlyLimit;
    
-    public Customer(String id, String name, String contact,String email,String custType,int currentLimit,int monthlyLimit) {
-        this.id= id;
+    public Customer( String name, String contact,String email,String custType,int currentLimit,int monthlyLimit) {
+        this.id= "C"+count;
         this.name = name;
         this.custType=custType;
         this.contact= contact;
         this.email=email;
         this.currentLimit=currentLimit;
         this.monthlyLimit=monthlyLimit;
+        count++;
     }
 
     public String getId()  {
