@@ -8,6 +8,7 @@ package flowershopsystem;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -110,9 +111,9 @@ public class PickupMenu extends javax.swing.JFrame {
                 confirm.lblCollectedTime.setText("Not collected yet");
             }
         } catch (Exception ex) {
-            
+
         }
-        
+
 
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -159,8 +160,11 @@ public class PickupMenu extends javax.swing.JFrame {
 
     private void loadDataIntoTable() {
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        //clear all record in table
         dm.setRowCount(0);
+
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        //load data into table from list
         for (int i = 0; i < MainMenu.deliveryList.size(); i++) {
             if (MainMenu.deliveryList.get(i).method.equalsIgnoreCase("Pick Up")
                     && MainMenu.deliveryList.get(i).status.equalsIgnoreCase("pending")) {
@@ -175,13 +179,19 @@ public class PickupMenu extends javax.swing.JFrame {
                     data[4] = " - ";
                 }
                 dm.addRow(data);
-                
             }
         }
         if (dm.getRowCount()
                 == 0) {
             JOptionPane.showMessageDialog(this, "No pick up record");
         }
+        //Set the width for each column
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(90);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(90);
+        
         jTable1.setModel(dm);
     }
 }
