@@ -18,32 +18,34 @@ import static org.junit.Assert.*;
  * @author LIANG
  */
 public class OrderDetailsTest {
-    
+
     OrderDetails order;
     Customer cust;
     Delivery deli;
     Delivery.Address add;
     double delta = 0.01;
-    
+
     public OrderDetailsTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
-            order = new OrderDetails(cust, Calendar.getInstance(), (float) 100.50, "Pick Up", deli);
-            cust = new Customer("WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
-            add = new Delivery.Address("10", "jalan 14/60", "Petaling Jata", "Selangar", "Malaysia", 46300);
-deli = new Delivery(add,Calendar.getInstance());
+        order = new OrderDetails(cust, Calendar.getInstance(), (float) 100.50, "Pick Up", deli);
+        cust = new Customer("WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
+        add = new Delivery.Address("10", "jalan 14/60", "Petaling Jata", "Selangar", "Malaysia", 46300);
+        deli = new Delivery(add, Calendar.getInstance());
+        
+        System.out.println("setUp()");
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -55,7 +57,7 @@ deli = new Delivery(add,Calendar.getInstance());
     public void testGetDeliveryMethod() {
         System.out.println("getDeliveryMethod");
         assertEquals("Pick Up", order.getDeliveryMethod());
- 
+
     }
 
     /**
@@ -68,29 +70,6 @@ deli = new Delivery(add,Calendar.getInstance());
         assertEquals("DM", order.getDeliveryMethod());
     }
 
-    /**
-     * Test of getAddress method, of class OrderDetails.
-     */
-    //
-    @Test
-    public void testGetAddress() {
-        System.out.println("getAddress");
-        assertEquals(add, order.getAddress().getAdd() );
-    }
-
-    /**
-     * Test of setAddress method, of class OrderDetails.
-     */
-    @Test
-    public void testSetAddress() {
-        System.out.println("setAddress");
-        Delivery.Address add1 = new Delivery.Address("11", "jalan 11/61", "Petaling Jata", "Selangar", "Malaysia", 46300);
-        order.delivery.getAdd();
-        assertEquals(add1, order.getAddress().getAdd());
-        
-        
-        
-    }
 
     /**
      * Test of getTotal method, of class OrderDetails.
@@ -98,7 +77,7 @@ deli = new Delivery(add,Calendar.getInstance());
     @Test
     public void testGetTotal() {
         System.out.println("getTotal");
-        assertEquals((float)100.50, order.getTotal(), delta);
+        assertEquals((float) 100.50, order.getTotal(), delta);
     }
 
     /**
@@ -107,8 +86,8 @@ deli = new Delivery(add,Calendar.getInstance());
     @Test
     public void testSetTotal() {
         System.out.println("setTotal");
-        order.setTotal((float)50.50);
-        assertEquals((float)50.50, order.getTotal(), delta);
+        order.setTotal((float) 50.50);
+        assertEquals((float) 50.50, order.getTotal(), delta);
     }
 
     /**
@@ -117,7 +96,7 @@ deli = new Delivery(add,Calendar.getInstance());
     @Test
     public void testGetCust() {
         System.out.println("getCust");
-       assertEquals("WONG HAO CHUNG", cust.getName());
+        assertEquals("WONG HAO CHUNG", cust.getName());
     }
 
     /**
@@ -147,7 +126,7 @@ deli = new Delivery(add,Calendar.getInstance());
         System.out.println("setOrderDate");
         deli.setDate_of_deliver(Calendar.getInstance());
         assertEquals(Calendar.getInstance(), deli.getDate_of_deliver());
-        
+
     }
-    
+
 }
