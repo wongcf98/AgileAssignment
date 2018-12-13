@@ -293,5 +293,6 @@ public class MainMenu extends javax.swing.JFrame {
         OrderDetails order1 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Delivery", deli);
         orderList.add(order);
         orderList.add(order1);
+        
     }
 }
