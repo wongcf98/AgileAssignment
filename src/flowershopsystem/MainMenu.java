@@ -6,6 +6,7 @@
 package flowershopsystem;
 
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class MainMenu extends javax.swing.JFrame {
 //Create a public array for the program
 
+    public static ArrayList<Delivery> deliveryList = new ArrayList<>();
     public static ArrayList<Product> prodList = new ArrayList<>();
     public static ArrayList<Promotion> promotionList = new ArrayList<>();
     public static ArrayList<OrderDetails> orderList = new ArrayList<OrderDetails>();
@@ -24,6 +26,7 @@ public class MainMenu extends javax.swing.JFrame {
         initComponents();
         //Load sample data into the array Alr+ENter to see more
         initializeDate();
+        initializeList();
     }
 
     /**
@@ -35,6 +38,12 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        pickupList = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        deliverylist = new javax.swing.JList();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -44,9 +53,38 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        pickupMenu = new javax.swing.JMenuItem();
+        deliveryMenu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        pickupList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        pickupList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                pickupListValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(pickupList);
+
+        jLabel1.setText("Today pickup order List:");
+
+        deliverylist.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        deliverylist.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                deliverylistValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(deliverylist);
+
+        jLabel2.setText("Today delivery order List:");
 
         jMenu1.setText("Catalog");
 
@@ -94,8 +132,21 @@ public class MainMenu extends javax.swing.JFrame {
 
         jMenu4.setText("Delivery");
 
-        jMenuItem5.setText("jMenuItem5");
-        jMenu4.add(jMenuItem5);
+        pickupMenu.setText("Pickup");
+        pickupMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pickupMenuActionPerformed(evt);
+            }
+        });
+        jMenu4.add(pickupMenu);
+
+        deliveryMenu.setText("Delivery");
+        deliveryMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deliveryMenuActionPerformed(evt);
+            }
+        });
+        jMenu4.add(deliveryMenu);
 
         jMenuBar1.add(jMenu4);
 
@@ -105,16 +156,35 @@ public class MainMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(51, 51, 51))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
     /**
      * @param args the command line arguments
@@ -152,6 +222,10 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem deliveryMenu;
+    private javax.swing.JList deliverylist;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -161,7 +235,10 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList pickupList;
+    private javax.swing.JMenuItem pickupMenu;
     // End of variables declaration//GEN-END:variables
 
     private void initializeDate() {
@@ -171,5 +248,21 @@ public class MainMenu extends javax.swing.JFrame {
          Customer cust2 = new Customer( "YAP SHAO LIANG", "010-2384016", "yap@gmail.com", "Corporate Customer", 2000, 2000);
          custList.add(cust1);
          custList.add(cust2);
+    }
+
+    private void initializeList() {
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        DefaultListModel<String> listModel1 = new DefaultListModel<>();
+        for (Delivery deliList : deliveryList) {
+            //listModel.addElement(String.valueOf(deliList.getOrder().orderid));
+            if (deliList.method.equalsIgnoreCase("pickup")) {
+                //listModel.addElement(String.valueOf(deliList.getOrder().getOrderid()));
+            }
+            else{
+                //listModel1.addElement(String.valueOf(deliList.getOrder().getOrderid()));
+            }
+        }
+        pickupList.setModel(listModel);
+        deliverylist.setModel(listModel1);
     }
 }
