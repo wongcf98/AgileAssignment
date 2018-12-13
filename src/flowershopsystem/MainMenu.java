@@ -6,6 +6,7 @@
 package flowershopsystem;
 
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -25,6 +26,7 @@ public class MainMenu extends javax.swing.JFrame {
         initComponents();
         //Load sample data into the array Alr+ENter to see more
         initializeDate();
+        initializeList();
     }
 
     /**
@@ -36,6 +38,12 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        pickupList = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        deliverylist = new javax.swing.JList();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -49,6 +57,34 @@ public class MainMenu extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        pickupList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        pickupList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                pickupListValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(pickupList);
+
+        jLabel1.setText("Today pickup order List:");
+
+        deliverylist.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        deliverylist.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                deliverylistValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(deliverylist);
+
+        jLabel2.setText("Today delivery order List:");
 
         jMenu1.setText("Catalog");
 
@@ -95,11 +131,31 @@ public class MainMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(51, 51, 51))
         );
 
         pack();
@@ -109,6 +165,17 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         PickupMenu.main(null);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void pickupListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pickupListValueChanged
+        // TODO add your handling code here:
+        if (!evt.getValueIsAdjusting()) {
+            System.out.println(pickupList.getSelectedValue());
+        }
+    }//GEN-LAST:event_pickupListValueChanged
+
+    private void deliverylistValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_deliverylistValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deliverylistValueChanged
     /**
      * @param args the command line arguments
      */
@@ -145,6 +212,9 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList deliverylist;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -156,10 +226,29 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList pickupList;
     // End of variables declaration//GEN-END:variables
 
     private void initializeDate() {
         Product p = new Product("Rose", 20, (float) 20.5);
         prodList.add(p);
+    }
+
+    private void initializeList() {
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        DefaultListModel<String> listModel1 = new DefaultListModel<>();
+        for (Delivery deliList : deliveryList) {
+            //listModel.addElement(String.valueOf(deliList.getOrder().orderid));
+            if (deliList.method.equalsIgnoreCase("pickup")) {
+                //listModel.addElement(String.valueOf(deliList.getOrder().getOrderid()));
+            }
+            else{
+                //listModel1.addElement(String.valueOf(deliList.getOrder().getOrderid()));
+            }
+        }
+        pickupList.setModel(listModel);
+        deliverylist.setModel(listModel1);
     }
 }
