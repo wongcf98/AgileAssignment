@@ -7,6 +7,7 @@ package flowershopsystem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -26,6 +27,7 @@ public class MainMenu extends javax.swing.JFrame {
         initComponents();
         //Load sample data into the array Alr+ENter to see more
         initializeDate();
+        initializeList();
     }
 
     /**
@@ -140,7 +142,6 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu4.add(pickupMenu);
 
         deliveryMenu.setText("Delivery");
-        deliveryMenu.setVisible(false);
         deliveryMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deliveryMenuActionPerformed(evt);
@@ -282,17 +283,52 @@ public class MainMenu extends javax.swing.JFrame {
     private void initializeDate() {
         Product p = new Product("Rose", 20, (float) 20.5);
         prodList.add(p);
+        Promotion pt = new Promotion(p, 10, (float) 18.45, Calendar.getInstance(), Calendar.getInstance());
+        promotionList.add(pt);
         Customer cust1 = new Customer("WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
         Customer cust2 = new Customer("YAP SHAO LIANG", "010-2384016", "yap@gmail.com", "Corporate Customer", 2000, 2000);
         custList.add(cust1);
         custList.add(cust2);
         Delivery.Address add = new Delivery.Address("10", "jalan 14/60", "Petaling Jata", "Selangar", "Malaysia", 46300);
-        Delivery deli = new Delivery(add,Calendar.getInstance());
+        Delivery deli = new Delivery(add, Calendar.getInstance());
         deliveryList.add(deli);
         OrderDetails order = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli);
         OrderDetails order1 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Delivery", deli);
         orderList.add(order);
         orderList.add(order1);
-        
+    }
+
+    public static boolean isSameDay(Calendar cal1, Calendar cal2) {
+        if (cal1 == null || cal2 == null) {
+            throw new IllegalArgumentException("The dates must not be null");
+        }
+        return (cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA)
+                && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
+                && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR));
+    }
+
+    public static boolean isToday(Calendar cal) {
+        return isSameDay(cal, Calendar.getInstance());
+    }
+
+    private void initializeList() {
+        DefaultListModel pickup = new DefaultListModel();
+        DefaultListModel delivery = new DefaultListModel();
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 24);
+        for (OrderDetails order : orderList) {
+            if (order.getDeliveryMethod().equalsIgnoreCase("Pick Up")) {
+                if (isToday(order.getAddress().getDate_of_deliver())) {
+                    pickup.addElement(order.orderid);
+                }
+            } else {
+                if (isToday(order.getAddress().getDate_of_deliver())) {
+                    delivery.addElement(order.orderid);
+                }
+            }
+        }
+
+        pickupList.setModel(pickup);
+        deliverylist.setModel(delivery);
     }
 }
