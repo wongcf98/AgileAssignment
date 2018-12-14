@@ -22,16 +22,18 @@ public class PickupConfirm extends javax.swing.JFrame {
      */
     public int id;
     public String status = "pending";
+
     public PickupConfirm() {
-        
+
     }
+
     public PickupConfirm(int id, String status) {
         initComponents();
         loadOrderIntoTable(id);
         this.id = id;
-        this.status=status;
+        this.status = status;
         DisplayPickup();
-        
+
     }
 
     public PickupConfirm(int id) {
@@ -210,19 +212,35 @@ public class PickupConfirm extends javax.swing.JFrame {
 
     private void btnCollectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollectActionPerformed
         // TODO add your handling code here:
-        for(OrderDetails order : MainMenu.orderList){
-            if(order.getOrderid() == Integer.parseInt(lblOrderID.getText())){
-                order.delivery.status="Done";
+        for (OrderDetails order : MainMenu.orderList) {
+            if (order.getOrderid() == Integer.parseInt(lblOrderID.getText())) {
+                System.out.println(order.getOrderid());
+                System.out.println(lblOrderID.getText());
+                System.out.println("Same");
+                order.delivery.status = "Done";
                 order.delivery.setDate_of_collect(Calendar.getInstance());
-                JOptionPane.showMessageDialog(this, "Collected!","Record updated",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Order " + order.orderid + " Collected!", "Record updated", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
+                break;
             }
         }
-       
+
     }//GEN-LAST:event_btnCollectActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
+        for (OrderDetails order : MainMenu.orderList) {
+            if (order.getOrderid() == Integer.parseInt(lblOrderID.getText())) {
+                System.out.println(order.getOrderid());
+                System.out.println(lblOrderID.getText());
+                System.out.println("Same");
+                order.delivery.status = "Pending";
+                order.delivery.setDate_of_collect(null);
+                JOptionPane.showMessageDialog(this, "Order " + order.orderid + " Collected!", "Record updated", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+                break;
+            }
+        }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnCancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancel1ActionPerformed
@@ -296,9 +314,9 @@ public class PickupConfirm extends javax.swing.JFrame {
 
     private void DisplayPickup() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        for(OrderDetails order : MainMenu.orderList){
+        for (OrderDetails order : MainMenu.orderList) {
             System.out.println(order.orderid + " = " + id);
-            if(order.orderid == id){
+            if (order.orderid == id) {
                 System.out.println("found");
                 lblOrderID.setText(String.valueOf(id));
                 lblCustomer.setText(order.cust.name);
@@ -307,9 +325,9 @@ public class PickupConfirm extends javax.swing.JFrame {
                 break;
             }
         }
-        if(status.equalsIgnoreCase("done")){
+        if (status.equalsIgnoreCase("done")) {
             btnCollect.setEnabled(false);
-        }else{
+        } else {
             btnCancel.setEnabled(false);
         }
     }

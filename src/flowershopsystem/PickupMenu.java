@@ -115,8 +115,8 @@ public class PickupMenu extends javax.swing.JFrame {
         int id = (int) jTable1.getValueAt(index, 0);
         String status = (String) jTable1.getValueAt(index, 2);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        PickupConfirm frame = new PickupConfirm(id,status);
-        
+        PickupConfirm frame = new PickupConfirm(id, status);
+
         frame.setVisible(true);
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -173,33 +173,19 @@ public class PickupMenu extends javax.swing.JFrame {
         for (OrderDetails order : MainMenu.orderList) {
             if (order.delivery.status.equalsIgnoreCase("pending")
                     && order.deliveryMethod.equalsIgnoreCase("Pick Up")) {
-                if (order.delivery.getDate_of_collect() == null) {
-                    Object[] data = {order.orderid, order.cust.name, "Pending",
-                        format.format(order.delivery.getDate_of_deliver().getTime()),
-                        " -- "};
-                    dm.addRow(data);
-                } else {
-                    Object[] data = {order.orderid, order.cust.name, "Pending",
-                        format.format(order.delivery.getDate_of_deliver().getTime()),
-                        format.format(order.delivery.getDate_of_collect().getTime())};
-                    dm.addRow(data);
-                }
+                Object[] data = {order.orderid, order.cust.name, "Pending",
+                    format.format(order.delivery.getDate_of_deliver().getTime()),
+                    " -- "};
+                dm.addRow(data);
             }
         }
         for (OrderDetails order : MainMenu.orderList) {
             if (order.delivery.status.equalsIgnoreCase("done")
                     && order.deliveryMethod.equalsIgnoreCase("Pick Up")) {
-                if (order.delivery.getDate_of_collect() == null) {
-                    Object[] data = {order.orderid, order.cust.name, "Done",
-                        format.format(order.delivery.getDate_of_deliver().getTime()),
-                        " -- "};
-                    dm.addRow(data);
-                } else {
-                    Object[] data = {order.orderid, order.cust.name, "Done",
-                        format.format(order.delivery.getDate_of_deliver().getTime()),
-                        format.format(order.delivery.getDate_of_collect().getTime())};
-                    dm.addRow(data);
-                }
+                Object[] data = {order.orderid, order.cust.name, "Done",
+                    format.format(order.delivery.getDate_of_deliver().getTime()),
+                    format.format(order.delivery.getDate_of_collect().getTime())};
+                dm.addRow(data);
             }
         }
         jTable1.setModel(dm);

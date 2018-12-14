@@ -460,11 +460,11 @@ public class AddOrder extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPickUpHour, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPickUpHour, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel20)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPickUpMinute, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jPickUpMinute, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jAddPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -499,10 +499,10 @@ public class AddOrder extends javax.swing.JFrame {
                                     .addComponent(jLabel5)
                                     .addComponent(jAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
                                     .addComponent(jTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -704,21 +704,28 @@ public class AddOrder extends javax.swing.JFrame {
 
     private void CustTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustTypeActionPerformed
 
+        jCopName.removeAllItems();
         if (CustType.getSelectedIndex() == 1) {
-            jLabel8.setVisible(true);
-            jAddPanel.setVisible(true);
             jLabel9.setVisible(false);
             jCML.setVisible(false);
-            jLabel11.setVisible(false);
-            jCopName.setVisible(false);
+            jLabel11.setVisible(true);
+            jCopName.setVisible(true);
+            for (int i = 0; i < MainMenu.custList.size(); i++) {
+                if (MainMenu.custList.get(i).custType.equalsIgnoreCase("Consumer")) {
+                    jCopName.addItem(MainMenu.custList.get(i).name);
+                }
+            }
         }
         if (CustType.getSelectedIndex() == 2) {
-            jLabel8.setVisible(false);
-            jAddPanel.setVisible(false);
             jLabel9.setVisible(true);
             jCML.setVisible(true);
             jLabel11.setVisible(true);
             jCopName.setVisible(true);
+            for (int i = 0; i < MainMenu.custList.size(); i++) {
+                if (MainMenu.custList.get(i).custType.equalsIgnoreCase("Corporate Customer")) {
+                    jCopName.addItem(MainMenu.custList.get(i).name);
+                }
+            }
         }
     }//GEN-LAST:event_CustTypeActionPerformed
 
@@ -866,12 +873,6 @@ public class AddOrder extends javax.swing.JFrame {
         jCopName.addItem(" ");
         for (int i = 0; i < MainMenu.prodList.size(); i++) {
             jProduct.addItem(MainMenu.prodList.get(i).getName());
-        }
-
-        for (int i = 0; i < MainMenu.custList.size(); i++) {
-            if (MainMenu.custList.get(i).custType.equalsIgnoreCase("Corporate Customer")) {
-                jCopName.addItem(MainMenu.custList.get(i).name);
-            }
         }
     }
 
