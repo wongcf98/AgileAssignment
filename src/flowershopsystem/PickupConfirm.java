@@ -140,6 +140,7 @@ public class PickupConfirm extends javax.swing.JFrame {
 
         btnCancel1.setBackground(new java.awt.Color(204, 153, 0));
         btnCancel1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        btnCancel1.setVisible(false);
         btnCancel1.setText("Change Pick Up Time");
         btnCancel1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
