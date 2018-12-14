@@ -8,6 +8,7 @@ package flowershopsystem;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.DefaultListModel;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -59,10 +60,16 @@ public class MainMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        pickupList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         pickupList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
+        });
+        pickupList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pickupListMouseClicked(evt);
+            }
         });
         pickupList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -73,6 +80,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel1.setText("Today pickup order List:");
 
+        deliverylist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         deliverylist.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -142,6 +150,7 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu4.add(pickupMenu);
 
         deliveryMenu.setText("Delivery");
+        deliveryMenu.setVisible(false);
         deliveryMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deliveryMenuActionPerformed(evt);
@@ -195,6 +204,13 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void pickupListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pickupListValueChanged
         // TODO add your handling code here:
+        if (!evt.getValueIsAdjusting()) {
+            System.out.println("list selected");
+            PickupConfirm frame = new PickupConfirm((int) pickupList.getSelectedValue());
+            frame.setVisible(true);
+            
+            initializeList();
+        }
     }//GEN-LAST:event_pickupListValueChanged
 
     private void deliverylistValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_deliverylistValueChanged
@@ -225,6 +241,10 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         DeliveryMenu.main(null);
     }//GEN-LAST:event_deliveryMenuActionPerformed
+
+    private void pickupListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pickupListMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pickupListMouseClicked
     /**
      * @param args the command line arguments
      */
@@ -294,8 +314,22 @@ public class MainMenu extends javax.swing.JFrame {
         deliveryList.add(deli);
         OrderDetails order = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli);
         OrderDetails order1 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Delivery", deli);
+        OrderDetails order2 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli);
         orderList.add(order);
         orderList.add(order1);
+        orderList.add(order2);
+        ProductOrder o = new ProductOrder("Rose", 2, 24, 1000);
+        ProductOrder o1 = new ProductOrder("Sunflower", 3, 36, 1000);
+        ProductOrder o2 = new ProductOrder("Tulip", 2, 24, 1001);
+        ProductOrder o3 = new ProductOrder("Sunflower", 3, 36, 1001);
+        ProductOrder o4 = new ProductOrder("orchid", 2, 24, 1002);
+        ProductOrder o5 = new ProductOrder("Lilly", 3, 36, 1002);
+        prodOrderList.add(o);
+        prodOrderList.add(o1);
+        prodOrderList.add(o2);
+        prodOrderList.add(o3);
+        prodOrderList.add(o4);
+        prodOrderList.add(o5);
     }
 
     public static boolean isSameDay(Calendar cal1, Calendar cal2) {
@@ -311,11 +345,13 @@ public class MainMenu extends javax.swing.JFrame {
         return isSameDay(cal, Calendar.getInstance());
     }
 
-    private void initializeList() {
+    public void initializeList() {
         DefaultListModel pickup = new DefaultListModel();
         DefaultListModel delivery = new DefaultListModel();
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 24);
+        pickupList.removeAll();
+        deliverylist.removeAll();
         for (OrderDetails order : orderList) {
             if (order.getDeliveryMethod().equalsIgnoreCase("Pick Up")) {
                 if (isToday(order.getAddress().getDate_of_deliver())) {

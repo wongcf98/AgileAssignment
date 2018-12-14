@@ -21,10 +21,24 @@ public class PickupConfirm extends javax.swing.JFrame {
      * Creates new form PickupConfirm
      */
     public int id;
-
+    public String status = "pending";
     public PickupConfirm() {
+        
+    }
+    public PickupConfirm(int id, String status) {
         initComponents();
-        loadOrderIntoTable();
+        loadOrderIntoTable(id);
+        this.id = id;
+        this.status=status;
+        DisplayPickup();
+        
+    }
+
+    public PickupConfirm(int id) {
+        initComponents();
+        loadOrderIntoTable(id);
+        this.id = id;
+        DisplayPickup();
     }
 
     /**
@@ -196,6 +210,15 @@ public class PickupConfirm extends javax.swing.JFrame {
 
     private void btnCollectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollectActionPerformed
         // TODO add your handling code here:
+        for(OrderDetails order : MainMenu.orderList){
+            if(order.getOrderid() == Integer.parseInt(lblOrderID.getText())){
+                order.delivery.status="Done";
+                order.delivery.setDate_of_collect(Calendar.getInstance());
+                JOptionPane.showMessageDialog(this, "Collected!","Record updated",JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }
+        }
+       
     }//GEN-LAST:event_btnCollectActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -256,7 +279,7 @@ public class PickupConfirm extends javax.swing.JFrame {
     public javax.swing.JLabel lblOrderID;
     // End of variables declaration//GEN-END:variables
 
-    public void loadOrderIntoTable() {
+    public void loadOrderIntoTable(int id) {
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
         dm.setRowCount(0);
         for (int i = 0; i < MainMenu.prodOrderList.size(); i++) {
@@ -269,5 +292,25 @@ public class PickupConfirm extends javax.swing.JFrame {
 
         }
         jTable1.setModel(dm);
+    }
+
+    private void DisplayPickup() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        for(OrderDetails order : MainMenu.orderList){
+            System.out.println(order.orderid + " = " + id);
+            if(order.orderid == id){
+                System.out.println("found");
+                lblOrderID.setText(String.valueOf(id));
+                lblCustomer.setText(order.cust.name);
+                lblDateTime.setText("Order at: " + format.format(order.getOrderDate().getTime()));
+                lblCollectedTime.setText("To be collected at: " + format.format(order.getAddress().getDate_of_deliver().getTime()));
+                break;
+            }
+        }
+        if(status.equalsIgnoreCase("done")){
+            btnCollect.setEnabled(false);
+        }else{
+            btnCancel.setEnabled(false);
+        }
     }
 }
