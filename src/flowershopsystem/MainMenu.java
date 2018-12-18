@@ -7,6 +7,8 @@ package flowershopsystem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.swing.DefaultListModel;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -26,6 +28,7 @@ public class MainMenu extends javax.swing.JFrame {
         initComponents();
         //Load sample data into the array Alr+ENter to see more
         initializeDate();
+        initializeList();
     }
 
     /**
@@ -57,6 +60,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        pickupList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         pickupList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -71,6 +75,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel1.setText("Today pickup order List:");
 
+        deliverylist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         deliverylist.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -194,10 +199,21 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void pickupListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pickupListValueChanged
         // TODO add your handling code here:
+        if (!evt.getValueIsAdjusting()) {
+            System.out.println("list selected");
+            new PickupConfirm((int)pickupList.getSelectedValue()).setVisible(true);
+            
+            initializeList();
+        }
     }//GEN-LAST:event_pickupListValueChanged
 
     private void deliverylistValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_deliverylistValueChanged
-        // TODO add your handling code here:
+        if (!evt.getValueIsAdjusting()) {
+            System.out.println("list selected");
+            new PickupConfirm((int)deliverylist.getSelectedValue()).setVisible(true);
+            
+            initializeList();
+        }
     }//GEN-LAST:event_deliverylistValueChanged
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -212,7 +228,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        AddOrder.main(null);
+        AddOrder1.main(null);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void pickupMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickupMenuActionPerformed
@@ -281,17 +297,78 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void initializeDate() {
         Product p = new Product("Rose", 20, (float) 20.5);
+        Product p1 = new Product("Sunflwer", 12, (float) 14.0);
+        Product p2 = new Product("Orchid", 11, (float) 12.0);
+        Product p3 = new Product("Tulip", 15, (float) 16.0);
         prodList.add(p);
+        prodList.add(p1);
+        prodList.add(p2);
+        prodList.add(p3);
+        Promotion pt = new Promotion(p, 10, (float) 18.45, Calendar.getInstance(), Calendar.getInstance());
+        promotionList.add(pt);
         Customer cust1 = new Customer("WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
         Customer cust2 = new Customer("YAP SHAO LIANG", "010-2384016", "yap@gmail.com", "Corporate Customer", 2000, 2000);
         custList.add(cust1);
         custList.add(cust2);
         Delivery.Address add = new Delivery.Address("10", "jalan 14/60", "Petaling Jata", "Selangar", "Malaysia", 46300);
-        Delivery deli = new Delivery(add,Calendar.getInstance());
-        deliveryList.add(deli);
-        OrderDetails order = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli);
-        OrderDetails order1 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Delivery", deli);
-        orderList.add(order);
-        orderList.add(order1);
+        Delivery deli3 = new Delivery(add, Calendar.getInstance());
+        Delivery deli4 = new Delivery(add, Calendar.getInstance());
+        Delivery deli5 = new Delivery(add, Calendar.getInstance());
+        Delivery deli6 = new Delivery(add, Calendar.getInstance());
+        //New constructor
+        ProductOrder o6 = new ProductOrder(p, 3);
+        ProductOrder o7 = new ProductOrder(p1, 2);
+        ProductOrder o8 = new ProductOrder(p2, 4);
+        ProductOrder o9 = new ProductOrder(p3, 1);
+        ProductOrder o10 = new ProductOrder(p2, 6);
+        ProductOrder[] prodOrder = {o6, o7, o8};
+        ProductOrder[] prodOrder1 = {o8, o9, o10};
+        ///////////////////////////////////////////////
+        //New constructor
+        OrderDetails order3 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli3, prodOrder);
+        OrderDetails order4 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli4, prodOrder1);
+        OrderDetails order5 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Delivery", deli5, prodOrder);
+        OrderDetails order6 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Delivery", deli6, prodOrder1);
+        //////////////////////////////////////////////////
+        orderList.add(order3);
+        orderList.add(order4);
+        orderList.add(order5);
+        orderList.add(order6);
+    }
+
+    public static boolean isSameDay(Calendar cal1, Calendar cal2) {
+        if (cal1 == null || cal2 == null) {
+            throw new IllegalArgumentException("The dates must not be null");
+        }
+        return (cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA)
+                && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
+                && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR));
+    }
+
+    public static boolean isToday(Calendar cal) {
+        return isSameDay(cal, Calendar.getInstance());
+    }
+
+    public void initializeList() {
+        DefaultListModel pickup = new DefaultListModel();
+        DefaultListModel delivery = new DefaultListModel();
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 24);
+        pickupList.removeAll();
+        deliverylist.removeAll();
+        for (OrderDetails order : orderList) {
+            if (order.getDeliveryMethod().equalsIgnoreCase("Pick Up")) {
+                if (isToday(order.getAddress().getDate_of_deliver())) {
+                    pickup.addElement(order.orderid);
+                }
+            } else {
+                if (isToday(order.getAddress().getDate_of_deliver())) {
+                    delivery.addElement(order.orderid);
+                }
+            }
+        }
+
+        pickupList.setModel(pickup);
+        deliverylist.setModel(delivery);
     }
 }

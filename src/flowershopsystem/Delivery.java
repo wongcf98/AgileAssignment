@@ -25,6 +25,11 @@ public class Delivery {
         this.date_of_collect = null;
     }
 
+    public Delivery(Calendar date_of_deliver) {
+        this.date_of_deliver = date_of_deliver;
+        this.status = "Pending";
+    }
+
     public Calendar getDate_of_deliver() {
         return date_of_deliver;
     }

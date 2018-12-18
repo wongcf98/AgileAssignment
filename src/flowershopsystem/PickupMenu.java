@@ -112,21 +112,8 @@ public class PickupMenu extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int index = jTable1.getSelectedRow();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        PickupConfirm frame = new PickupConfirm();
-        frame.lblOrderID.setText((String) jTable1.getValueAt(index, 0).toString());
-        frame.lblCustomer.setText((String) jTable1.getValueAt(index, 1).toString());
-        for (OrderDetails order : MainMenu.orderList) {
-            if (order.orderid == (int) jTable1.getValueAt(index, 0)) {
-                frame.lblDateTime.setText("Order at: " + format.format(order.orderDate.getTime()));
-            }
-        }
-        if (((String) jTable1.getValueAt(index, 2)).equalsIgnoreCase("pending")) {
-            frame.lblCollectedTime.setText("Collecting at: " + (String) jTable1.getValueAt(index, 3));
-        } else {
-            frame.lblCollectedTime.setText("Collected at: " + (String) jTable1.getValueAt(index, 4));
-        }
-        frame.setVisible(true);
+        int id = (int) jTable1.getValueAt(index, 0);
+        new PickupConfirm(id).setVisible(true);
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -166,7 +153,7 @@ public class PickupMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable jTable1;
     private javax.swing.JLabel lblDate;
     // End of variables declaration//GEN-END:variables
 
@@ -182,33 +169,19 @@ public class PickupMenu extends javax.swing.JFrame {
         for (OrderDetails order : MainMenu.orderList) {
             if (order.delivery.status.equalsIgnoreCase("pending")
                     && order.deliveryMethod.equalsIgnoreCase("Pick Up")) {
-                if (order.delivery.getDate_of_collect() == null) {
-                    Object[] data = {order.orderid, order.cust.name, "Pending",
-                        format.format(order.delivery.getDate_of_deliver().getTime()),
-                        " -- "};
-                    dm.addRow(data);
-                } else {
-                    Object[] data = {order.orderid, order.cust.name, "Pending",
-                        format.format(order.delivery.getDate_of_deliver().getTime()),
-                        format.format(order.delivery.getDate_of_collect().getTime())};
-                    dm.addRow(data);
-                }
+                Object[] data = {order.orderid, order.cust.name, "Pending",
+                    format.format(order.delivery.getDate_of_deliver().getTime()),
+                    " -- "};
+                dm.addRow(data);
             }
         }
         for (OrderDetails order : MainMenu.orderList) {
             if (order.delivery.status.equalsIgnoreCase("done")
                     && order.deliveryMethod.equalsIgnoreCase("Pick Up")) {
-                if (order.delivery.getDate_of_collect() == null) {
-                    Object[] data = {order.orderid, order.cust.name, "Done",
-                        format.format(order.delivery.getDate_of_deliver().getTime()),
-                        " -- "};
-                    dm.addRow(data);
-                } else {
-                    Object[] data = {order.orderid, order.cust.name, "Done",
-                        format.format(order.delivery.getDate_of_deliver().getTime()),
-                        format.format(order.delivery.getDate_of_collect().getTime())};
-                    dm.addRow(data);
-                }
+                Object[] data = {order.orderid, order.cust.name, "Done",
+                    format.format(order.delivery.getDate_of_deliver().getTime()),
+                    format.format(order.delivery.getDate_of_collect().getTime())};
+                dm.addRow(data);
             }
         }
         jTable1.setModel(dm);
