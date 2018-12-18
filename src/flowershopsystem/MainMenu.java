@@ -145,7 +145,6 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu4.add(pickupMenu);
 
         deliveryMenu.setText("Delivery");
-        deliveryMenu.setVisible(false);
         deliveryMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deliveryMenuActionPerformed(evt);
@@ -327,8 +326,8 @@ public class MainMenu extends javax.swing.JFrame {
         //New constructor
         OrderDetails order3 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli3, prodOrder);
         OrderDetails order4 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli4, prodOrder1);
-        OrderDetails order5 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Delivery", deli5, prodOrder);
-        OrderDetails order6 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Delivery", deli6, prodOrder1);
+        OrderDetails order5 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Cash On Delivery (COD)", deli5, prodOrder);
+        OrderDetails order6 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Cash On Delivery (COD)", deli6, prodOrder1);
         //////////////////////////////////////////////////
         orderList.add(order3);
         orderList.add(order4);

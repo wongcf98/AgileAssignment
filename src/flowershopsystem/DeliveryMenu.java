@@ -5,6 +5,9 @@
  */
 package flowershopsystem;
 
+import java.text.SimpleDateFormat;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author scollex
@@ -16,6 +19,8 @@ public class DeliveryMenu extends javax.swing.JFrame {
      */
     public DeliveryMenu() {
         initComponents();
+        
+        loadDataIntoTable();
     }
 
     /**
@@ -27,32 +32,75 @@ public class DeliveryMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jLabel1.setText("This is delivery menu");
+        lblDate.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblDate.setText("Delivery List");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Order ID", "Customer", "Status", "Address", "Delivery At"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDate)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(lblDate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int index = jTable1.getSelectedRow();
+        int id = (int) jTable1.getValueAt(index, 0);
+        new PickupConfirm(id).setVisible(true);
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -90,6 +138,37 @@ public class DeliveryMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblDate;
     // End of variables declaration//GEN-END:variables
+
+    private void loadDataIntoTable() {
+        DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        jTable1.getColumnModel().getColumn(0).setWidth(40);
+        jTable1.getColumnModel().getColumn(1).setWidth(150);
+        jTable1.getColumnModel().getColumn(2).setWidth(70);
+        jTable1.getColumnModel().getColumn(3).setWidth(220);
+        jTable1.getColumnModel().getColumn(4).setWidth(80);
+        jTable1.setRowHeight(50);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        for (OrderDetails order : MainMenu.orderList) {
+            if (order.delivery.status.equalsIgnoreCase("pending")
+                    && order.deliveryMethod.equalsIgnoreCase("Cash On Delivery (COD)")) {
+                Object[] data = {order.orderid, order.cust.name, "Pending",
+                    String.format(order.delivery.getAdd().toString()),
+                    format.format(order.delivery.getDate_of_deliver().getTime())};
+                dm.addRow(data);
+            }
+        }
+        for (OrderDetails order : MainMenu.orderList) {
+            if (order.delivery.status.equalsIgnoreCase("done")
+                    && order.deliveryMethod.equalsIgnoreCase("Cash On Delivery (COD)")) {
+                Object[] data = {order.orderid, order.cust.name, "Done",
+                    String.format(order.delivery.getAdd().toString()),
+                    format.format(order.delivery.getDate_of_deliver().getTime())};
+                dm.addRow(data);
+            }
+        }
+    }
 }
