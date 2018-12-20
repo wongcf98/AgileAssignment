@@ -66,11 +66,6 @@ public class MainMenu extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        pickupList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pickupListMouseClicked(evt);
-            }
-        });
         pickupList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 pickupListValueChanged(evt);
@@ -150,7 +145,6 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu4.add(pickupMenu);
 
         deliveryMenu.setText("Delivery");
-        deliveryMenu.setVisible(false);
         deliveryMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deliveryMenuActionPerformed(evt);
@@ -206,15 +200,19 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (!evt.getValueIsAdjusting()) {
             System.out.println("list selected");
-            PickupConfirm frame = new PickupConfirm((int) pickupList.getSelectedValue());
-            frame.setVisible(true);
+            new PickupConfirm((int)pickupList.getSelectedValue()).setVisible(true);
             
             initializeList();
         }
     }//GEN-LAST:event_pickupListValueChanged
 
     private void deliverylistValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_deliverylistValueChanged
-        // TODO add your handling code here:
+        if (!evt.getValueIsAdjusting()) {
+            System.out.println("list selected");
+            new PickupConfirm((int)deliverylist.getSelectedValue()).setVisible(true);
+            
+            initializeList();
+        }
     }//GEN-LAST:event_deliverylistValueChanged
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -229,7 +227,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        AddOrder.main(null);
+        AddOrder1.main(null);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void pickupMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickupMenuActionPerformed
@@ -241,10 +239,6 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         DeliveryMenu.main(null);
     }//GEN-LAST:event_deliveryMenuActionPerformed
-
-    private void pickupListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pickupListMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pickupListMouseClicked
     /**
      * @param args the command line arguments
      */
@@ -302,7 +296,13 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void initializeDate() {
         Product p = new Product("Rose", 20, (float) 20.5);
+        Product p1 = new Product("Sunflwer", 12, (float) 14.0);
+        Product p2 = new Product("Orchid", 11, (float) 12.0);
+        Product p3 = new Product("Tulip", 15, (float) 16.0);
         prodList.add(p);
+        prodList.add(p1);
+        prodList.add(p2);
+        prodList.add(p3);
         Promotion pt = new Promotion(p, 10, (float) 18.45, Calendar.getInstance(), Calendar.getInstance());
         promotionList.add(pt);
         Customer cust1 = new Customer("WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
@@ -310,26 +310,29 @@ public class MainMenu extends javax.swing.JFrame {
         custList.add(cust1);
         custList.add(cust2);
         Delivery.Address add = new Delivery.Address("10", "jalan 14/60", "Petaling Jata", "Selangar", "Malaysia", 46300);
-        Delivery deli = new Delivery(add, Calendar.getInstance());
-        deliveryList.add(deli);
-        OrderDetails order = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli);
-        OrderDetails order1 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Delivery", deli);
-        OrderDetails order2 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli);
-        orderList.add(order);
-        orderList.add(order1);
-        orderList.add(order2);
-        ProductOrder o = new ProductOrder("Rose", 2, 24, 1000);
-        ProductOrder o1 = new ProductOrder("Sunflower", 3, 36, 1000);
-        ProductOrder o2 = new ProductOrder("Tulip", 2, 24, 1001);
-        ProductOrder o3 = new ProductOrder("Sunflower", 3, 36, 1001);
-        ProductOrder o4 = new ProductOrder("orchid", 2, 24, 1002);
-        ProductOrder o5 = new ProductOrder("Lilly", 3, 36, 1002);
-        prodOrderList.add(o);
-        prodOrderList.add(o1);
-        prodOrderList.add(o2);
-        prodOrderList.add(o3);
-        prodOrderList.add(o4);
-        prodOrderList.add(o5);
+        Delivery deli3 = new Delivery(add, Calendar.getInstance());
+        Delivery deli4 = new Delivery(add, Calendar.getInstance());
+        Delivery deli5 = new Delivery(add, Calendar.getInstance());
+        Delivery deli6 = new Delivery(add, Calendar.getInstance());
+        //New constructor
+        ProductOrder o6 = new ProductOrder(p, 3);
+        ProductOrder o7 = new ProductOrder(p1, 2);
+        ProductOrder o8 = new ProductOrder(p2, 4);
+        ProductOrder o9 = new ProductOrder(p3, 1);
+        ProductOrder o10 = new ProductOrder(p2, 6);
+        ProductOrder[] prodOrder = {o6, o7, o8};
+        ProductOrder[] prodOrder1 = {o8, o9, o10};
+        ///////////////////////////////////////////////
+        //New constructor
+        OrderDetails order3 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli3, prodOrder);
+        OrderDetails order4 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli4, prodOrder1);
+        OrderDetails order5 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Cash On Delivery (COD)", deli5, prodOrder);
+        OrderDetails order6 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Cash On Delivery (COD)", deli6, prodOrder1);
+        //////////////////////////////////////////////////
+        orderList.add(order3);
+        orderList.add(order4);
+        orderList.add(order5);
+        orderList.add(order6);
     }
 
     public static boolean isSameDay(Calendar cal1, Calendar cal2) {

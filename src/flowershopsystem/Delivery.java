@@ -17,12 +17,17 @@ public class Delivery {
     private Calendar date_of_deliver;
     private Calendar date_of_collect;
     String status;
-    
+
     public Delivery(Address add, Calendar DoD) {
         this.add = add;
         this.date_of_deliver = DoD;
         this.status = "Pending";
         this.date_of_collect = null;
+    }
+
+    public Delivery(Calendar date_of_deliver) {
+        this.date_of_deliver = date_of_deliver;
+        this.status = "Pending";
     }
 
     public Calendar getDate_of_deliver() {
@@ -48,7 +53,7 @@ public class Delivery {
     public void setAdd(Address add) {
         this.add = add;
     }
-    
+
     public static class Address {
 
         String unit, street, city, state, country;
@@ -66,5 +71,11 @@ public class Delivery {
             this.country = country;
             this.postcode = postcode;
         }
+
+        @Override
+        public String toString() {
+            return unit + ' ' + street + "\n " + postcode + ' ' + city + "\n " + state + ' ' + country;
+        }
+
     }
 }

@@ -24,23 +24,46 @@ public class PickupConfirm extends javax.swing.JFrame {
     public String status = "pending";
 
     public PickupConfirm() {
-
-    }
-
-    public PickupConfirm(int id, String status) {
         initComponents();
-        loadOrderIntoTable(id);
-        this.id = id;
-        this.status = status;
-        DisplayPickup();
-
     }
 
     public PickupConfirm(int id) {
         initComponents();
-        loadOrderIntoTable(id);
-        this.id = id;
-        DisplayPickup();
+        setID(id);
+    }
+
+    public void setID(int id) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
+        DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        for (OrderDetails order : MainMenu.orderList) {
+            if (order.getOrderid() == id) {
+                for (ProductOrder p : order.product) {
+                    Object[] rowData = {p.p.name, p.pAmount, p.pTotal};
+                    dm.addRow(rowData);
+                }
+                lblDateTime.setText("Order at: " + format.format(order.orderDate.getTime()));
+                lblOrderID.setText(String.valueOf(id));
+                lblCustomer.setText(order.cust.getName());
+                lblSubtotal.setText("RM " + String.valueOf(order.total));
+                if (order.delivery.status.equalsIgnoreCase("pending")) {
+                    lblCollectedTime.setText("Will be collected around: " + format1.format(order.delivery.getDate_of_deliver().getTime()));
+                } else {
+                    lblCollectedTime.setText("Order collected at: " + format1.format(order.delivery.getDate_of_collect().getTime()));
+                    btnChange.setVisible(true);
+                }
+                if(order.deliveryMethod.equalsIgnoreCase("Pick up")){
+                    jAddPanel7.setVisible(false);
+                }else{
+                    btnChange.setVisible(false);
+                    jAddUnit7.setText(order.delivery.getAdd().unit);
+                    jTextArea1.setText(order.delivery.getAdd().street);
+                    jAddCity7.setText(order.delivery.getAdd().city);
+                    jAddState7.setText(order.delivery.getAdd().state);
+                    jAddPostcode7.setText(String.valueOf(order.delivery.getAdd().postcode));
+                }
+            }
+        }
     }
 
     /**
@@ -63,7 +86,22 @@ public class PickupConfirm extends javax.swing.JFrame {
         lblCustomer = new javax.swing.JLabel();
         lblDateTime = new javax.swing.JLabel();
         lblCollectedTime = new javax.swing.JLabel();
-        btnCancel1 = new javax.swing.JButton();
+        btnChange = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        lblSubtotal = new javax.swing.JLabel();
+        jAddPanel7 = new javax.swing.JPanel();
+        jAddUnit7 = new javax.swing.JTextField();
+        jLabel50 = new javax.swing.JLabel();
+        jAddCity7 = new javax.swing.JTextField();
+        jAddState7 = new javax.swing.JTextField();
+        jAddPostcode7 = new javax.swing.JTextField();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -138,36 +176,127 @@ public class PickupConfirm extends javax.swing.JFrame {
         lblCollectedTime.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCollectedTime.setText("jLabel4");
 
-        btnCancel1.setBackground(new java.awt.Color(204, 153, 0));
-        btnCancel1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        btnCancel1.setVisible(false);
-        btnCancel1.setText("Change Pick Up Time");
-        btnCancel1.addActionListener(new java.awt.event.ActionListener() {
+        btnChange.setBackground(new java.awt.Color(204, 153, 0));
+        btnChange.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        btnChange.setVisible(true);
+        btnChange.setText("Change Pick Up Time");
+        btnChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancel1ActionPerformed(evt);
+                btnChangeActionPerformed(evt);
             }
         });
+
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Subtotal:");
+
+        lblSubtotal.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        lblSubtotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblSubtotal.setText("jLabel5");
+
+        jAddUnit7.setEditable(false);
+        jAddUnit7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
+        jLabel50.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel50.setText("Address");
+
+        jAddCity7.setEditable(false);
+        jAddCity7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
+        jAddState7.setEditable(false);
+        jAddState7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
+        jAddPostcode7.setEditable(false);
+        jAddPostcode7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
+        jLabel51.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel51.setText("No / Unit");
+
+        jLabel52.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel52.setText("Street / Jalan");
+
+        jLabel53.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel53.setText("State");
+
+        jLabel54.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel54.setText("City");
+
+        jLabel55.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel55.setText("Postcode");
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout jAddPanel7Layout = new javax.swing.GroupLayout(jAddPanel7);
+        jAddPanel7.setLayout(jAddPanel7Layout);
+        jAddPanel7Layout.setHorizontalGroup(
+            jAddPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jAddPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel50)
+                .addGap(60, 60, 60)
+                .addGroup(jAddPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel51)
+                    .addComponent(jLabel53)
+                    .addComponent(jLabel55))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jAddPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jAddUnit7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAddPostcode7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAddCity7, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(jAddPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jAddPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel52)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
+                    .addGroup(jAddPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel54)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jAddState7, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jAddPanel7Layout.setVerticalGroup(
+            jAddPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jAddPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jAddPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jAddPanel7Layout.createSequentialGroup()
+                        .addGroup(jAddPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jAddPanel7Layout.createSequentialGroup()
+                                .addGroup(jAddPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jAddUnit7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel51)
+                                    .addComponent(jLabel52))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jAddPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jAddCity7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel53)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jAddPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jAddPostcode7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel55)
+                            .addComponent(jLabel54)
+                            .addComponent(jAddState7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel50))
+                .addGap(39, 39, 39))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(btnCollect)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(73, 73, 73)
+                .addComponent(btnCollect)
+                .addGap(68, 68, 68)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnChange)
+                .addGap(46, 46, 46))
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,11 +306,25 @@ public class PickupConfirm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblOrderID, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCollectedTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDateTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAddPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(48, 48, 48)
+                            .addComponent(lblSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,16 +339,22 @@ public class PickupConfirm extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(lblCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCollectedTime, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jAddPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSubtotal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCollect)
                     .addComponent(btnCancel)
-                    .addComponent(btnCancel1))
-                .addGap(33, 33, 33))
+                    .addComponent(btnChange))
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -215,9 +364,6 @@ public class PickupConfirm extends javax.swing.JFrame {
         // TODO add your handling code here:
         for (OrderDetails order : MainMenu.orderList) {
             if (order.getOrderid() == Integer.parseInt(lblOrderID.getText())) {
-                System.out.println(order.getOrderid());
-                System.out.println(lblOrderID.getText());
-                System.out.println("Same");
                 order.delivery.status = "Done";
                 order.delivery.setDate_of_collect(Calendar.getInstance());
                 JOptionPane.showMessageDialog(this, "Order " + order.orderid + " Collected!", "Record updated", JOptionPane.INFORMATION_MESSAGE);
@@ -232,9 +378,6 @@ public class PickupConfirm extends javax.swing.JFrame {
         // TODO add your handling code here:
         for (OrderDetails order : MainMenu.orderList) {
             if (order.getOrderid() == Integer.parseInt(lblOrderID.getText())) {
-                System.out.println(order.getOrderid());
-                System.out.println(lblOrderID.getText());
-                System.out.println("Same");
                 order.delivery.status = "Pending";
                 order.delivery.setDate_of_collect(null);
                 JOptionPane.showMessageDialog(this, "Order " + order.orderid + " Collected!", "Record updated", JOptionPane.INFORMATION_MESSAGE);
@@ -244,9 +387,10 @@ public class PickupConfirm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnCancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancel1ActionPerformed
+    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancel1ActionPerformed
+        lblCollectedTime.setVisible(false);
+    }//GEN-LAST:event_btnChangeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,17 +429,32 @@ public class PickupConfirm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCancel;
-    public javax.swing.JButton btnCancel1;
+    public javax.swing.JButton btnChange;
     public javax.swing.JButton btnCollect;
+    private javax.swing.JTextField jAddCity7;
+    private javax.swing.JPanel jAddPanel7;
+    private javax.swing.JTextField jAddPostcode7;
+    private javax.swing.JTextField jAddState7;
+    private javax.swing.JTextField jAddUnit7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
     public javax.swing.JLabel lblCollectedTime;
     public javax.swing.JLabel lblCustomer;
     public javax.swing.JLabel lblDateTime;
     public javax.swing.JLabel lblOrderID;
+    private javax.swing.JLabel lblSubtotal;
     // End of variables declaration//GEN-END:variables
 
     public void loadOrderIntoTable(int id) {
@@ -304,7 +463,7 @@ public class PickupConfirm extends javax.swing.JFrame {
         for (int i = 0; i < MainMenu.prodOrderList.size(); i++) {
             if (MainMenu.prodOrderList.get(i).orderid == id) {
                 Object[] data = {MainMenu.prodOrderList.get(i).pName,
-                    MainMenu.prodOrderList.get(i).pQuantity,
+                    MainMenu.prodOrderList.get(i).pAmount,
                     MainMenu.prodOrderList.get(i).pTotal};
                 dm.addRow(data);
             }
