@@ -613,7 +613,7 @@ public class AddOrder extends javax.swing.JFrame {
 
             if (pName.equals("")) {
                 prodOrderList.get(index).pName = pName;
-                prodOrderList.get(index).pQuantity = newQuantity;
+                prodOrderList.get(index).pAmount = newQuantity;
                 prodOrderList.get(index).pTotal = newTotal;
             }
 

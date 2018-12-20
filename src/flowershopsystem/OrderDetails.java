@@ -14,17 +14,31 @@ import java.util.Date;
  * @author LIANG
  */
 public class OrderDetails {
+
     int orderid;
     static int count = 1000;
     Customer cust;
     Calendar orderDate;
     float total;
     String deliveryMethod = null;
-    Delivery delivery = null; 
+    Delivery delivery = null;
+    ProductOrder[] product;
 
-    public OrderDetails(Customer cust, Calendar orderDate, float total, 
-            String deliveryMethod, 
-            Delivery delivery) {
+    public OrderDetails(Customer cust, Calendar orderDate, float total,
+            String deliveryMethod, Delivery delivery, ProductOrder[] order) {
+        this.cust = cust;
+        this.orderDate = orderDate;
+        this.orderid = count;
+        
+        this.deliveryMethod = deliveryMethod;
+        this.delivery = delivery;
+        this.product = order;
+        this.total = calculateTotal();
+        count++;
+    }
+
+    public OrderDetails(Customer cust, Calendar orderDate, float total,
+            String deliveryMethod, Delivery delivery) {
         this.cust = cust;
         this.orderDate = orderDate;
         this.orderid = count;
@@ -32,6 +46,14 @@ public class OrderDetails {
         this.deliveryMethod = deliveryMethod;
         this.delivery = delivery;
         count++;
+    }
+
+    private float calculateTotal() {
+        float total = (float) 0.00;
+        for (ProductOrder order : product) {
+            total += order.pTotal;
+        }
+        return total;
     }
 
     public String getDeliveryMethod() {
@@ -57,13 +79,14 @@ public class OrderDetails {
     public void setTotal(float total) {
         this.total = total;
     }
-   public OrderDetails( ){
-    this.orderid = count;
+
+    public OrderDetails() {
+        this.orderid = count;
     }
-    
+
     @Override
     public String toString() {
-        return "OrderDetails{" + "cust=" + cust + ", orderDate=" + orderDate + '}';
+        return "OrderDetails{" + "cust=" + cust + ", orderDate=" + orderDate + ", total=" + total + ", deliveryMethod=" + deliveryMethod + ", delivery=" + delivery + ", product=" + product + '}';
     }
 
     public int getOrderid() {
