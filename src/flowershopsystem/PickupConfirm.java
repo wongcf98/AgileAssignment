@@ -485,7 +485,7 @@ public class PickupConfirm extends javax.swing.JFrame {
         dm.setRowCount(0);
         Retrieval r = MainMenu.retrieving.get(index);
         for (ProductOrder order : r.order.product) {
-            Object[] data = {order.pName, order.pAmount, order.pTotal};
+            Object[] data = {order.p.name, order.pAmount, order.pTotal};
             dm.addRow(data);
         }
         jTable1.setModel(dm);

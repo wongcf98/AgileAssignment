@@ -42,6 +42,7 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem5 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         pickupList = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
@@ -54,11 +55,14 @@ public class MainMenu extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         pickupMenu = new javax.swing.JMenuItem();
         deliveryMenu = new javax.swing.JMenuItem();
+
+        jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,6 +121,14 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem3);
+
+        jMenuItem6.setText("View Order List");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem6);
 
         jMenuBar1.add(jMenu2);
 
@@ -242,6 +254,11 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         DeliveryMenu.main(null);
     }//GEN-LAST:event_deliveryMenuActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        new OrderMenu().setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -291,6 +308,8 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList pickupList;
@@ -350,31 +369,27 @@ public class MainMenu extends javax.swing.JFrame {
         DefaultListModel pickup = new DefaultListModel();
         DefaultListModel delivery = new DefaultListModel();
         int count = 1;
+        //create a temporaly queuelist to store data
         SortedQueueInterface<Retrieval> rList = new SortedQueueList<>();
-        pickupList.removeAll();
-        deliverylist.removeAll();
-        System.out.println(retrieving.IsEmpty()+"///////////");
+        pickupList.removeAll();        //clear the list
+        deliverylist.removeAll();      //clear the list
         while (!retrieving.IsEmpty()) {
-            Retrieval r = retrieving.dequeue();
+            //get the data from queue using while loop and store into a temp class
+            Retrieval r = retrieving.dequeue(); 
             if (isToday(r.Date_Of_Agree)) {
+                //if-else statemtne using polymorphism to add into different list
                 if (r instanceof Delivery) {
-                    System.out.println("Delivery:");
-                    System.out.println(r.order.orderid);
-                    System.out.println(r.order.cust.name);
                     delivery.addElement(r.order.orderid);
                 } else if (r instanceof PickUp) {
-                    System.out.println("Pickup:");
-                    System.out.println(r.order.orderid);
-                    System.out.println(r.order.cust.name);
                     pickup.addElement(r.order.orderid);
                 }
             }
+            //add the temp class into the temp queuelist
             rList.enqueue(r);
-            System.out.println("count: "+count);
             count++;
         }
+        //copy the data from temp queueList into main queueList
         retrieving = rList;
-        System.out.println(retrieving.IsEmpty()+"///////////");
         pickupList.setModel(pickup);
         deliverylist.setModel(delivery);
     }
