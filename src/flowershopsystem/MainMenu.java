@@ -7,8 +7,11 @@ package flowershopsystem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -17,12 +20,11 @@ import javax.swing.ListSelectionModel;
 public class MainMenu extends javax.swing.JFrame {
 //Create a public array for the program
 
-    public static ArrayList<Delivery> deliveryList = new ArrayList<>();
     public static ArrayList<Product> prodList = new ArrayList<>();
     public static ArrayList<Promotion> promotionList = new ArrayList<>();
-    public static ArrayList<OrderDetails> orderList = new ArrayList<OrderDetails>();
     public static ArrayList<ProductOrder> prodOrderList = new ArrayList<>();
     public static ArrayList<Customer> custList = new ArrayList<>();
+    public static SortedQueueInterface<Retrieval> retrieving = new SortedQueueList<>();
 
     public MainMenu() {
         initComponents();
@@ -66,11 +68,9 @@ public class MainMenu extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        pickupList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                pickupListValueChanged(evt);
-            }
-        });
+        ListSelectionModel lsm = pickupList.getSelectionModel();
+        lsm.addListSelectionListener(
+            new pickupListSelectionHandler());
         jScrollPane1.setViewportView(pickupList);
 
         jLabel1.setText("Today pickup order List:");
@@ -81,11 +81,9 @@ public class MainMenu extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        deliverylist.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                deliverylistValueChanged(evt);
-            }
-        });
+        ListSelectionModel lsm1 = deliverylist.getSelectionModel();
+        lsm1.addListSelectionListener(
+            new deliveryListSelectionHandler());
         jScrollPane2.setViewportView(deliverylist);
 
         jLabel2.setText("Today delivery order List:");
@@ -196,24 +194,29 @@ public class MainMenu extends javax.swing.JFrame {
         CustomerMenu.main(null);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void pickupListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_pickupListValueChanged
-        // TODO add your handling code here:
-        if (!evt.getValueIsAdjusting()) {
-            System.out.println("list selected");
-            new PickupConfirm((int)pickupList.getSelectedValue()).setVisible(true);
-            
-            initializeList();
-        }
-    }//GEN-LAST:event_pickupListValueChanged
+    private class pickupListSelectionHandler implements ListSelectionListener {
 
-    private void deliverylistValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_deliverylistValueChanged
-        if (!evt.getValueIsAdjusting()) {
-            System.out.println("list selected");
-            new PickupConfirm((int)deliverylist.getSelectedValue()).setVisible(true);
-            
-            initializeList();
+        public void valueChanged(ListSelectionEvent e) {
+            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+            if (!lsm.isSelectionEmpty()) {
+                System.out.println("pickuplist selected");
+                new PickupConfirm((int) pickupList.getSelectedValue()).setVisible(true);
+                initializeList();
+            }
         }
-    }//GEN-LAST:event_deliverylistValueChanged
+    }
+
+    private class deliveryListSelectionHandler implements ListSelectionListener {
+
+        public void valueChanged(ListSelectionEvent e) {
+            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+            if (!lsm.isSelectionEmpty()) {
+                System.out.println("deliverylist selected");
+                new PickupConfirm((int) deliverylist.getSelectedValue()).setVisible(true);
+                initializeList();
+            }
+        }
+    }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
@@ -309,11 +312,6 @@ public class MainMenu extends javax.swing.JFrame {
         Customer cust2 = new Customer("YAP SHAO LIANG", "010-2384016", "yap@gmail.com", "Corporate Customer", 2000, 2000);
         custList.add(cust1);
         custList.add(cust2);
-        Delivery.Address add = new Delivery.Address("10", "jalan 14/60", "Petaling Jata", "Selangar", "Malaysia", 46300);
-        Delivery deli3 = new Delivery(add, Calendar.getInstance());
-        Delivery deli4 = new Delivery(add, Calendar.getInstance());
-        Delivery deli5 = new Delivery(add, Calendar.getInstance());
-        Delivery deli6 = new Delivery(add, Calendar.getInstance());
         //New constructor
         ProductOrder o6 = new ProductOrder(p, 3);
         ProductOrder o7 = new ProductOrder(p1, 2);
@@ -322,17 +320,17 @@ public class MainMenu extends javax.swing.JFrame {
         ProductOrder o10 = new ProductOrder(p2, 6);
         ProductOrder[] prodOrder = {o6, o7, o8};
         ProductOrder[] prodOrder1 = {o8, o9, o10};
-        ///////////////////////////////////////////////
-        //New constructor
-        OrderDetails order3 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli3, prodOrder);
-        OrderDetails order4 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Pick Up", deli4, prodOrder1);
-        OrderDetails order5 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Cash On Delivery (COD)", deli5, prodOrder);
-        OrderDetails order6 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, "Cash On Delivery (COD)", deli6, prodOrder1);
+        OrderDetails order3 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, prodOrder);
+        OrderDetails order4 = new OrderDetails(cust2, Calendar.getInstance(), (float) 100.50, prodOrder1);
+        OrderDetails order5 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, prodOrder);
+        OrderDetails order6 = new OrderDetails(cust2, Calendar.getInstance(), (float) 100.50, prodOrder1);
         //////////////////////////////////////////////////
-        orderList.add(order3);
-        orderList.add(order4);
-        orderList.add(order5);
-        orderList.add(order6);
+        Delivery.Address add = new Delivery.Address("10", "jalan 14/60", "Petaling Jata", "Selangar", "Malaysia", 46300);
+        retrieving.enqueue(new Delivery(Calendar.getInstance(), add, order3));
+        retrieving.enqueue(new Delivery(Calendar.getInstance(), add, order4));
+        retrieving.enqueue(new PickUp(Calendar.getInstance(), order5));
+        retrieving.enqueue(new PickUp(Calendar.getInstance(), order6));
+
     }
 
     public static boolean isSameDay(Calendar cal1, Calendar cal2) {
@@ -351,23 +349,34 @@ public class MainMenu extends javax.swing.JFrame {
     public void initializeList() {
         DefaultListModel pickup = new DefaultListModel();
         DefaultListModel delivery = new DefaultListModel();
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 24);
+        int count = 1;
+        SortedQueueInterface<Retrieval> rList = new SortedQueueList<>();
         pickupList.removeAll();
         deliverylist.removeAll();
-        for (OrderDetails order : orderList) {
-            if (order.getDeliveryMethod().equalsIgnoreCase("Pick Up")) {
-                if (isToday(order.getAddress().getDate_of_deliver())) {
-                    pickup.addElement(order.orderid);
-                }
-            } else {
-                if (isToday(order.getAddress().getDate_of_deliver())) {
-                    delivery.addElement(order.orderid);
+        System.out.println(retrieving.IsEmpty()+"///////////");
+        while (!retrieving.IsEmpty()) {
+            Retrieval r = retrieving.dequeue();
+            if (isToday(r.Date_Of_Agree)) {
+                if (r instanceof Delivery) {
+                    System.out.println("Delivery:");
+                    System.out.println(r.order.orderid);
+                    System.out.println(r.order.cust.name);
+                    delivery.addElement(r.order.orderid);
+                } else if (r instanceof PickUp) {
+                    System.out.println("Pickup:");
+                    System.out.println(r.order.orderid);
+                    System.out.println(r.order.cust.name);
+                    pickup.addElement(r.order.orderid);
                 }
             }
+            rList.enqueue(r);
+            System.out.println("count: "+count);
+            count++;
         }
-
+        retrieving = rList;
+        System.out.println(retrieving.IsEmpty()+"///////////");
         pickupList.setModel(pickup);
         deliverylist.setModel(delivery);
     }
+
 }

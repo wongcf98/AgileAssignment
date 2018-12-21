@@ -162,10 +162,8 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="pickupListValueChanged"/>
-          </Events>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="ListSelectionModel lsm = pickupList.getSelectionModel();&#xa;lsm.addListSelectionListener(&#xa;    new pickupListSelectionHandler());"/>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="pickupList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);"/>
           </AuxValues>
         </Component>
@@ -195,10 +193,8 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="deliverylistValueChanged"/>
-          </Events>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="ListSelectionModel lsm1 = deliverylist.getSelectionModel();&#xa;lsm1.addListSelectionListener(&#xa;    new deliveryListSelectionHandler());"/>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="deliverylist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);"/>
           </AuxValues>
         </Component>

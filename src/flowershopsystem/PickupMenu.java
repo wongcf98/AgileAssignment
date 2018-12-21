@@ -160,31 +160,24 @@ public class PickupMenu extends javax.swing.JFrame {
     private void loadDataIntoTable() {
         //TODO
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        SortedQueueInterface<Retrieval> rList = new SortedQueueList<>();
         jTable1.getColumnModel().getColumn(0).setWidth(40);
         jTable1.getColumnModel().getColumn(1).setWidth(150);
         jTable1.getColumnModel().getColumn(2).setWidth(70);
         jTable1.getColumnModel().getColumn(3).setWidth(80);
         jTable1.getColumnModel().getColumn(4).setWidth(80);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        for (OrderDetails order : MainMenu.orderList) {
-            if (order.delivery.status.equalsIgnoreCase("pending")
-                    && order.deliveryMethod.equalsIgnoreCase("Pick Up")) {
-                Object[] data = {order.orderid, order.cust.name, "Pending",
-                    format.format(order.delivery.getDate_of_deliver().getTime()),
-                    " -- "};
+
+        while (!MainMenu.retrieving.IsEmpty()) {
+            Retrieval r = MainMenu.retrieving.dequeue();
+            if (r instanceof PickUp) {
+                Object[] data = {r.order.orderid, r.order.cust.name, r.status,
+                    r.add.toString(), format.format(r.Date_Of_Agree.getTime())};
                 dm.addRow(data);
             }
+            rList.enqueue(r);
         }
-        for (OrderDetails order : MainMenu.orderList) {
-            if (order.delivery.status.equalsIgnoreCase("done")
-                    && order.deliveryMethod.equalsIgnoreCase("Pick Up")) {
-                Object[] data = {order.orderid, order.cust.name, "Done",
-                    format.format(order.delivery.getDate_of_deliver().getTime()),
-                    format.format(order.delivery.getDate_of_collect().getTime())};
-                dm.addRow(data);
-            }
-        }
-        jTable1.setModel(dm);
+        MainMenu.retrieving = rList;
     }
 
 }

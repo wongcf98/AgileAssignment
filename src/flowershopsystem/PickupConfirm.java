@@ -22,6 +22,7 @@ public class PickupConfirm extends javax.swing.JFrame {
      */
     public int id;
     public String status = "pending";
+    private int index = 0;
 
     public PickupConfirm() {
         initComponents();
@@ -36,34 +37,39 @@ public class PickupConfirm extends javax.swing.JFrame {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
-        for (OrderDetails order : MainMenu.orderList) {
-            if (order.getOrderid() == id) {
-                for (ProductOrder p : order.product) {
-                    Object[] rowData = {p.p.name, p.pAmount, p.pTotal};
-                    dm.addRow(rowData);
-                }
-                lblDateTime.setText("Order at: " + format.format(order.orderDate.getTime()));
-                lblOrderID.setText(String.valueOf(id));
-                lblCustomer.setText(order.cust.getName());
-                lblSubtotal.setText("RM " + String.valueOf(order.total));
-                if (order.delivery.status.equalsIgnoreCase("pending")) {
-                    lblCollectedTime.setText("Will be collected around: " + format1.format(order.delivery.getDate_of_deliver().getTime()));
-                } else {
-                    lblCollectedTime.setText("Order collected at: " + format1.format(order.delivery.getDate_of_collect().getTime()));
-                    btnChange.setVisible(true);
-                }
-                if(order.deliveryMethod.equalsIgnoreCase("Pick up")){
-                    jAddPanel7.setVisible(false);
-                }else{
-                    btnChange.setVisible(false);
-                    jAddUnit7.setText(order.delivery.getAdd().unit);
-                    jTextArea1.setText(order.delivery.getAdd().street);
-                    jAddCity7.setText(order.delivery.getAdd().city);
-                    jAddState7.setText(order.delivery.getAdd().state);
-                    jAddPostcode7.setText(String.valueOf(order.delivery.getAdd().postcode));
-                }
+        while (!MainMenu.retrieving.IsEmpty()) {
+            index++;
+            if (MainMenu.retrieving.get(index).order.orderid == id) {
+                break;
             }
         }
+        Retrieval r = MainMenu.retrieving.get(index);
+        for (ProductOrder p : r.order.product) {
+            Object[] rowData = {p.p.name, p.pAmount, p.pTotal};
+            dm.addRow(rowData);
+        }
+        lblDateTime.setText("Order at: " + format.format(r.order.orderDate.getTime()));
+        lblOrderID.setText(String.valueOf(id));
+        lblCustomer.setText(r.order.cust.getName());
+        lblPhoneNumber.setText("Contact No.: " + r.order.cust.contact);
+        lblSubtotal.setText("RM " + String.valueOf(r.order.total));
+        if (r.status.equalsIgnoreCase("pending")) {
+            lblCollectedTime.setText("Will be collected around: " + format1.format(r.Date_Of_Agree.getTime()));
+        } else {
+            lblCollectedTime.setText("Order collected at: " + format1.format(r.Date_Of_Complete.getTime()));
+            btnChange.setVisible(true);
+        }
+        if (r instanceof PickUp) {
+            jAddPanel7.setVisible(false);
+        } else {
+            btnChange.setVisible(false);
+            jAddUnit7.setText(r.add.unit);
+            jTextArea1.setText(r.add.street);
+            jAddCity7.setText(r.add.city);
+            jAddState7.setText(r.add.state);
+            jAddPostcode7.setText(String.valueOf(r.add.postcode));
+        }
+
     }
 
     /**
@@ -102,6 +108,7 @@ public class PickupConfirm extends javax.swing.JFrame {
         jLabel55 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        lblPhoneNumber = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -251,7 +258,7 @@ public class PickupConfirm extends javax.swing.JFrame {
                     .addGroup(jAddPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel52)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                     .addGroup(jAddPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel54)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -285,6 +292,9 @@ public class PickupConfirm extends javax.swing.JFrame {
                 .addGap(39, 39, 39))
         );
 
+        lblPhoneNumber.setFont(lblCustomer.getFont());
+        lblPhoneNumber.setText("jLabel5");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -300,31 +310,38 @@ public class PickupConfirm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblOrderID, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCollectedTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDateTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblCollectedTime, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblOrderID, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(26, 26, 26))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jAddPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(48, 48, 48)
-                            .addComponent(lblSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(2, 2, 2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jAddPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(lblSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,17 +356,19 @@ public class PickupConfirm extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(lblCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCollectedTime, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblPhoneNumber)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jAddPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSubtotal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCollect)
                     .addComponent(btnCancel)
@@ -362,29 +381,27 @@ public class PickupConfirm extends javax.swing.JFrame {
 
     private void btnCollectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollectActionPerformed
         // TODO add your handling code here:
-        for (OrderDetails order : MainMenu.orderList) {
-            if (order.getOrderid() == Integer.parseInt(lblOrderID.getText())) {
-                order.delivery.status = "Done";
-                order.delivery.setDate_of_collect(Calendar.getInstance());
-                JOptionPane.showMessageDialog(this, "Order " + order.orderid + " Collected!", "Record updated", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-                break;
-            }
-        }
+        Retrieval r = MainMenu.retrieving.get(index);
+
+        r.status = "Done";
+        r.Date_Of_Complete = Calendar.getInstance();
+        MainMenu.retrieving.set(index, r);
+        JOptionPane.showMessageDialog(this, "Order " + r.order.orderid
+                + " Collected!", "Record updated", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+
 
     }//GEN-LAST:event_btnCollectActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
-        for (OrderDetails order : MainMenu.orderList) {
-            if (order.getOrderid() == Integer.parseInt(lblOrderID.getText())) {
-                order.delivery.status = "Pending";
-                order.delivery.setDate_of_collect(null);
-                JOptionPane.showMessageDialog(this, "Order " + order.orderid + " Collected!", "Record updated", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-                break;
-            }
-        }
+        Retrieval r = MainMenu.retrieving.get(index);
+        r.status = "Done";
+        r.Date_Of_Complete = null;
+        JOptionPane.showMessageDialog(this, "Order " + r.order.orderid
+                + " Collected!", "Record updated", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
@@ -406,16 +423,21 @@ public class PickupConfirm extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PickupConfirm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PickupConfirm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PickupConfirm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PickupConfirm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PickupConfirm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PickupConfirm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PickupConfirm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PickupConfirm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -454,41 +476,18 @@ public class PickupConfirm extends javax.swing.JFrame {
     public javax.swing.JLabel lblCustomer;
     public javax.swing.JLabel lblDateTime;
     public javax.swing.JLabel lblOrderID;
+    private javax.swing.JLabel lblPhoneNumber;
     private javax.swing.JLabel lblSubtotal;
     // End of variables declaration//GEN-END:variables
 
     public void loadOrderIntoTable(int id) {
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
         dm.setRowCount(0);
-        for (int i = 0; i < MainMenu.prodOrderList.size(); i++) {
-            if (MainMenu.prodOrderList.get(i).orderid == id) {
-                Object[] data = {MainMenu.prodOrderList.get(i).pName,
-                    MainMenu.prodOrderList.get(i).pAmount,
-                    MainMenu.prodOrderList.get(i).pTotal};
-                dm.addRow(data);
-            }
-
+        Retrieval r = MainMenu.retrieving.get(index);
+        for (ProductOrder order : r.order.product) {
+            Object[] data = {order.pName, order.pAmount, order.pTotal};
+            dm.addRow(data);
         }
         jTable1.setModel(dm);
-    }
-
-    private void DisplayPickup() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        for (OrderDetails order : MainMenu.orderList) {
-            System.out.println(order.orderid + " = " + id);
-            if (order.orderid == id) {
-                System.out.println("found");
-                lblOrderID.setText(String.valueOf(id));
-                lblCustomer.setText(order.cust.name);
-                lblDateTime.setText("Order at: " + format.format(order.getOrderDate().getTime()));
-                lblCollectedTime.setText("To be collected at: " + format.format(order.getAddress().getDate_of_deliver().getTime()));
-                break;
-            }
-        }
-        if (status.equalsIgnoreCase("done")) {
-            btnCollect.setEnabled(false);
-        } else {
-            btnCancel.setEnabled(false);
-        }
     }
 }

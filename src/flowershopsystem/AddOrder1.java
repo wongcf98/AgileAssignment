@@ -90,7 +90,7 @@ public class AddOrder1 extends javax.swing.JFrame {
         jCML = new javax.swing.JTextField();
         jCopName = new javax.swing.JComboBox<String>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jMakeOrder.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jMakeOrder.setText("Make Order");
@@ -103,7 +103,7 @@ public class AddOrder1 extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel12.setText("Delivery Method :");
 
-        jDelivery.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pick Up", "Cash On Delivery (COD)" }));
+        jDelivery.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pick Up", "Delivery" }));
         jDelivery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jDeliveryActionPerformed(evt);
@@ -567,13 +567,13 @@ public class AddOrder1 extends javax.swing.JFrame {
 
     private void saveintoOrderList() {
         String custName = jCopName.getSelectedItem().toString();
-        String DMethod = jDelivery.getSelectedItem().toString();
         int delivery_year = jDate.getCalendar().get(Calendar.YEAR);
         int delivery_month = jDate.getCalendar().get(Calendar.MONTH);
         int delivery_day = jDate.getCalendar().get(Calendar.DAY_OF_MONTH);
         int pickHour = Integer.parseInt(jPickUpHour.getSelectedItem().toString());
         int pickMinute = Integer.parseInt(jPickUpMinute.getSelectedItem().toString());
-
+        Calendar processDay = Calendar.getInstance();
+        processDay.add(Calendar.DAY_OF_MONTH, 3);
         Calendar orderDate = Calendar.getInstance();
         Calendar deliDate = Calendar.getInstance();
         deliDate.set(Calendar.YEAR, delivery_year);
@@ -587,38 +587,36 @@ public class AddOrder1 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Date invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if (orderDate.after(processDay)) {
+            JOptionPane.showMessageDialog(this, "Order must be 3 days prior", "Date Invalid", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         for (int i = 0; i < MainMenu.custList.size(); i++) {
             if (MainMenu.custList.get(i).name.equalsIgnoreCase(custName)) {
-                if (!jDelivery.getSelectedItem().toString().equalsIgnoreCase("Cash On Delivery (COD)")) 
-                {
+                order = new OrderDetails(MainMenu.custList.get(i), orderDate,
+                        Float.parseFloat(jSubTotal.getText()),
+                        prodOrder);
+                if (jDelivery.getSelectedItem().toString().equalsIgnoreCase("Delivery")) {
                     String unit = jAddUnit.getText();
                     String street = jAddStreet.getText();
                     String city = jAddCity.getText();
                     String state = jAddState.getText();
                     String country = "Malaysia";
                     int postcode = Integer.parseInt(jAddPostcode.getText());
-                    order = new OrderDetails(MainMenu.custList.get(i), orderDate,
-                            Float.parseFloat(jSubTotal.getText()),
-                            DMethod,
-                            new Delivery(new Delivery.Address(unit, street, city, state, country,
-                                            postcode), deliDate), prodOrder);
-                    break;
-                } 
-                else {
-                    order = new OrderDetails(MainMenu.custList.get(i), orderDate,
-                            Float.parseFloat(jSubTotal.getText()),
-                            DMethod,
-                            new Delivery(deliDate), prodOrder);
-                    break;
+
+                    Delivery deli = new Delivery(deliDate,
+                            new Delivery.Address(unit, street, city, state, country, postcode),
+                            order);
+                    MainMenu.retrieving.enqueue(deli);
+                } else {
+                    MainMenu.retrieving.enqueue(new PickUp(deliDate, order));
                 }
 
             }
-        }
-        System.out.println("order id: " + order.orderid);
-        MainMenu.orderList.add(order);
-        //this.dispose();
-        JOptionPane.showMessageDialog(this, "Your Order Are Made Successfully", "Order Successful", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            JOptionPane.showMessageDialog(this, "Your Order Are Made Successfully", "Order Successful", JOptionPane.INFORMATION_MESSAGE);
 
+        }
     }
 
     private void jPickUpMinuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPickUpMinuteActionPerformed
@@ -967,7 +965,7 @@ public class AddOrder1 extends javax.swing.JFrame {
     private void addProductOrder() {
         try {
             String name = (String) jProduct.getSelectedItem();
-            System.out.println("name"+name);
+            System.out.println("name" + name);
             int stock = Integer.parseInt(jStock.getText());
             int amt = Integer.parseInt(jAmount.getText());
             System.out.println("Amount:" + amt);
