@@ -25,6 +25,8 @@ public class MainMenu extends javax.swing.JFrame {
     public static ArrayList<ProductOrder> prodOrderList = new ArrayList<>();
     public static ArrayList<Customer> custList = new ArrayList<>();
     public static SortedQueueInterface<Retrieval> retrieving = new SortedQueueList<>();
+    public static CustomizeListInterface<CustomizeFlower> customizeList = new CustomizeLinkedList<>();
+
 
     public MainMenu() {
         initComponents();
