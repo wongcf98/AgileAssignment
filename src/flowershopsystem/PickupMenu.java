@@ -171,9 +171,16 @@ public class PickupMenu extends javax.swing.JFrame {
         while (!MainMenu.retrieving.IsEmpty()) {
             Retrieval r = MainMenu.retrieving.dequeue();
             if (r instanceof PickUp) {
-                Object[] data = {r.order.orderid, r.order.cust.name, r.status,
-                    r.add.toString(), format.format(r.Date_Of_Agree.getTime())};
-                dm.addRow(data);
+                if(r.status.equalsIgnoreCase("PENDING")){
+                    Object[] data = {r.order.orderid, r.order.cust.name, r.status,
+                    format.format(r.Date_Of_Agree.getTime())," - "};
+                    dm.addRow(data);
+                }else{
+                    Object[] data = {r.order.orderid, r.order.cust.name, r.status,
+                    format.format(r.Date_Of_Agree.getTime()),
+                    format.format(r.Date_Of_Complete.getTime())};
+                    dm.addRow(data);
+                }
             }
             rList.enqueue(r);
         }

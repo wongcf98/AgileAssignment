@@ -369,31 +369,27 @@ public class MainMenu extends javax.swing.JFrame {
         DefaultListModel pickup = new DefaultListModel();
         DefaultListModel delivery = new DefaultListModel();
         int count = 1;
+        //create a temporaly queuelist to store data
         SortedQueueInterface<Retrieval> rList = new SortedQueueList<>();
-        pickupList.removeAll();
-        deliverylist.removeAll();
-        System.out.println(retrieving.IsEmpty()+"///////////");
+        pickupList.removeAll();        //clear the list
+        deliverylist.removeAll();      //clear the list
         while (!retrieving.IsEmpty()) {
-            Retrieval r = retrieving.dequeue();
+            //get the data from queue using while loop and store into a temp class
+            Retrieval r = retrieving.dequeue(); 
             if (isToday(r.Date_Of_Agree)) {
+                //if-else statemtne using polymorphism to add into different list
                 if (r instanceof Delivery) {
-                    System.out.println("Delivery:");
-                    System.out.println(r.order.orderid);
-                    System.out.println(r.order.cust.name);
                     delivery.addElement(r.order.orderid);
                 } else if (r instanceof PickUp) {
-                    System.out.println("Pickup:");
-                    System.out.println(r.order.orderid);
-                    System.out.println(r.order.cust.name);
                     pickup.addElement(r.order.orderid);
                 }
             }
+            //add the temp class into the temp queuelist
             rList.enqueue(r);
-            System.out.println("count: "+count);
             count++;
         }
+        //copy the data from temp queueList into main queueList
         retrieving = rList;
-        System.out.println(retrieving.IsEmpty()+"///////////");
         pickupList.setModel(pickup);
         deliverylist.setModel(delivery);
     }

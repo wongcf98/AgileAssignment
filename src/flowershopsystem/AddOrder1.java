@@ -1006,10 +1006,14 @@ public class AddOrder1 extends javax.swing.JFrame {
         int index = 0;
         while (!MainMenu.retrieving.IsEmpty()) {
             index++;
+            //loop trough the list the look for a match
             if (MainMenu.retrieving.get(index).order.orderid == id) {
+                //break the loop if match found
                 break;
             }
         }
+        //Retrieve the data using get(index), where index are found previously
+        //and store into a temporaly class
         Retrieval r = MainMenu.retrieving.get(index);
         dm = (DefaultTableModel) jTable1.getModel();
         for (ProductOrder order : r.order.product) {
