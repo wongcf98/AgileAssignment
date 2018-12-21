@@ -11,10 +11,10 @@ import java.util.Calendar;
  *
  * @author scollex
  */
-public class Delivery extends Retrieval {
+public class PickUp extends Retrieval {
 
-    public Delivery(Calendar Date_Of_Agree, Address add, OrderDetails order) {
-        super(Date_Of_Agree, add, order);
+    public PickUp(Calendar Date_Of_Agree, OrderDetails order) {
+        super(Date_Of_Agree, order);
     }
-    
+
 }

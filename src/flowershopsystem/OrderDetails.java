@@ -20,31 +20,15 @@ public class OrderDetails {
     Customer cust;
     Calendar orderDate;
     float total;
-    String deliveryMethod = null;
-    Delivery delivery = null;
     ProductOrder[] product;
 
     public OrderDetails(Customer cust, Calendar orderDate, float total,
-            String deliveryMethod, Delivery delivery, ProductOrder[] order) {
+            ProductOrder[] order) {
         this.cust = cust;
         this.orderDate = orderDate;
         this.orderid = count;
-        
-        this.deliveryMethod = deliveryMethod;
-        this.delivery = delivery;
         this.product = order;
         this.total = calculateTotal();
-        count++;
-    }
-
-    public OrderDetails(Customer cust, Calendar orderDate, float total,
-            String deliveryMethod, Delivery delivery) {
-        this.cust = cust;
-        this.orderDate = orderDate;
-        this.orderid = count;
-        this.total = total;
-        this.deliveryMethod = deliveryMethod;
-        this.delivery = delivery;
         count++;
     }
 
@@ -54,22 +38,6 @@ public class OrderDetails {
             total += order.pTotal;
         }
         return total;
-    }
-
-    public String getDeliveryMethod() {
-        return deliveryMethod;
-    }
-
-    public void setDeliveryMethod(String deliveryMethod) {
-        this.deliveryMethod = deliveryMethod;
-    }
-
-    public Delivery getAddress() {
-        return delivery;
-    }
-
-    public void setAddress(Delivery address) {
-        this.delivery = address;
     }
 
     public float getTotal() {
@@ -82,11 +50,6 @@ public class OrderDetails {
 
     public OrderDetails() {
         this.orderid = count;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderDetails{" + "cust=" + cust + ", orderDate=" + orderDate + ", total=" + total + ", deliveryMethod=" + deliveryMethod + ", delivery=" + delivery + ", product=" + product + '}';
     }
 
     public int getOrderid() {
@@ -112,4 +75,10 @@ public class OrderDetails {
     public void setOrderDate(Calendar orderDate) {
         this.orderDate = orderDate;
     }
+
+    @Override
+    public String toString() {
+        return "OrderDetails{" + "orderid=" + orderid + ", cust=" + cust + ", orderDate=" + orderDate + ", total=" + total + ", product=" + product + '}';
+    }
+
 }

@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author LIANG
  */
-public class ProductOrder extends AddOrder {
+public class ProductOrder {
     
     String pName;
     int pAmount;
