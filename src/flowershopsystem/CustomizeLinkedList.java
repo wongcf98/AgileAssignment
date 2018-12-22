@@ -67,6 +67,7 @@ public class CustomizeLinkedList<T> implements CustomizeListInterface<T> {
         
     }
 
+    
      public T getIndex(int index){
          
          T object = null;

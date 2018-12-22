@@ -460,7 +460,7 @@ public class Customize extends javax.swing.JFrame {
         jDelete.setEnabled(true);
         int index = jTable1.getSelectedRow();
         TableModel model = jTable1.getModel();
-        
+ 
         String id = (String) jTable1.getValueAt(index, 0);
         new CustomizeConfirm(id).setVisible(true);
         
@@ -695,7 +695,8 @@ public class Customize extends javax.swing.JFrame {
             customizeDate.set(Calendar.MONTH, customize_month);
             customizeDate.set(Calendar.MONTH, customize_day);
 
-            customize = new CustomizeFlower(flowerArrangementName, ArrangementSize, flowertype, accessories, price, priority, customizeDate);
+            customize = new CustomizeFlower(flowerArrangementName, ArrangementSize, flowertype, accessories, 
+                    price, priority, customizeDate);
 
             MainMenu.customizeList.enqueue(customize);
             if (!MainMenu.customizeList.isEmpty()) {

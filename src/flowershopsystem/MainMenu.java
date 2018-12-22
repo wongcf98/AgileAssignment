@@ -45,6 +45,17 @@ public class MainMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuBar3 = new javax.swing.JMenuBar();
+        jMenu8 = new javax.swing.JMenu();
+        jMenu9 = new javax.swing.JMenu();
+        jMenu10 = new javax.swing.JMenu();
+        jMenuBar4 = new javax.swing.JMenuBar();
+        jMenu11 = new javax.swing.JMenu();
+        jMenu12 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         pickupList = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
@@ -63,8 +74,32 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         pickupMenu = new javax.swing.JMenuItem();
         deliveryMenu = new javax.swing.JMenuItem();
+        jMenu13 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
 
         jMenuItem5.setText("jMenuItem5");
+
+        jMenu5.setText("jMenu5");
+
+        jMenu6.setText("File");
+        jMenuBar2.add(jMenu6);
+
+        jMenu7.setText("Edit");
+        jMenuBar2.add(jMenu7);
+
+        jMenu8.setText("File");
+        jMenuBar3.add(jMenu8);
+
+        jMenu9.setText("Edit");
+        jMenuBar3.add(jMenu9);
+
+        jMenu10.setText("jMenu10");
+
+        jMenu11.setText("File");
+        jMenuBar4.add(jMenu11);
+
+        jMenu12.setText("Edit");
+        jMenuBar4.add(jMenu12);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,6 +201,18 @@ public class MainMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
+        jMenu13.setText("Customize");
+
+        jMenuItem7.setText("Customize Order");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu13.add(jMenuItem7);
+
+        jMenuBar1.add(jMenu13);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,6 +308,11 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         new OrderMenu().setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+          Customize.main(null);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -302,16 +354,29 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu12;
+    private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenuBar jMenuBar4;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList pickupList;
