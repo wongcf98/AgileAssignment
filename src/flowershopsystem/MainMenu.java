@@ -23,7 +23,7 @@ public class MainMenu extends javax.swing.JFrame {
     public static ArrayList<Product> prodList = new ArrayList<>();
     public static ArrayList<Promotion> promotionList = new ArrayList<>();
     public static ArrayList<ProductOrder> prodOrderList = new ArrayList<>();
-    public static ArrayList<Customer> custList = new ArrayList<>();
+    public static ListInterface<Customer> custList = new CustList<>();
     public static SortedQueueInterface<Retrieval> retrieving = new SortedQueueList<>();
 
     public MainMenu() {
@@ -329,8 +329,8 @@ public class MainMenu extends javax.swing.JFrame {
         promotionList.add(pt);
         Customer cust1 = new Customer("WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
         Customer cust2 = new Customer("YAP SHAO LIANG", "010-2384016", "yap@gmail.com", "Corporate Customer", 2000, 2000);
-        custList.add(cust1);
-        custList.add(cust2);
+        custList.insert(cust1);
+        custList.insert(cust2);
         //New constructor
         ProductOrder o6 = new ProductOrder(p, 3);
         ProductOrder o7 = new ProductOrder(p1, 2);

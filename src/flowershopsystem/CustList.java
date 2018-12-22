@@ -16,7 +16,8 @@ public class CustList<T> implements ListInterface<T> {
     @Override
     public T get(int position) {
         Node temp = first;
-        for (int i = 0; i < position; i++) {
+        //loop through the list until the wanted position
+        for (int i = 0; i < position; i++) { 
             temp = temp.next;
         }
         return temp.data;
@@ -28,23 +29,34 @@ public class CustList<T> implements ListInterface<T> {
         if (isEmpty()) {
             first = newNode;
         } else {
+            //make the olf lastNode to point to the newNode
             last.next = newNode;
+            //point to the lastnode
             newNode.previous = last;
         }
         last = newNode;
     }
 
     @Override
-    public void insert(int position, T anElement) {
+    public boolean insert(int position, T anElement) {
+        boolean successful = false;
         Node temp = first;
         Node newNode = new Node(anElement);
-        for (int i = 0; i < position; i++) {
-            temp = temp.next;
+        if (position <= size()) { //input check
+            for (int i = 0; i < position; i++) {
+                temp = temp.next;
+            }
+            //element before temp will point to newNode
+            temp.previous.next = newNode; 
+            //newNode will point back at elment before it
+            newNode.previous = temp.previous;
+            //newNode will point the the temp as next element
+            newNode.next = temp;
+            //element before temp will be newNode
+            temp.previous = newNode;
+            successful = true;
         }
-        temp.previous.next = newNode;
-        newNode.previous = temp.previous;
-        newNode.next = temp;
-        temp.previous = newNode;
+        return successful;
     }
 
     @Override
@@ -63,7 +75,7 @@ public class CustList<T> implements ListInterface<T> {
     @Override
     public T removeAt(int position) {
         Node temp = null;
-        if (position > 1 && position < size()) {
+        if (position < size()) {
             temp = first;
             for (int i = 1; i < position; i++) {
                 temp = temp.next;
