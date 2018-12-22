@@ -160,7 +160,7 @@ public class PickupMenu extends javax.swing.JFrame {
     private void loadDataIntoTable() {
         //TODO
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
-        SortedQueueInterface<Retrieval> rList = new SortedQueueList<>();
+        QueueInterface<Retrieval> rList = new QueueList<>();
         jTable1.getColumnModel().getColumn(0).setWidth(40);
         jTable1.getColumnModel().getColumn(1).setWidth(150);
         jTable1.getColumnModel().getColumn(2).setWidth(70);

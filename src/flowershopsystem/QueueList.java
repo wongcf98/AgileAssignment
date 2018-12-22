@@ -9,12 +9,12 @@ package flowershopsystem;
  *
  * @author scollex
  */
-public class SortedQueueList<T> implements SortedQueueInterface<T> {
+public class QueueList<T> implements QueueInterface<T> {
 
     private Node lastNode;
     private int count = 0;
 
-    public SortedQueueList() {
+    public QueueList() {
         lastNode = null;
     }
 
