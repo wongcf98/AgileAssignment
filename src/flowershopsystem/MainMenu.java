@@ -24,7 +24,7 @@ public class MainMenu extends javax.swing.JFrame {
     public static ArrayList<Promotion> promotionList = new ArrayList<>();
     public static ArrayList<ProductOrder> prodOrderList = new ArrayList<>();
     public static ListInterface<Customer> custList = new CustList<>();
-    public static SortedQueueInterface<Retrieval> retrieving = new SortedQueueList<>();
+    public static QueueInterface<Retrieval> retrieving = new QueueList<>();
 
     public MainMenu() {
         initComponents();
@@ -370,7 +370,7 @@ public class MainMenu extends javax.swing.JFrame {
         DefaultListModel delivery = new DefaultListModel();
         int count = 1;
         //create a temporaly queuelist to store data
-        SortedQueueInterface<Retrieval> rList = new SortedQueueList<>();
+        QueueInterface<Retrieval> rList = new QueueList<>();
         pickupList.removeAll();        //clear the list
         deliverylist.removeAll();      //clear the list
         while (!retrieving.IsEmpty()) {
