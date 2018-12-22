@@ -26,8 +26,6 @@ public class CustomerMenu extends javax.swing.JFrame {
 
     private void loadDataIntoTable() {
         dm = (DefaultTableModel) jTable1.getModel();
-       
-     
 
         for (int i = 0; i < MainMenu.custList.size(); i++) {
             Object[] data = {MainMenu.custList.get(i).id, MainMenu.custList.get(i).name,
@@ -292,7 +290,7 @@ public class CustomerMenu extends javax.swing.JFrame {
 
         if (jcbCustType.getSelectedIndex() == 1) {
             String zero = "0";
-            
+
             jtfCCL.setVisible(false);
             jtfMCL.setVisible(false);
             jLabel6.setVisible(false);
@@ -300,11 +298,11 @@ public class CustomerMenu extends javax.swing.JFrame {
             jLabel8.setVisible(false);
             jLabel9.setVisible(false);
             jLabel2.setVisible(true);
-           jLabel3.setVisible(true);
-           jLabel4.setVisible(true);
-           jtfCustName.setVisible(true);
-           jtfEmail.setVisible(true);
-           jtfContact.setVisible(true);
+            jLabel3.setVisible(true);
+            jLabel4.setVisible(true);
+            jtfCustName.setVisible(true);
+            jtfEmail.setVisible(true);
+            jtfContact.setVisible(true);
             jtfCCL.setText(zero);
             jtfMCL.setText(zero);
         }
@@ -315,12 +313,12 @@ public class CustomerMenu extends javax.swing.JFrame {
             jLabel7.setVisible(true);
             jLabel8.setVisible(true);
             jLabel9.setVisible(true);
-              jLabel2.setVisible(true);
-           jLabel3.setVisible(true);
-           jLabel4.setVisible(true);
-           jtfCustName.setVisible(true);
-           jtfEmail.setVisible(true);
-           jtfContact.setVisible(true);
+            jLabel2.setVisible(true);
+            jLabel3.setVisible(true);
+            jLabel4.setVisible(true);
+            jtfCustName.setVisible(true);
+            jtfEmail.setVisible(true);
+            jtfContact.setVisible(true);
         }
 
     }//GEN-LAST:event_jcbCustTypeActionPerformed
@@ -341,18 +339,18 @@ public class CustomerMenu extends javax.swing.JFrame {
         jtfCCL.setText(null);
         jtfMCL.setText(null);
         jcbCustType.setSelectedIndex(0);
-          jtfCCL.setVisible(false);
-            jtfMCL.setVisible(false);
-            jLabel6.setVisible(false);
-            jLabel7.setVisible(false);
-            jLabel8.setVisible(false);
-            jLabel9.setVisible(false);
-              jLabel2.setVisible(false);
-           jLabel3.setVisible(false);
-           jLabel4.setVisible(false);
-           jtfCustName.setVisible(false);
-           jtfEmail.setVisible(false);
-           jtfContact.setVisible(false);
+        jtfCCL.setVisible(false);
+        jtfMCL.setVisible(false);
+        jLabel6.setVisible(false);
+        jLabel7.setVisible(false);
+        jLabel8.setVisible(false);
+        jLabel9.setVisible(false);
+        jLabel2.setVisible(false);
+        jLabel3.setVisible(false);
+        jLabel4.setVisible(false);
+        jtfCustName.setVisible(false);
+        jtfEmail.setVisible(false);
+        jtfContact.setVisible(false);
     }//GEN-LAST:event_btnAddCustActionPerformed
 
     private void btnEditCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCustActionPerformed
@@ -361,7 +359,6 @@ public class CustomerMenu extends javax.swing.JFrame {
             TableModel model = jTable1.getModel();
             int index = jTable1.getSelectedRow();
 
-            
             String name = jtfCustName.getText();
             String contact = jtfContact.getText();
             String email = jtfEmail.getText();
@@ -369,7 +366,6 @@ public class CustomerMenu extends javax.swing.JFrame {
             int ccl = Integer.parseInt(jtfCCL.getText());
             int mcl = Integer.parseInt(jtfMCL.getText());
 
-            
             model.setValueAt(name, index, 1);
             model.setValueAt(contact, index, 2);
             model.setValueAt(email, index, 3);
@@ -377,29 +373,28 @@ public class CustomerMenu extends javax.swing.JFrame {
             model.setValueAt(mcl, index, 5);
             model.setValueAt(mcl, index, 6);
 
-            
             MainMenu.custList.get(index).name = name;
             MainMenu.custList.get(index).contact = contact;
             MainMenu.custList.get(index).email = email;
             MainMenu.custList.get(index).custType = type;
             MainMenu.custList.get(index).currentLimit = mcl;
             MainMenu.custList.get(index).monthlyLimit = mcl;
-            
-             jtfCCL.setVisible(false);
+
+            jtfCCL.setVisible(false);
             jtfMCL.setVisible(false);
             jLabel6.setVisible(false);
             jLabel7.setVisible(false);
             jLabel8.setVisible(false);
             jLabel9.setVisible(false);
-              jLabel2.setVisible(false);
-           jLabel3.setVisible(false);
-           jLabel4.setVisible(false);
-           jtfCustName.setVisible(false);
-           jtfEmail.setVisible(false);
-           jtfContact.setVisible(false);
-           jcbCustType.setEnabled(true);
-           jcbCustType.setSelectedIndex(0);
-           btnAddCust.setEnabled(true);
+            jLabel2.setVisible(false);
+            jLabel3.setVisible(false);
+            jLabel4.setVisible(false);
+            jtfCustName.setVisible(false);
+            jtfEmail.setVisible(false);
+            jtfContact.setVisible(false);
+            jcbCustType.setEnabled(true);
+            jcbCustType.setSelectedIndex(0);
+            btnAddCust.setEnabled(true);
 
             JOptionPane.showMessageDialog(this, "Customer Details have been updated successfully.");
         } catch (Exception ex) {
@@ -412,20 +407,17 @@ public class CustomerMenu extends javax.swing.JFrame {
             dm = (DefaultTableModel) jTable1.getModel();
             int index = jTable1.getSelectedRow();
 
-            
             String name = jtfCustName.getText();
             String contact = jtfContact.getText();
             String email = jtfEmail.getText();
             String type = jcbCustType.getSelectedItem().toString();
             int ccl = Integer.parseInt(jtfCCL.getText());
             int mcl = Integer.parseInt(jtfMCL.getText());
-            
 
             dm.removeRow(index);
 
-            MainMenu.custList.remove(index);
+            MainMenu.custList.removeAt(index);
 
-            
             jtfCustName.setText(null);
             jtfContact.setText(null);
             jtfEmail.setText(null);
@@ -437,15 +429,15 @@ public class CustomerMenu extends javax.swing.JFrame {
             jLabel7.setVisible(false);
             jLabel8.setVisible(false);
             jLabel9.setVisible(false);
-              jLabel2.setVisible(false);
-           jLabel3.setVisible(false);
-           jLabel4.setVisible(false);
-           jtfCustName.setVisible(false);
-           jtfEmail.setVisible(false);
-           jtfContact.setVisible(false);
-           jcbCustType.setEnabled(true);
-           jcbCustType.setSelectedIndex(0);
-           btnAddCust.setEnabled(true);
+            jLabel2.setVisible(false);
+            jLabel3.setVisible(false);
+            jLabel4.setVisible(false);
+            jtfCustName.setVisible(false);
+            jtfEmail.setVisible(false);
+            jtfContact.setVisible(false);
+            jcbCustType.setEnabled(true);
+            jcbCustType.setSelectedIndex(0);
+            btnAddCust.setEnabled(true);
             JOptionPane.showMessageDialog(this, "Customer Details have been deleted successfully.");
 
         } catch (Exception ex) {
@@ -467,48 +459,44 @@ public class CustomerMenu extends javax.swing.JFrame {
         String ccl = model.getValueAt(index, 5).toString();
         String mcl = model.getValueAt(index, 6).toString();
 
-        
         jtfCustName.setText(name);
         jtfContact.setText(contact);
         jtfEmail.setText(email);
         jtfCCL.setText(ccl);
         jtfMCL.setText(mcl);
         btnAddCust.setEnabled(false);
-        if(type == "Consumer")
-        {
-             jtfCCL.setVisible(false);
+        if (type == "Consumer") {
+            jtfCCL.setVisible(false);
             jtfMCL.setVisible(false);
             jLabel6.setVisible(false);
             jLabel7.setVisible(false);
             jLabel8.setVisible(false);
             jLabel9.setVisible(false);
             jLabel2.setVisible(true);
-           jLabel3.setVisible(true);
-           jLabel4.setVisible(true);
-           jcbCustType.setEnabled(false);
-           jcbCustType.setSelectedIndex(1);
-           jtfCustName.setVisible(true);
-           jtfEmail.setVisible(true);
-           jtfContact.setVisible(true);
-           btnInvoice.setEnabled(false);
-        }
-        else
-        {
-             jtfCCL.setVisible(true);
+            jLabel3.setVisible(true);
+            jLabel4.setVisible(true);
+            jcbCustType.setEnabled(false);
+            jcbCustType.setSelectedIndex(1);
+            jtfCustName.setVisible(true);
+            jtfEmail.setVisible(true);
+            jtfContact.setVisible(true);
+            btnInvoice.setEnabled(false);
+        } else {
+            jtfCCL.setVisible(true);
             jtfMCL.setVisible(true);
             jLabel6.setVisible(true);
             jLabel7.setVisible(true);
             jLabel8.setVisible(true);
             jLabel9.setVisible(true);
-             jLabel2.setVisible(true);
-           jLabel3.setVisible(true);
-           jLabel4.setVisible(true);
-           jtfCustName.setVisible(true);
-           jcbCustType.setEnabled(false);
-           jcbCustType.setSelectedIndex(2);
-           jtfEmail.setVisible(true);
-           jtfContact.setVisible(true);
-           btnInvoice.setEnabled(true);
+            jLabel2.setVisible(true);
+            jLabel3.setVisible(true);
+            jLabel4.setVisible(true);
+            jtfCustName.setVisible(true);
+            jcbCustType.setEnabled(false);
+            jcbCustType.setSelectedIndex(2);
+            jtfEmail.setVisible(true);
+            jtfContact.setVisible(true);
+            btnInvoice.setEnabled(true);
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -521,7 +509,7 @@ public class CustomerMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInvoiceActionPerformed
 
     private String saveArray() {
-        Customer c =null;
+        Customer c = null;
         try {
             String name = jtfCustName.getText();
             String contact = jtfContact.getText();
@@ -529,14 +517,14 @@ public class CustomerMenu extends javax.swing.JFrame {
             String type = jcbCustType.getSelectedItem().toString();
 
             int mcl = Integer.parseInt(jtfMCL.getText());
-          c = new Customer( name, contact, email, type, mcl, mcl);
-            
-            if (MainMenu.custList.add(c)) {
-                JOptionPane.showMessageDialog(this, "Customer added");
-            }
+            c = new Customer(name, contact, email, type, mcl, mcl);
+
+            MainMenu.custList.insert(c);
+            JOptionPane.showMessageDialog(this, "Customer added");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccessful", JOptionPane.ERROR_MESSAGE);
-        }return c.id;
+        }
+        return c.id;
     }
 
     /**
