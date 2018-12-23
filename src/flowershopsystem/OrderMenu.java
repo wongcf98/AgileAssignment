@@ -129,7 +129,7 @@ public class OrderMenu extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void loadDateIntoTable() {
-        SortedQueueInterface<Retrieval> retrieving = new SortedQueueList<>();
+        QueueInterface<Retrieval> retrieving = new QueueList<>();
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
         while (!MainMenu.retrieving.IsEmpty()) {

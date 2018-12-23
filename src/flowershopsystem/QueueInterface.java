@@ -9,7 +9,7 @@ package flowershopsystem;
  *
  * @author scollex
  */
-public interface SortedQueueInterface<T> {
+public interface QueueInterface<T> {
 
     /*  
      Description: add anElement with generic type into the list
