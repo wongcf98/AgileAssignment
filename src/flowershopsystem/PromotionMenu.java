@@ -279,9 +279,9 @@ public class PromotionMenu extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Date invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             } else {
                 promo = new Promotion(p, Integer.parseInt(txtDiscountRate.getText()), Float.parseFloat(txtDiscountPrice.getText()), start_cal, end_cal);
-                MainMenu.promotionList.add(promo);
+                MainMenu.promotionList.insert(promo);
                 populateTable();
-                MainMenu.prodList.remove(p);
+                MainMenu.prodList.removeAt(p);
                 loadProductIntoDDL();
                 txtDiscountPrice.setText(null);
                 txtDiscountRate.setText(null);
@@ -365,9 +365,9 @@ public class PromotionMenu extends javax.swing.JFrame {
             String product = jComboBox1.getSelectedItem().toString();
             float price = Float.parseFloat(txtPrice.getText());
 
-            MainMenu.prodList.add(MainMenu.promotionList.get(index).prod);
+            MainMenu.prodList.insert(MainMenu.promotionList.get(index).prod);
             dm.removeRow(index);
-            MainMenu.promotionList.remove(index);
+            MainMenu.promotionList.removeAt(index);
 
             populateTable();
 
