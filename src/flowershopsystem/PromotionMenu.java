@@ -64,6 +64,7 @@ public class PromotionMenu extends javax.swing.JFrame {
         label2 = new java.awt.Label();
         btnDel = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Promotion Menu");
@@ -157,6 +158,14 @@ public class PromotionMenu extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jButton1.setText("Reset");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,7 +190,7 @@ public class PromotionMenu extends javax.swing.JFrame {
                                 .addGap(23, 23, 23))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblProd3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -194,21 +203,25 @@ public class PromotionMenu extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                                     .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addContainerGap(50, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                            .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
-                        .addContainerGap(34, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(39, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(120, 120, 120)
@@ -239,58 +252,67 @@ public class PromotionMenu extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)))
                 .addGap(29, 29, 29))
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        try {
-            System.out.println(jDateChooser1.getCalendar().get(Calendar.YEAR));
-            int start_year = jDateChooser1.getCalendar().get(Calendar.YEAR);
-            System.out.println(jDateChooser1.getCalendar().get(Calendar.MONTH) + 1);
-            int start_month = jDateChooser1.getCalendar().get(Calendar.MONTH) + 1;
-            System.out.println(jDateChooser1.getCalendar().get(Calendar.DAY_OF_MONTH));
-            int start_day = jDateChooser1.getCalendar().get(Calendar.DAY_OF_MONTH);
-            
-            System.out.println(jDateChooser1.getCalendar().get(Calendar.YEAR));
-            int end_year = jDateChooser2.getCalendar().get(Calendar.YEAR);
-            System.out.println(jDateChooser2.getCalendar().get(Calendar.MONTH) + 1);
-            int end_month = jDateChooser2.getCalendar().get(Calendar.MONTH) + 1;
-            System.out.println(jDateChooser2.getCalendar().get(Calendar.DAY_OF_MONTH));
-            int end_day = jDateChooser2.getCalendar().get(Calendar.DAY_OF_MONTH);
 
-            Calendar start_cal = Calendar.getInstance();
-            start_cal.set(Calendar.YEAR, start_year);
-            start_cal.set(Calendar.MONTH, start_month);
-            start_cal.set(Calendar.DAY_OF_MONTH, start_day);
+        System.out.println(jDateChooser1.getCalendar().get(Calendar.YEAR));
+        int start_year = jDateChooser1.getCalendar().get(Calendar.YEAR);
+        System.out.println(jDateChooser1.getCalendar().get(Calendar.MONTH) + 1);
+        int start_month = jDateChooser1.getCalendar().get(Calendar.MONTH) + 1;
+        System.out.println(jDateChooser1.getCalendar().get(Calendar.DAY_OF_MONTH));
+        int start_day = jDateChooser1.getCalendar().get(Calendar.DAY_OF_MONTH);
 
-            Calendar end_cal = Calendar.getInstance();
-            end_cal.set(Calendar.YEAR, end_year);
-            end_cal.set(Calendar.MONTH, end_month);
-            end_cal.set(Calendar.DAY_OF_MONTH, end_day);
-            Promotion promo;
-            if (end_cal.before(start_cal)) {
-                JOptionPane.showMessageDialog(this, "Date invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-            } else {
-                promo = new Promotion(p, Integer.parseInt(txtDiscountRate.getText()), Float.parseFloat(txtDiscountPrice.getText()), start_cal, end_cal);
-                MainMenu.promotionList.insert(promo);
-                populateTable();
-                MainMenu.prodList.removeAt(p);
-                loadProductIntoDDL();
-                txtDiscountPrice.setText(null);
-                txtDiscountRate.setText(null);
-                txtPrice.setText(null);
-                jDateChooser2.setDate(null);
+        System.out.println(jDateChooser1.getCalendar().get(Calendar.YEAR));
+        int end_year = jDateChooser2.getCalendar().get(Calendar.YEAR);
+        System.out.println(jDateChooser2.getCalendar().get(Calendar.MONTH) + 1);
+        int end_month = jDateChooser2.getCalendar().get(Calendar.MONTH) + 1;
+        System.out.println(jDateChooser2.getCalendar().get(Calendar.DAY_OF_MONTH));
+        int end_day = jDateChooser2.getCalendar().get(Calendar.DAY_OF_MONTH);
+
+        Calendar start_cal = Calendar.getInstance();
+        start_cal.set(Calendar.YEAR, start_year);
+        start_cal.set(Calendar.MONTH, start_month);
+        start_cal.set(Calendar.DAY_OF_MONTH, start_day);
+
+        Calendar end_cal = Calendar.getInstance();
+        end_cal.set(Calendar.YEAR, end_year);
+        end_cal.set(Calendar.MONTH, end_month);
+        end_cal.set(Calendar.DAY_OF_MONTH, end_day);
+        Promotion promo;
+        int index = 0;
+        for (int i = 0; i < MainMenu.prodList.size(); i++) {
+            if (MainMenu.prodList.get(i).name.equalsIgnoreCase(jComboBox1.getSelectedItem().toString())) {
+                p = MainMenu.prodList.get(i);
+                index = i;
             }
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(this, "Please fill in all the field", "Input Incomplete", JOptionPane.ERROR_MESSAGE);
         }
+
+        if (end_cal.before(start_cal)) {
+            JOptionPane.showMessageDialog(this, "Date invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+        } else {
+            promo = new Promotion(p, Integer.parseInt(txtDiscountRate.getText()), Float.parseFloat(txtDiscountPrice.getText()), start_cal, end_cal);
+            MainMenu.promotionList.insert(promo);
+            populateTable();
+            System.out.println(p.name);
+            MainMenu.prodList.removeAt(index + 1);
+            loadProductIntoDDL();
+            txtDiscountPrice.setText(null);
+            txtDiscountRate.setText(null);
+            txtPrice.setText(null);
+            jDateChooser2.setDate(null);
+        }
+
 
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -369,8 +391,6 @@ public class PromotionMenu extends javax.swing.JFrame {
             dm.removeRow(index);
             MainMenu.promotionList.removeAt(index);
 
-            populateTable();
-
             JOptionPane.showMessageDialog(this, "Data delete succesfull", "Delete Succesfull", JOptionPane.INFORMATION_MESSAGE);
 
             txtDiscountRate.setText(null);
@@ -384,6 +404,7 @@ public class PromotionMenu extends javax.swing.JFrame {
             btnAdd.setEnabled(true);
 
         } catch (Exception e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(this, "Delete Unsuccessful", "Delete Unsuccessful", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnDelActionPerformed
@@ -421,6 +442,17 @@ public class PromotionMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Data input error", "Input Unsuccesfull", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        txtDiscountRate.setText(null);
+        jDateChooser1.setCalendar(null);
+        jDateChooser2.setCalendar(null);
+        txtPrice.setText(null);
+        txtDiscountPrice.setText(null);
+
+        btnEdit.setEnabled(false);
+        btnDel.setEnabled(false);
+        btnAdd.setEnabled(true);    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -494,6 +526,7 @@ public class PromotionMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
@@ -536,6 +569,7 @@ public class PromotionMenu extends javax.swing.JFrame {
         }
         jTable1.setModel(dm);
     }
+
     class ComboItem {
 
         private String key;
