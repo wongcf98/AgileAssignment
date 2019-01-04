@@ -36,7 +36,6 @@ public interface QueueInterface<T> {
      */
     public T get(int index);
     
-    public void set(int index, T newElement);
     /*  
      Description: change the object at the specific position on the list
      Preconditions: the newElement must be generic type and the list must exist

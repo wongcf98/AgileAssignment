@@ -129,6 +129,7 @@ public class OrderMenu extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void loadDateIntoTable() {
+        System.out.println("loadDataIntoTable");
         QueueInterface<Retrieval> retrieving = new QueueList<>();
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
@@ -140,10 +141,17 @@ public class OrderMenu extends javax.swing.JFrame {
             } else {
                 method = "Pick Up";
             }
-            Object[] data = {r.order.orderid, format.format(r.order.orderDate.getTime()), r.order.cust.name, method, r.status};
+            System.out.println("id: " + r.order.orderid);
+            System.out.println("date: " + format.format(r.order.orderDate.getTime()));
+            System.out.println("customer name: " + r.order.cust.name);
+            System.out.println("method: " + method);
+            System.out.println("status: " + r.status);
+            Object[] data = {r.order.orderid, format.format(r.order.orderDate.getTime()),
+                r.order.cust.name, method, r.status};
             dm.addRow(data);
             retrieving.enqueue(r);
         }
         MainMenu.retrieving = retrieving;
+
     }
 }

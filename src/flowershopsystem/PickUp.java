@@ -16,5 +16,4 @@ public class PickUp extends Retrieval {
     public PickUp(Calendar Date_Of_Agree, OrderDetails order) {
         super(Date_Of_Agree, order);
     }
-
 }

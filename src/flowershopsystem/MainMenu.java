@@ -20,11 +20,12 @@ import javax.swing.event.ListSelectionListener;
 public class MainMenu extends javax.swing.JFrame {
 //Create a public array for the program
 
-    public static ArrayList<Product> prodList = new ArrayList<>();
-    public static ArrayList<Promotion> promotionList = new ArrayList<>();
-    public static ArrayList<ProductOrder> prodOrderList = new ArrayList<>();
+    public static CatalogListInterface<Product> prodList = new CatalogListInterfaceImpl<>();
+    public static CatalogListInterface<Promotion> promotionList = new CatalogListInterfaceImpl<>();
+    public static ListInterface<ProductOrder> prodOrderList = new CustList<>();
     public static ListInterface<Customer> custList = new CustList<>();
     public static QueueInterface<Retrieval> retrieving = new QueueList<>();
+    public static CustomizeListInterface<CustomizeFlower> customizeList = new CustomizeLinkedList<>();
 
     public MainMenu() {
         initComponents();
@@ -61,6 +62,9 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         pickupMenu = new javax.swing.JMenuItem();
         deliveryMenu = new javax.swing.JMenuItem();
+        jMenu13 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
 
         jMenuItem5.setText("jMenuItem5");
 
@@ -144,7 +148,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu4.setText("Delivery");
+        jMenu4.setText("Retrieving");
 
         pickupMenu.setText("Pickup");
         pickupMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +168,26 @@ public class MainMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
+        jMenu13.setText("Customize");
+
+        jMenuItem7.setText("Arrange a Customized Order");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu13.add(jMenuItem7);
+
+        jMenuItem8.setText("View Customized Order");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu13.add(jMenuItem8);
+
+        jMenuBar1.add(jMenu13);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -171,15 +195,15 @@ public class MainMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,9 +216,9 @@ public class MainMenu extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(51, 51, 51))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -211,8 +235,7 @@ public class MainMenu extends javax.swing.JFrame {
         public void valueChanged(ListSelectionEvent e) {
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
             if (!lsm.isSelectionEmpty()) {
-                System.out.println("pickuplist selected");
-                new PickupConfirm((int) pickupList.getSelectedValue()).setVisible(true);
+                new RetrievingConfirm((int) pickupList.getSelectedValue()).setVisible(true);
                 initializeList();
             }
         }
@@ -223,8 +246,7 @@ public class MainMenu extends javax.swing.JFrame {
         public void valueChanged(ListSelectionEvent e) {
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
             if (!lsm.isSelectionEmpty()) {
-                System.out.println("deliverylist selected");
-                new PickupConfirm((int) deliverylist.getSelectedValue()).setVisible(true);
+                new RetrievingConfirm((int) deliverylist.getSelectedValue()).setVisible(true);
                 initializeList();
             }
         }
@@ -259,6 +281,16 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         new OrderMenu().setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        CustomizeOrder.main(null);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        new CustomizedMenu().setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -300,6 +332,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -310,6 +343,8 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList pickupList;
@@ -321,17 +356,17 @@ public class MainMenu extends javax.swing.JFrame {
         Product p1 = new Product("Sunflwer", 12, (float) 14.0);
         Product p2 = new Product("Orchid", 11, (float) 12.0);
         Product p3 = new Product("Tulip", 15, (float) 16.0);
-        prodList.add(p);
-        prodList.add(p1);
-        prodList.add(p2);
-        prodList.add(p3);
+        prodList.insert(p);
+        prodList.insert(p1);
+        prodList.insert(p2);
+        prodList.insert(p3);
         Promotion pt = new Promotion(p, 10, (float) 18.45, Calendar.getInstance(), Calendar.getInstance());
-        promotionList.add(pt);
+        promotionList.insert(pt);
         Customer cust1 = new Customer("WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
         Customer cust2 = new Customer("YAP SHAO LIANG", "010-2384016", "yap@gmail.com", "Corporate Customer", 2000, 2000);
         custList.insert(cust1);
         custList.insert(cust2);
-        //New constructor
+
         ProductOrder o6 = new ProductOrder(p, 3);
         ProductOrder o7 = new ProductOrder(p1, 2);
         ProductOrder o8 = new ProductOrder(p2, 4);
@@ -339,16 +374,33 @@ public class MainMenu extends javax.swing.JFrame {
         ProductOrder o10 = new ProductOrder(p2, 6);
         ProductOrder[] prodOrder = {o6, o7, o8};
         ProductOrder[] prodOrder1 = {o8, o9, o10};
-        OrderDetails order3 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, prodOrder);
-        OrderDetails order4 = new OrderDetails(cust2, Calendar.getInstance(), (float) 100.50, prodOrder1);
-        OrderDetails order5 = new OrderDetails(cust1, Calendar.getInstance(), (float) 100.50, prodOrder);
-        OrderDetails order6 = new OrderDetails(cust2, Calendar.getInstance(), (float) 100.50, prodOrder1);
-        //////////////////////////////////////////////////
+        OrderDetails order3 = new OrderDetails(cust1, Calendar.getInstance(), prodOrder);
+        OrderDetails order4 = new OrderDetails(cust2, Calendar.getInstance(), prodOrder1);
+        OrderDetails order5 = new OrderDetails(cust1, Calendar.getInstance(), prodOrder);
+        OrderDetails order6 = new OrderDetails(cust2, Calendar.getInstance(), prodOrder1);
+
         Delivery.Address add = new Delivery.Address("10", "jalan 14/60", "Petaling Jata", "Selangar", "Malaysia", 46300);
-        retrieving.enqueue(new Delivery(Calendar.getInstance(), add, order3));
-        retrieving.enqueue(new Delivery(Calendar.getInstance(), add, order4));
-        retrieving.enqueue(new PickUp(Calendar.getInstance(), order5));
-        retrieving.enqueue(new PickUp(Calendar.getInstance(), order6));
+        Calendar c1 = Calendar.getInstance();
+        c1.set(Calendar.DAY_OF_MONTH, 29);
+        Calendar c2 = Calendar.getInstance();
+        c2.set(Calendar.DAY_OF_MONTH, 11);
+        Calendar c3 = Calendar.getInstance();
+        c3.set(Calendar.DAY_OF_MONTH, 12);
+        Calendar c4 = Calendar.getInstance();
+        c4.set(Calendar.DAY_OF_MONTH, 13);
+        retrieving.enqueue(new Delivery(c2, add, order3));
+        retrieving.enqueue(new Delivery(c3, add, order4));
+        retrieving.enqueue(new PickUp(c1, order5));
+        retrieving.enqueue(new PickUp(c4, order6));
+
+        //Arrange customize flower
+        CustomizeFlower flower = new CustomizeFlower("White Christmas", "Big", "Rose", "Teddy Bear", "Express", (float) 80.12, cust2);
+        CustomizeFlower flower1 = new CustomizeFlower("White Christmas", "Big", "Rose", "Teddy Bear", "Express", (float) 80.12, cust1);
+        CustomizeFlower flower2 = new CustomizeFlower("White Christmas", "Big", "Rose", "Teddy Bear", "Express", (float) 80.12, cust1);
+        flower1.status = "Done";
+        customizeList.enqueue(flower);
+        customizeList.enqueue(flower1);
+        customizeList.enqueue(flower2);
 
     }
 
@@ -368,14 +420,14 @@ public class MainMenu extends javax.swing.JFrame {
     public void initializeList() {
         DefaultListModel pickup = new DefaultListModel();
         DefaultListModel delivery = new DefaultListModel();
-        int count = 1;
+
         //create a temporaly queuelist to store data
         QueueInterface<Retrieval> rList = new QueueList<>();
         pickupList.removeAll();        //clear the list
         deliverylist.removeAll();      //clear the list
         while (!retrieving.IsEmpty()) {
             //get the data from queue using while loop and store into a temp class
-            Retrieval r = retrieving.dequeue(); 
+            Retrieval r = retrieving.dequeue();
             if (isToday(r.Date_Of_Agree)) {
                 //if-else statemtne using polymorphism to add into different list
                 if (r instanceof Delivery) {
@@ -386,7 +438,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
             //add the temp class into the temp queuelist
             rList.enqueue(r);
-            count++;
+
         }
         //copy the data from temp queueList into main queueList
         retrieving = rList;

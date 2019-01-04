@@ -12,14 +12,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author scollex
  */
-public class DeliveryMenu extends javax.swing.JFrame {
+public class CustomizedMenu extends javax.swing.JFrame {
 
     /**
-     * Creates new form DeliveryMenu
+     * Creates new form CustomizedMenu
      */
-    public DeliveryMenu() {
+    public CustomizedMenu() {
         initComponents();
-
         loadDataIntoTable();
     }
 
@@ -32,33 +31,22 @@ public class DeliveryMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblDate = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        lblDate.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        lblDate.setText("Delivery List");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Order ID", "Customer", "Status", "Address", "Delivery At"
+                "ID", "Priority", "Status", "Customer", "Date"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -76,30 +64,28 @@ public class DeliveryMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDate)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int index = jTable1.getSelectedRow();
-        int id = (int) jTable1.getValueAt(index, 0);
-        new RetrievingConfirm(id).setVisible(true);
+        String id = MainMenu.customizeList.getIndex(index + 1).id;
+        new CustomizeConfirm(id).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -119,20 +105,20 @@ public class DeliveryMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DeliveryMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomizedMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DeliveryMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomizedMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DeliveryMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomizedMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DeliveryMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomizedMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DeliveryMenu().setVisible(true);
+                new CustomizedMenu().setVisible(true);
             }
         });
     }
@@ -140,38 +126,22 @@ public class DeliveryMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lblDate;
     // End of variables declaration//GEN-END:variables
 
     private void loadDataIntoTable() {
-        jTable1.removeAll();
+        CustomizeListInterface<CustomizeFlower> tempList;
+        tempList = new CustomizeLinkedList<>();
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
-        
-        QueueInterface<Retrieval> rList = new QueueList<>();
-        jTable1.getColumnModel()
-                .getColumn(0).setWidth(40);
-        jTable1.getColumnModel()
-                .getColumn(1).setWidth(150);
-        jTable1.getColumnModel()
-                .getColumn(2).setWidth(70);
-        jTable1.getColumnModel()
-                .getColumn(3).setWidth(220);
-        jTable1.getColumnModel()
-                .getColumn(4).setWidth(80);
-        jTable1.setRowHeight(
-                50);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        while (!MainMenu.customizeList.isEmpty()) {
+            tempList.enqueue(MainMenu.customizeList.getFront());
 
-        while (!MainMenu.retrieving.IsEmpty()) {
-            Retrieval r = MainMenu.retrieving.dequeue();
-            if (r instanceof Delivery) {
-                Object[] data = {r.order.orderid, r.order.cust.name, r.status,
-                    r.add.toString(), format.format(r.Date_Of_Agree.getTime())};
-                dm.addRow(data);
-            }
-            rList.enqueue(r);
+            CustomizeFlower temp = MainMenu.customizeList.dequeue();
+            Object[] data = {temp.id, temp.priority, temp.status,
+                temp.customer.name, format.format(temp.customizeDate.getTime())};
+
+            dm.addRow(data);
         }
-        MainMenu.retrieving = rList;
-        jTable1.setModel(dm);
+        MainMenu.customizeList = tempList;
     }
 }

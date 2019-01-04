@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ProductOrder {
 
     int pAmount;
-    double pTotal;
+    float pTotal;
     Product p;
     int orderid = OrderDetails.count;
 
@@ -24,7 +24,7 @@ public class ProductOrder {
         this.pTotal = calculateTotal();
     }
 
-    public double calculateTotal() {
+    public float calculateTotal() {
         return p.price * pAmount;
     }
 
@@ -40,7 +40,7 @@ public class ProductOrder {
         return pTotal;
     }
 
-    public void setpTotal(double pTotal) {
+    public void setpTotal(float pTotal) {
         this.pTotal = pTotal;
     }
 

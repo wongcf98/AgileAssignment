@@ -21,9 +21,9 @@ public class OrderDetails {
     Calendar orderDate;
     float total;
     ProductOrder[] product;
+    CustomizeLinkedList<CustomizeFlower> customize;
 
-    public OrderDetails(Customer cust, Calendar orderDate, float total,
-            ProductOrder[] order) {
+    public OrderDetails(Customer cust, Calendar orderDate, ProductOrder[] order) {
         this.cust = cust;
         this.orderDate = orderDate;
         this.orderid = count;
@@ -32,10 +32,21 @@ public class OrderDetails {
         count++;
     }
 
+    public OrderDetails(Customer cust, Calendar orderDate, CustomizeLinkedList<CustomizeFlower> customize) {
+        this.orderid = count;
+        this.cust = cust;
+        this.orderDate = orderDate;
+        this.total = calculateTotal();
+        this.customize = customize;
+        count++;
+    }
+
     private float calculateTotal() {
         float total = (float) 0.00;
         for (ProductOrder order : product) {
-            total += order.pTotal;
+            if (order != null) {
+                total += order.pTotal;
+            }
         }
         return total;
     }

@@ -56,7 +56,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jtfEmail = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jcbCustType = new javax.swing.JComboBox<>();
+        jcbCustType = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         jtfCCL = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -110,7 +110,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         jLabel5.setText("Customer Type");
 
         jcbCustType.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jcbCustType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Customer Type", "Consumer", "Corporate Customer" }));
+        jcbCustType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select Customer Type", "Consumer", "Corporate Customer" }));
         jcbCustType.setToolTipText("");
         jcbCustType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +169,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         btnInvoice.setBackground(new java.awt.Color(255, 255, 204));
         btnInvoice.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnInvoice.setText("View Invoice");
+        btnInvoice.setVisible(false);
         btnInvoice.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0), 3));
         btnInvoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,7 +266,7 @@ public class CustomerMenu extends javax.swing.JFrame {
                     .addComponent(btnAddCust, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditCust, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDeleteCust, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(21, 21, 21)
                 .addComponent(btnInvoice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
@@ -377,7 +378,7 @@ public class CustomerMenu extends javax.swing.JFrame {
             MainMenu.custList.get(index).contact = contact;
             MainMenu.custList.get(index).email = email;
             MainMenu.custList.get(index).custType = type;
-            MainMenu.custList.get(index).currentLimit = mcl;
+            MainMenu.custList.get(index).currentLimit = ccl;
             MainMenu.custList.get(index).monthlyLimit = mcl;
 
             jtfCCL.setVisible(false);

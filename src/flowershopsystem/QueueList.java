@@ -9,7 +9,7 @@ package flowershopsystem;
  *
  * @author scollex
  */
-public class QueueList<T> implements QueueInterface<T> {
+public class QueueList<T extends Comparable<T>> implements QueueInterface<T> {
 
     private Node lastNode;
     private int count = 0;
@@ -20,15 +20,62 @@ public class QueueList<T> implements QueueInterface<T> {
 
     @Override
     public void enqueue(T newElement) {
-        Node newNode = new Node(newElement);
-        if (!IsEmpty()) {                 //if the list is not empty
-            newNode.next = lastNode.next; //set the new node point to the first node
-            lastNode.next = newNode; //set the previously last node point to the new node
-        } else {
-            newNode.next = newNode; //else set the new input node to point to itself
-        }
-        lastNode = newNode;//set the new entry node to be the last in line
+//        Node newNode = new Node(newElement);
+//        Node tempNode = null;
+//        Node currNode = null;
+//        if (!IsEmpty() && count > 1) {                 //if the list is not empty
+//            tempNode = lastNode.next;     //tempNode will be the first node
+//            //loop to find the first element if the queue to be biger than the newElement
+//            while (newElement.compareTo(tempNode.data) > 0) {
+//                currNode = tempNode; //currNode will be the node before the element
+//                tempNode = tempNode.next; //tempNode will cycle to the next node
+//            }
+//            currNode.next = newNode;
+//            newNode.next = tempNode;
+//        } else if (!IsEmpty() && count == 1) {
+//            tempNode = lastNode;
+//            newNode.next = lastNode;
+//            lastNode.next = newNode;
+//            if (newElement.compareTo(tempNode.data) > 0) {
+//                lastNode = newNode;
+//            }
+//
+//        } else {
+//            lastNode = newNode;
+//            lastNode.next = lastNode;
+//        }
+        enqueue(newElement, lastNode);
         count++;
+    }
+
+    public Node enqueue(T newElement, Node currNode) {
+        if (count == 0) {
+            Node newNode = new Node(newElement);
+            newNode.next = newNode;
+            lastNode = newNode;
+            return currNode;
+        }
+
+        Node temp = currNode;
+        if (count != 1) {
+            currNode = currNode.next;
+        }
+
+        if (newElement.compareTo(currNode.data) < 0) {
+            temp.next = new Node(newElement);
+            temp.next.next = currNode;
+            return currNode;
+        }
+        if (currNode == lastNode) {
+            Node newNode = new Node(newElement);
+            newNode.next = lastNode.next;
+            lastNode.next = newNode;
+            lastNode = newNode;
+            return lastNode;
+        }
+        enqueue(newElement, currNode);
+
+        return temp;
     }
 
     @Override
@@ -37,9 +84,9 @@ public class QueueList<T> implements QueueInterface<T> {
         if (!IsEmpty()) {                   //if the list is not empty
             //set the return value to the the 
             //data inside the node pointed by the last node
-            front = lastNode.next.data;   
+            front = lastNode.next.data;
             //if the last in line point to itself(only one node in the list)
-            if (lastNode.next == lastNode) { 
+            if (lastNode.next == lastNode) {
                 lastNode = null;  //clear the list
             } else {
                 //let the last node to point to the node after the first node in line
@@ -48,7 +95,7 @@ public class QueueList<T> implements QueueInterface<T> {
             }
         }
         count--;
-        return front; 
+        return front;
     }
 
     @Override
@@ -85,16 +132,18 @@ public class QueueList<T> implements QueueInterface<T> {
     }
 
     @Override
-    public T get(int index) {
+    public T get(int position) {
         T object = null;
-        //if the input index is larger than the size of the list
-        if (index <= count && index != 0) {
+        if (position == 0) {
+            return getFront();
+        }
+        //if the input position is larger than the size of the list
+        if (position <= count) {
             //make a temporaly node as the first node
             Node currentNode = lastNode.next;
-            
-            //loop the list * index times and set the 
+            //loop the list * position times and set the 
             //temporaly node as the node in the position
-            for (int i = 0; i < index - 1; i++) {
+            for (int i = 0; i <= position - 1; i++) {
                 currentNode = currentNode.next;
             }
             object = currentNode.data;
@@ -102,22 +151,6 @@ public class QueueList<T> implements QueueInterface<T> {
         return object;
     }
 
-    public void set(int index, T data){
-        T object = null;
-        //if the input index is larger than the size of the list
-        if (index <= count && index != 0) {
-            //make a temporaly node as the first node
-            Node currentNode = lastNode.next;
-            
-            //loop the list * index times and set the 
-            //temporaly node as the node in the position
-            for (int i = 0; i < index - 1; i++) {
-                currentNode = currentNode.next;
-            }
-            currentNode.data = data;
-        }
-    }
-    
     private class Node {
 
         private T data;

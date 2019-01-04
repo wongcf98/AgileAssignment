@@ -113,7 +113,7 @@ public class PickupMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         int index = jTable1.getSelectedRow();
         int id = (int) jTable1.getValueAt(index, 0);
-        new PickupConfirm(id).setVisible(true);
+        new RetrievingConfirm(id).setVisible(true);
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
