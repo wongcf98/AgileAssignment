@@ -360,8 +360,8 @@ public class MainMenu extends javax.swing.JFrame {
         prodList.insert(p1);
         prodList.insert(p2);
         prodList.insert(p3);
-        Promotion pt = new Promotion(p, 10, (float) 18.45, Calendar.getInstance(), Calendar.getInstance());
-        promotionList.insert(pt);
+//        Promotion pt = new Promotion(p, 10, (float) 18.45, Calendar.getInstance(), Calendar.getInstance());
+//        promotionList.insert(pt);
         Customer cust1 = new Customer("WONG HAO CHUNG", "010-2052345", "wong@gmail.com", "Consumer", 0, 0);
         Customer cust2 = new Customer("YAP SHAO LIANG", "010-2384016", "yap@gmail.com", "Corporate Customer", 2000, 2000);
         custList.insert(cust1);
@@ -381,13 +381,13 @@ public class MainMenu extends javax.swing.JFrame {
 
         Delivery.Address add = new Delivery.Address("10", "jalan 14/60", "Petaling Jata", "Selangar", "Malaysia", 46300);
         Calendar c1 = Calendar.getInstance();
-        c1.set(Calendar.DAY_OF_MONTH, 29);
+        //c1.set(Calendar.DAY_OF_MONTH, 29);
         Calendar c2 = Calendar.getInstance();
-        c2.set(Calendar.DAY_OF_MONTH, 11);
+        //c2.set(Calendar.DAY_OF_MONTH, 11);
         Calendar c3 = Calendar.getInstance();
-        c3.set(Calendar.DAY_OF_MONTH, 12);
+        //c3.set(Calendar.DAY_OF_MONTH, 12);
         Calendar c4 = Calendar.getInstance();
-        c4.set(Calendar.DAY_OF_MONTH, 13);
+        //c4.set(Calendar.DAY_OF_MONTH, 13);
         retrieving.enqueue(new Delivery(c2, add, order3));
         retrieving.enqueue(new Delivery(c3, add, order4));
         retrieving.enqueue(new PickUp(c1, order5));

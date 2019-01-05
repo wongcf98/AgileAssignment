@@ -84,6 +84,14 @@ public class CatalogListInterfaceImpl<T> implements CatalogListInterface<T> {
             }
             temp.previous.next = temp.next;
             temp.next.previous = temp.previous;
+        } else if (index == 1) {
+            temp = first;
+            first = temp.next;
+            first.previous = null;
+        } else {
+            temp = last;
+            last = temp.previous;
+            last.next = null;
         }
         return temp.data;
     }

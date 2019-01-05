@@ -265,55 +265,53 @@ public class PromotionMenu extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-
-        System.out.println(jDateChooser1.getCalendar().get(Calendar.YEAR));
-        int start_year = jDateChooser1.getCalendar().get(Calendar.YEAR);
-        System.out.println(jDateChooser1.getCalendar().get(Calendar.MONTH) + 1);
-        int start_month = jDateChooser1.getCalendar().get(Calendar.MONTH) + 1;
-        System.out.println(jDateChooser1.getCalendar().get(Calendar.DAY_OF_MONTH));
-        int start_day = jDateChooser1.getCalendar().get(Calendar.DAY_OF_MONTH);
-
-        System.out.println(jDateChooser1.getCalendar().get(Calendar.YEAR));
-        int end_year = jDateChooser2.getCalendar().get(Calendar.YEAR);
-        System.out.println(jDateChooser2.getCalendar().get(Calendar.MONTH) + 1);
-        int end_month = jDateChooser2.getCalendar().get(Calendar.MONTH) + 1;
-        System.out.println(jDateChooser2.getCalendar().get(Calendar.DAY_OF_MONTH));
-        int end_day = jDateChooser2.getCalendar().get(Calendar.DAY_OF_MONTH);
-
         Calendar start_cal = Calendar.getInstance();
-        start_cal.set(Calendar.YEAR, start_year);
-        start_cal.set(Calendar.MONTH, start_month);
-        start_cal.set(Calendar.DAY_OF_MONTH, start_day);
-
         Calendar end_cal = Calendar.getInstance();
-        end_cal.set(Calendar.YEAR, end_year);
-        end_cal.set(Calendar.MONTH, end_month);
-        end_cal.set(Calendar.DAY_OF_MONTH, end_day);
-        Promotion promo;
-        int index = 0;
-        for (int i = 0; i < MainMenu.prodList.size(); i++) {
-            if (MainMenu.prodList.get(i).name.equalsIgnoreCase(jComboBox1.getSelectedItem().toString())) {
-                p = MainMenu.prodList.get(i);
-                index = i;
+        try {
+            int start_year = jDateChooser1.getCalendar().get(Calendar.YEAR);
+            int start_month = jDateChooser1.getCalendar().get(Calendar.MONTH) + 1;
+            int start_day = jDateChooser1.getCalendar().get(Calendar.DAY_OF_MONTH);
+
+            int end_year = jDateChooser2.getCalendar().get(Calendar.YEAR);
+            int end_month = jDateChooser2.getCalendar().get(Calendar.MONTH) + 1;
+            int end_day = jDateChooser2.getCalendar().get(Calendar.DAY_OF_MONTH);
+
+            start_cal.set(Calendar.YEAR, start_year);
+            start_cal.set(Calendar.MONTH, start_month);
+            start_cal.set(Calendar.DAY_OF_MONTH, start_day);
+
+            end_cal.set(Calendar.YEAR, end_year);
+            end_cal.set(Calendar.MONTH, end_month);
+            end_cal.set(Calendar.DAY_OF_MONTH, end_day);
+
+            int index = 0;
+            for (int i = 0; i < MainMenu.prodList.size(); i++) {
+                if (MainMenu.prodList.get(i).name.equalsIgnoreCase(jComboBox1.getSelectedItem().toString())) {
+                    p = MainMenu.prodList.get(i);
+                    index = i;
+                }
             }
+
+            Promotion promo;
+            if (end_cal.before(start_cal)) {
+                JOptionPane.showMessageDialog(this, "Date invalid! End date cannot be before Start Date", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            } else {
+                promo = new Promotion(p, Integer.parseInt(txtDiscountRate.getText()), Float.parseFloat(txtDiscountPrice.getText()), start_cal, end_cal);
+                MainMenu.promotionList.insert(promo);
+                populateTable();
+                MainMenu.prodList.removeAt(index + 1);
+                loadProductIntoDDL();
+                txtDiscountPrice.setText(null);
+                txtDiscountRate.setText(null);
+                txtPrice.setText(null);
+                jDateChooser2.setDate(null);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Please fill in all the fields", "Fields data Not found", JOptionPane.ERROR_MESSAGE);
+            System.out.println("at btnAddActionPerformed: " + ex.getMessage());
         }
 
-        if (end_cal.before(start_cal)) {
-            JOptionPane.showMessageDialog(this, "Date invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-        } else {
-            promo = new Promotion(p, Integer.parseInt(txtDiscountRate.getText()), Float.parseFloat(txtDiscountPrice.getText()), start_cal, end_cal);
-            MainMenu.promotionList.insert(promo);
-            populateTable();
-            System.out.println(p.name);
-            MainMenu.prodList.removeAt(index + 1);
-            loadProductIntoDDL();
-            txtDiscountPrice.setText(null);
-            txtDiscountRate.setText(null);
-            txtPrice.setText(null);
-            jDateChooser2.setDate(null);
-        }
-
-
+        JOptionPane.showMessageDialog(this, "Promotion Added");
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -324,7 +322,6 @@ public class PromotionMenu extends javax.swing.JFrame {
                 p = MainMenu.prodList.get(i);
                 txtPrice.setText(String.valueOf(p.getPrice()));
             }
-            System.out.println(prod);
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
@@ -548,7 +545,7 @@ public class PromotionMenu extends javax.swing.JFrame {
         jComboBox1.addItem(" ");
         for (int i = 0; i < MainMenu.prodList.size(); i++) {
             jComboBox1.addItem(new ComboItem(MainMenu.prodList.get(i).name, MainMenu.prodList.get(i).name));
-            System.out.println("Add");
+
         }
 
     }

@@ -646,9 +646,8 @@ public class AddOrder1 extends javax.swing.JFrame {
                 break;
             }
         }
-        tempOrder = new OrderDetails(MainMenu.custList.get(custCount),orderDate,prodOrder);
+        tempOrder = new OrderDetails(MainMenu.custList.get(custCount), orderDate, prodOrder);
 
-        
         System.out.println("Adding new order: " + tempOrder.orderid);
         if (jDelivery.getSelectedItem().toString().equalsIgnoreCase("Delivery")) {
             String unit = jAddUnit.getText();
@@ -1068,6 +1067,10 @@ public class AddOrder1 extends javax.swing.JFrame {
         for (int i = 0; i < MainMenu.prodList.size(); i++) {
             jProduct.addItem(MainMenu.prodList.get(i).getName());
         }
+        for (int i = 0; i < MainMenu.promotionList.size(); i++) {
+            jProduct.addItem(MainMenu.promotionList.get(i).prod.name);
+        }
+
     }
 
     private void addProductOrder() {
