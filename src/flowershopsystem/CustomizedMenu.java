@@ -85,7 +85,7 @@ public class CustomizedMenu extends javax.swing.JFrame {
         int index = jTable1.getSelectedRow();
         String id = MainMenu.customizeList.getIndex(index + 1).id;
         new CustomizeConfirm(id).setVisible(true);
-        this.dispose();
+        //this.dispose();
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**

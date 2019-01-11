@@ -457,9 +457,6 @@ public class CustomizeOrder extends javax.swing.JFrame {
 
     private void jPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPriorityActionPerformed
         // TODO add your handling code here:
-        if (jPriority.getSelectedIndex() == 1 || jPriority.getSelectedIndex() == 2) {
-            jMakeCustomize.setVisible(true);
-        }
     }//GEN-LAST:event_jPriorityActionPerformed
 
     /**

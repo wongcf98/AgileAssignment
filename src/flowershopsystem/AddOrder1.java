@@ -612,6 +612,9 @@ public class AddOrder1 extends javax.swing.JFrame {
     private void jMakeOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMakeOrderActionPerformed
         // TODO add your handling code here:
         saveintoOrderList();
+        if (CustType.getSelectedIndex() == 2) {
+            updateCustomerCredit();
+        }
     }//GEN-LAST:event_jMakeOrderActionPerformed
 
     private void saveintoOrderList() {
@@ -672,6 +675,20 @@ public class AddOrder1 extends javax.swing.JFrame {
 
     }
 
+    private void updateCustomerCredit() {
+        String custName = jCopName.getSelectedItem().toString();
+
+        int custCount = 0;
+        for (int i = 0; i < MainMenu.custList.size(); i++) {
+            if (MainMenu.custList.get(i).name.equalsIgnoreCase(custName)) {
+                custCount = i;
+                break;
+            }
+        }
+        float usage = Float.valueOf(jSubTotal.getText());
+        MainMenu.custList.get(custCount).setCurrentLimit((int) (MainMenu.custList.get(custCount).getCurrentLimit() - usage));
+
+    }
     private void jPickMinuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPickMinuteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPickMinuteActionPerformed
@@ -888,11 +905,21 @@ public class AddOrder1 extends javax.swing.JFrame {
 
     private void jProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProductActionPerformed
         String product = (String) jProduct.getSelectedItem();
-
+        boolean productFlag = true;
         for (int i = 0; i < MainMenu.prodList.size(); i++) {
             if (MainMenu.prodList.get(i).name.equalsIgnoreCase(product)) {
                 jStock.setText(String.valueOf(MainMenu.prodList.get(i).amt));
                 jPrice.setText(String.valueOf(MainMenu.prodList.get(i).price));
+                productFlag = false;
+            }
+        }
+        if (productFlag) {
+            for (int i = 0; i < MainMenu.promotionList.size(); i++) {
+                if (MainMenu.promotionList.get(i).prod.getName().equalsIgnoreCase(product)) {
+                    jStock.setText(String.valueOf(MainMenu.promotionList.get(i).prod.amt));
+                    jPrice.setText(String.valueOf(MainMenu.promotionList.get(i).discountedPrice));
+                    productFlag = true;
+                }
             }
         }
 
@@ -904,6 +931,8 @@ public class AddOrder1 extends javax.swing.JFrame {
 
         dm = (DefaultTableModel) jTable1.getModel();
 
+        
+        
         try {
             int pQuantity = Integer.parseInt(jAmount.getText());
             float pPrice = Float.parseFloat(jPrice.getText());
@@ -1092,9 +1121,19 @@ public class AddOrder1 extends javax.swing.JFrame {
     }
 
     private void updateProdList(Product p, int amt) {
+        boolean productFlag = true;
         for (int i = 0; i < MainMenu.prodList.size(); i++) {
             if (MainMenu.prodList.get(i).getName().equalsIgnoreCase(p.getName())) {
                 MainMenu.prodList.get(i).amt -= amt;
+                productFlag=false;
+            }
+        }
+        if (productFlag) {
+            for (int i = 0; i < MainMenu.promotionList.size(); i++) {
+                if (MainMenu.promotionList.get(i).prod.getName().equalsIgnoreCase(p.getName())) {
+                    MainMenu.promotionList.get(i).prod.amt -= amt;
+                    //productFlag = true;
+                }
             }
         }
     }
